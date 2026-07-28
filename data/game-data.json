@@ -25,8 +25,8 @@
       "color": "#67A5D1"
     },
     "promotion": {
-      "label": "推广",
-      "en": "PROMOTION",
+      "label": "传播",
+      "en": "SPREAD",
       "question": "怎么让大家知道？",
       "color": "#AC85D7"
     }
@@ -331,7 +331,7 @@
       "color": "#55A7A0"
     },
     "user-promotion": {
-      "label": "推广 × 用户",
+      "label": "传播 × 用户",
       "color": "#8B61C2"
     },
     "need-product": {
@@ -339,11 +339,11 @@
       "color": "#F39C3D"
     },
     "need-promotion": {
-      "label": "需求 × 推广",
+      "label": "需求 × 传播",
       "color": "#D47A9A"
     },
     "product-promotion": {
-      "label": "产品 × 推广",
+      "label": "产品 × 传播",
       "color": "#49A36B"
     }
   },

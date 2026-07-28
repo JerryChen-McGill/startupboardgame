@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
-      content="迷你创业桌游：在隐藏信息与有限时间里，用用户、需求、产品与推广四类卡牌拼出一个彼此咬合的创业系统。"
+      content="迷你创业桌游：在隐藏信息与有限时间里，用用户、传播、需求与产品四类卡牌拼出一个彼此咬合的创业系统。"
     />
     <meta name="theme-color" content="#17152f" />
     <meta property="og:type" content="website" />
@@ -13,7 +13,7 @@
     <meta property="og:title" content="迷你创业桌游｜把离谱点子拼成自洽生意" />
     <meta
       property="og:description"
-      content="用用户、需求、产品与推广四类卡牌，连接一个没有孤岛、每条线都讲得通的创业项目。"
+      content="用用户、传播、需求与产品四类卡牌，连接一个没有孤岛、每条线都讲得通的创业项目。"
     />
     <meta property="og:url" content="https://jerrychen-mcgill.github.io/startupboardgame/" />
     <meta name="twitter:card" content="summary" />
@@ -27,7 +27,7 @@
 
     <header class="site-header">
       <a class="brand" href="#top" aria-label="返回首页">
-        <span class="brand-mark" aria-hidden="true">△</span>
+        <span class="brand-mark" aria-hidden="true">▦</span>
         <span>迷你创业桌游</span>
       </a>
       <nav class="nav-links" aria-label="主导航">
@@ -46,7 +46,7 @@
           <h1>把离谱点子，<br />拼成<span class="scribble">自洽</span>生意。</h1>
           <p class="hero-lead">
             建议约四名玩家，四类卡牌，不完整的手牌。你们必须通过讨论找到
-            <strong>用户、需求、产品与推广</strong>之间真正咬合的关系——而不是各自交出一张“最强卡”。
+            <strong>用户、传播、需求与产品</strong>之间真正咬合的关系——而不是各自交出一张“最强卡”。
           </p>
           <div class="hero-actions">
             <a class="button button-primary" href="#how">查看游戏规则 <span aria-hidden="true">↓</span></a>
@@ -59,11 +59,11 @@
           </dl>
         </div>
 
-        <div class="hero-visual" aria-label="四张三角形卡牌拼成创业项目的示意图">
+        <div class="hero-visual" aria-label="四张三比四长方形卡牌以二乘二方式拼成创业项目">
           <div class="orbit orbit-one"></div>
           <div class="orbit orbit-two"></div>
-          <svg class="hero-board" viewBox="0 0 620 590" role="img" aria-labelledby="hero-board-title">
-            <title id="hero-board-title">用户、需求、产品、推广四张三角卡组成一个大三角形</title>
+          <svg class="hero-board" viewBox="0 0 620 820" role="img" aria-labelledby="hero-board-title">
+            <title id="hero-board-title">用户、传播、需求、产品四张三比四长方形卡组成二乘二大长方形</title>
             <defs>
               <filter id="hero-shadow" x="-30%" y="-30%" width="160%" height="160%">
                 <feDropShadow dx="0" dy="18" stdDeviation="16" flood-color="#09081a" flood-opacity=".25" />
@@ -84,36 +84,38 @@
                 <stop offset="0" stop-color="#d7a0ff" />
                 <stop offset="1" stop-color="#7a63ff" />
               </linearGradient>
+              <clipPath id="hero-board-clip">
+                <rect x="26" y="31" width="568" height="758" rx="28" />
+              </clipPath>
             </defs>
-            <g filter="url(#hero-shadow)">
-              <path d="M310 42 156 306 464 306Z" fill="url(#hero-user)" />
-              <path d="M2 570 156 306 310 570Z" fill="url(#hero-need)" />
-              <path d="M310 570 464 306 618 570Z" fill="url(#hero-product)" />
-              <path d="M156 306 464 306 310 570Z" fill="url(#hero-promo)" />
+            <g filter="url(#hero-shadow)" clip-path="url(#hero-board-clip)">
+              <rect x="26" y="31" width="284" height="379" fill="url(#hero-user)" />
+              <rect x="310" y="31" width="284" height="379" fill="url(#hero-promo)" />
+              <rect x="26" y="410" width="284" height="379" fill="url(#hero-need)" />
+              <rect x="310" y="410" width="284" height="379" fill="url(#hero-product)" />
             </g>
+            <rect x="26" y="31" width="568" height="758" rx="28" fill="none" stroke="#fff" stroke-opacity=".72" stroke-width="4" />
+            <path d="M310 31v758M26 410h568" fill="none" stroke="#fff" stroke-opacity=".78" stroke-width="4" />
             <g fill="#17152f" text-anchor="middle">
-              <text x="310" y="150" class="hero-card-emoji">🌳</text>
-              <text x="310" y="197" class="hero-card-name">树精</text>
-              <text x="310" y="231" class="hero-card-type">用户 · 谁？</text>
+              <text x="168" y="155" class="hero-card-emoji">🌳</text>
+              <text x="168" y="213" class="hero-card-name">树精</text>
+              <text x="168" y="249" class="hero-card-type">用户 · 谁？</text>
 
-              <text x="156" y="410" class="hero-card-emoji">💭</text>
-              <text x="156" y="457" class="hero-card-name">八点焦虑</text>
-              <text x="156" y="491" class="hero-card-type">需求 · 怎么了？</text>
+              <text x="452" y="155" class="hero-card-emoji">🐦</text>
+              <text x="452" y="213" class="hero-card-name hero-card-name-small">乌鸦广播</text>
+              <text x="452" y="249" class="hero-card-type">传播 · 怎么让人知道？</text>
 
-              <text x="464" y="410" class="hero-card-emoji">🌱</text>
-              <text x="464" y="457" class="hero-card-name">魔法豆</text>
-              <text x="464" y="491" class="hero-card-type">产品 · 怎么办？</text>
+              <text x="168" y="534" class="hero-card-emoji">💭</text>
+              <text x="168" y="592" class="hero-card-name hero-card-name-small">八点焦虑</text>
+              <text x="168" y="628" class="hero-card-type">需求 · 怎么了？</text>
 
-              <text x="310" y="392" class="hero-card-emoji">🐦</text>
-              <text x="310" y="435" class="hero-card-name hero-card-name-small">乌鸦广播</text>
+              <text x="452" y="534" class="hero-card-emoji">🌱</text>
+              <text x="452" y="592" class="hero-card-name">魔法豆</text>
+              <text x="452" y="628" class="hero-card-type">产品 · 怎么办？</text>
             </g>
-            <g class="match-marks" fill="none" stroke-linecap="round">
-              <path d="M250 306h45" stroke="#fff" />
-              <path d="M325 306h45" stroke="#fff" />
-              <path d="M218 410l23 40" stroke="#fff" />
-              <path d="M379 450l23-40" stroke="#fff" />
-              <path d="M82 432l23-40" stroke="#fff" />
-              <path d="M515 392l23 40" stroke="#fff" />
+            <g class="match-marks" fill="none" stroke="#fff" stroke-linecap="round">
+              <path d="M310 164v54M310 598v54" />
+              <path d="M142 410h54M424 410h54" />
             </g>
           </svg>
           <div class="hero-note note-one"><span>01</span> 四张卡，缺一不可</div>
@@ -173,7 +175,7 @@
           </li>
           <li class="rule-step">
             <div class="rule-number">04</div>
-            <div class="rule-icon" aria-hidden="true">△</div>
+            <div class="rule-icon" aria-hidden="true">▦</div>
             <div>
               <h3>检查并继续调整</h3>
               <p>确认四类齐全、整体连通且没有孤岛。若仍有元素断开，就交换卡牌或修改关系。</p>
@@ -186,11 +188,11 @@
             <p class="kicker">不是简单加分</p>
             <h3>卡牌价值，取决于它进入网络后能连接什么。</h3>
             <p>
-              用户不只要匹配需求，也要匹配产品和推广。四个元素之间共有六组关系；没有绝对的“最强卡”，只有是否适合当前系统。
+              用户不只要匹配需求，也要匹配产品和传播。四个元素之间共有六组关系；没有绝对的“最强卡”，只有是否适合当前系统。
             </p>
           </div>
           <div class="score-ladder" aria-label="项目完成检查">
-            <div class="score-row"><span>01</span><b>四类齐全</b><i>用户、需求、产品、推广</i></div>
+            <div class="score-row"><span>01</span><b>四类齐全</b><i>用户、传播、需求、产品</i></div>
             <div class="score-row"><span>02</span><b>整体连通</b><i>所有卡位于同一个关系图</i></div>
             <div class="score-row"><span>03</span><b>没有孤岛</b><i>每张卡至少连接另一张卡</i></div>
             <div class="score-row"><span>04</span><b>关系可解释</b><i>每条线都有说得通的理由</i></div>
@@ -207,7 +209,7 @@
               <h2>四十张已有卡牌，<br />四种不同的语言。</h2>
             </div>
             <p class="section-intro">
-              角色回答“谁”，需求是一句吐槽，产品是一件魔法发明，推广则是一场离谱事件。
+              角色回答“谁”，传播是一场离谱事件，需求是一句吐槽，产品则是一件魔法发明。
             </p>
           </div>
 
@@ -216,7 +218,7 @@
             <button class="filter-chip" type="button" data-card-filter="user">用户</button>
             <button class="filter-chip" type="button" data-card-filter="need">需求</button>
             <button class="filter-chip" type="button" data-card-filter="product">产品</button>
-            <button class="filter-chip" type="button" data-card-filter="promotion">推广</button>
+            <button class="filter-chip" type="button" data-card-filter="promotion">传播</button>
           </div>
           <div class="card-library" id="card-library" aria-live="polite"></div>
         </div>
@@ -226,60 +228,70 @@
         <div class="section-heading">
           <div>
             <p class="kicker">PHYSICAL PROTOTYPE</p>
-            <h2>物料不是装饰，<br />它把关系直接做进形状里。</h2>
+            <h2>每张都是 3:4，<br />四张拼成一个完整项目。</h2>
           </div>
           <p class="section-intro">
-            每张三角卡的三条边分别面向另外三类卡。彩色接口可以是一条、两条或留白；
-            四张牌组合后，三条内部共边与三条外围同线关系正好覆盖全部六组连接。
+            每张卡都是 3:4 长方形，并按固定阅读顺序组成 2×2 面板：
+            左上用户、右上传播、左下需求、右下产品。四张卡拼好后仍是一个 3:4 大长方形。
           </p>
         </div>
 
         <div class="prototype-grid">
           <article class="prototype-stage">
-            <div class="stage-label"><span>原型 A</span> 三角卡面</div>
+            <div class="stage-label"><span>原型 A</span> 3:4 长方形卡面</div>
             <div class="single-card-wrap">
-              <svg class="single-card" viewBox="0 0 420 390" role="img" aria-label="树精用户三角卡原型">
+              <svg class="single-card" viewBox="0 0 360 480" role="img" aria-label="树精用户三比四长方形卡原型">
                 <defs>
                   <filter id="card-shadow" x="-30%" y="-30%" width="160%" height="160%">
                     <feDropShadow dx="0" dy="14" stdDeviation="12" flood-opacity=".2" />
                   </filter>
                 </defs>
-                <path d="M210 28 26 354h368Z" fill="#f9f4e8" filter="url(#card-shadow)" />
-                <path d="M210 28 26 354" stroke="#4da8ff" stroke-width="9" stroke-linecap="round" />
-                <path d="M220 47 47 354" stroke="#9d7aff" stroke-width="5" stroke-linecap="round" />
-                <path d="M210 28 394 354" stroke="#ff7a6c" stroke-width="9" stroke-linecap="round" />
-                <path d="M26 354h368" stroke="#63cf8e" stroke-width="9" stroke-linecap="round" />
-                <path d="M52 338h316" stroke="#f5c84c" stroke-width="5" stroke-linecap="round" />
-                <text x="210" y="168" text-anchor="middle" font-size="70">🌳</text>
-                <text x="210" y="226" text-anchor="middle" font-size="34" font-weight="800" fill="#17152f">树精</text>
-                <text x="210" y="260" text-anchor="middle" font-size="16" fill="#68647a">天天掉树叶</text>
+                <rect x="18" y="16" width="324" height="432" rx="22" fill="#f9f4e8" filter="url(#card-shadow)" />
+                <path d="M40 19h280" stroke="#73b97c" stroke-width="10" stroke-linecap="round" />
+                <text x="44" y="58" font-size="14" font-weight="850" fill="#68647a">用户 · USER</text>
+                <text x="316" y="58" text-anchor="end" font-size="14" font-weight="850" fill="#68647a">01</text>
+                <circle cx="180" cy="190" r="76" fill="#e1f0df" />
+                <text x="180" y="216" text-anchor="middle" font-size="82">🌳</text>
+                <text x="180" y="310" text-anchor="middle" font-size="38" font-weight="900" fill="#17152f">树精</text>
+                <text x="180" y="345" text-anchor="middle" font-size="17" fill="#68647a">天天掉树叶</text>
+                <path d="M80 388h200" stroke="#73b97c" stroke-width="4" stroke-linecap="round" stroke-dasharray="8 10" />
+                <text x="180" y="419" text-anchor="middle" font-size="13" font-weight="800" fill="#68647a">放在项目面板左上角</text>
               </svg>
             </div>
-            <p>边缘没有黑框；有匹配就印彩线，没有匹配就直接留白。多条关系使用平行线表达。</p>
+            <p>所有卡牌共享同一尺寸和信息层级；类别色集中在顶部，便于抽取、分类和快速识别。</p>
           </article>
 
           <article class="prototype-stage dark-stage">
             <div class="stage-label"><span>原型 B</span> 四卡面板</div>
-            <svg class="assembly-board" viewBox="0 0 520 460" role="img" aria-label="四张卡牌组成的大三角形面板">
-              <path d="M260 20 140 230h240Z" fill="#73b97c" />
-              <path d="M20 440 140 230 260 440Z" fill="#f0a15a" />
-              <path d="M260 440 380 230 500 440Z" fill="#67a5d1" />
-              <path d="M140 230h240L260 440Z" fill="#ac85d7" />
+            <svg class="assembly-board" viewBox="0 0 480 640" role="img" aria-label="四张三比四卡牌以二乘二方式组成大长方形面板">
+              <defs>
+                <clipPath id="assembly-clip">
+                  <rect x="24" y="32" width="432" height="576" rx="22" />
+                </clipPath>
+              </defs>
+              <g clip-path="url(#assembly-clip)">
+                <rect x="24" y="32" width="216" height="288" fill="#73b97c" />
+                <rect x="240" y="32" width="216" height="288" fill="#ac85d7" />
+                <rect x="24" y="320" width="216" height="288" fill="#f0a15a" />
+                <rect x="240" y="320" width="216" height="288" fill="#67a5d1" />
+              </g>
+              <rect x="24" y="32" width="432" height="576" rx="22" fill="none" stroke="#fff" stroke-opacity=".8" stroke-width="3" />
+              <path d="M240 32v576M24 320h432" fill="none" stroke="#fff" stroke-opacity=".8" stroke-width="3" />
               <g text-anchor="middle" fill="#17152f" font-weight="800">
-                <text x="260" y="110" font-size="48">🌳</text><text x="260" y="153" font-size="23">用户</text>
-                <text x="135" y="345" font-size="38">💭</text><text x="135" y="383" font-size="20">需求</text>
-                <text x="385" y="345" font-size="38">🌱</text><text x="385" y="383" font-size="20">产品</text>
-                <text x="260" y="315" font-size="34">🐦</text><text x="260" y="353" font-size="18">推广</text>
+                <text x="132" y="150" font-size="52">🌳</text><text x="132" y="205" font-size="23">用户</text><text x="132" y="235" font-size="14">左上</text>
+                <text x="348" y="150" font-size="52">🐦</text><text x="348" y="205" font-size="23">传播</text><text x="348" y="235" font-size="14">右上</text>
+                <text x="132" y="438" font-size="52">💭</text><text x="132" y="493" font-size="23">需求</text><text x="132" y="523" font-size="14">左下</text>
+                <text x="348" y="438" font-size="52">🌱</text><text x="348" y="493" font-size="23">产品</text><text x="348" y="523" font-size="14">右下</text>
               </g>
             </svg>
-            <p>四卡三角面板是当前概念原型；除用户卡外，其余卡类的完整朝向映射仍需通过测试确认。</p>
+            <p>顺序固定为用户、传播、需求、产品。单卡与拼合后的整体保持相同的 3:4 比例。</p>
           </article>
 
           <aside class="materials-list">
             <div class="stage-label"><span>V0.1</span> 盒内物料</div>
             <ul>
-              <li><span class="material-icon">△</span><div><b>三角卡牌 × 40</b><small>四类各 10 张，数据可继续扩展</small></div></li>
-              <li><span class="material-icon">●</span><div><b>类别提示牌 × 4</b><small>用户、需求、产品、推广</small></div></li>
+              <li><span class="material-icon">▯</span><div><b>3:4 卡牌 × 40</b><small>四类各 10 张，数据可继续扩展</small></div></li>
+              <li><span class="material-icon">●</span><div><b>类别提示牌 × 4</b><small>用户、传播、需求、产品</small></div></li>
               <li><span class="material-icon">⌁</span><div><b>关系参考图 × 1</b><small>展示卡牌之间的全部合理连接</small></div></li>
               <li><span class="material-icon">⏱</span><div><b>两分钟计时器 × 1</b><small>让讨论变成真实的团队取舍</small></div></li>
             </ul>
@@ -306,7 +318,7 @@
           </div>
           <div class="network-canvas-wrap">
             <svg id="relationship-network" class="relationship-network" viewBox="0 0 1200 820" role="img" aria-labelledby="network-title">
-              <title id="network-title">用户、需求、产品、推广卡牌之间的多对多关系网络</title>
+              <title id="network-title">用户、传播、需求、产品卡牌之间的多对多关系网络</title>
             </svg>
             <div class="network-tooltip" id="network-tooltip" role="status"></div>
           </div>
@@ -355,8 +367,8 @@
     </main>
 
     <footer class="site-footer">
-      <div class="brand"><span class="brand-mark" aria-hidden="true">△</span><span>迷你创业桌游</span></div>
-      <p>把用户、需求、产品与推广连接成一个说得通的创业项目。</p>
+      <div class="brand"><span class="brand-mark" aria-hidden="true">▦</span><span>迷你创业桌游</span></div>
+      <p>把用户、传播、需求与产品连接成一个说得通的创业项目。</p>
       <a href="https://github.com/JerryChen-McGill/startupboardgame">GitHub ↗</a>
     </footer>
 

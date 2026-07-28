@@ -96,14 +96,16 @@ data.categoryMeta.user.color = "#73B97C";
 data.categoryMeta.need.color = "#F0A15A";
 data.categoryMeta.product.color = "#67A5D1";
 data.categoryMeta.promotion.color = "#AC85D7";
+data.categoryMeta.promotion.label = "传播";
+data.categoryMeta.promotion.en = "SPREAD";
 
 data.relationMeta = {
   "user-need": { label: "用户 × 需求", color: "#4A90E2" },
   "user-product": { label: "用户 × 产品", color: "#55A7A0" },
-  "user-promotion": { label: "推广 × 用户", color: "#8B61C2" },
+  "user-promotion": { label: "传播 × 用户", color: "#8B61C2" },
   "need-product": { label: "需求 × 产品", color: "#F39C3D" },
-  "need-promotion": { label: "需求 × 推广", color: "#D47A9A" },
-  "product-promotion": { label: "产品 × 推广", color: "#49A36B" },
+  "need-promotion": { label: "需求 × 传播", color: "#D47A9A" },
+  "product-promotion": { label: "产品 × 传播", color: "#49A36B" },
 };
 
 Object.entries(data.cards).forEach(([type, cards]) => {

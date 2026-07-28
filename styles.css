@@ -307,14 +307,14 @@ button {
 .hero-visual {
   position: relative;
   display: grid;
-  min-height: 650px;
+  min-height: 720px;
   place-items: center;
 }
 
 .hero-board {
   position: relative;
   z-index: 2;
-  width: min(100%, 650px);
+  width: min(82%, 520px);
   overflow: visible;
   transform: rotate(1.2deg);
 }
@@ -664,8 +664,7 @@ button {
   position: relative;
   display: flex;
   flex-direction: column;
-  aspect-ratio: 0.72;
-  min-height: 255px;
+  aspect-ratio: 3 / 4;
   padding: 1.1rem;
   overflow: hidden;
   background: var(--paper);
@@ -743,7 +742,7 @@ button {
 .prototype-stage,
 .materials-list {
   position: relative;
-  min-height: 560px;
+  min-height: 660px;
   padding: 1.4rem;
   background: var(--paper-light);
   border: 1px solid var(--line);
@@ -775,12 +774,12 @@ button {
 
 .single-card-wrap {
   display: grid;
-  min-height: 430px;
+  min-height: 520px;
   place-items: center;
 }
 
 .single-card {
-  width: min(95%, 420px);
+  width: min(80%, 360px);
   transform: rotate(-2deg);
 }
 
@@ -798,7 +797,7 @@ button {
 
 .assembly-board {
   display: block;
-  width: min(95%, 480px);
+  width: min(88%, 430px);
   margin: 1.5rem auto 0.6rem;
   overflow: visible;
   filter: drop-shadow(0 20px 18px rgba(0, 0, 0, 0.24));
@@ -1071,19 +1070,26 @@ button {
 
 .startup-cards {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 0.6rem;
+  grid-template-columns: repeat(2, 1fr);
+  width: min(100%, 360px);
+  margin: 0 auto;
+  overflow: hidden;
+  background: var(--ink);
+  border: 2px solid var(--ink);
+  border-radius: 18px;
+  box-shadow: 0 16px 30px rgba(23, 21, 47, 0.14);
 }
 
 .startup-mini-card {
   --mini-accent: var(--green);
   display: grid;
-  min-height: 180px;
+  aspect-ratio: 3 / 4;
   padding: 1rem 0.55rem;
   place-items: center;
   background: var(--paper);
-  border-top: 6px solid var(--mini-accent);
-  border-radius: 14px;
+  border: 1px solid rgba(23, 21, 47, 0.16);
+  border-top: 7px solid var(--mini-accent);
+  border-radius: 0;
   text-align: center;
 }
 
@@ -1258,7 +1264,7 @@ button {
   }
 
   .hero-visual {
-    min-height: 570px;
+    min-height: 680px;
   }
 
   .manifesto {
@@ -1343,11 +1349,11 @@ button {
   }
 
   .hero-visual {
-    min-height: 420px;
+    min-height: 480px;
   }
 
   .hero-board {
-    width: 112%;
+    width: min(92%, 400px);
   }
 
   .orbit-one {
@@ -1439,10 +1445,6 @@ button {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  .library-card {
-    min-height: 230px;
-  }
-
   .prototype-grid {
     grid-template-columns: 1fr;
   }
@@ -1477,12 +1479,8 @@ button {
     gap: 0.6rem 1rem;
   }
 
-  .startup-cards {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
   .startup-mini-card {
-    min-height: 135px;
+    padding: 0.8rem 0.45rem;
   }
 
   .startup-links {

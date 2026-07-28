@@ -5,6 +5,7 @@ let cardById;
 let relationByPair;
 let activeRelationType = "all";
 let selectedNodeId = null;
+const STARTUP_CARD_ORDER = ["user", "promotion", "need", "product"];
 
 document.addEventListener("DOMContentLoaded", async () => {
   try {
@@ -132,7 +133,7 @@ function renderRelationshipNetwork() {
   const svg = document.querySelector("#relationship-network");
   const positions = networkPositions();
   svg.replaceChildren(svgElement("title", { id: "network-title" }));
-  svg.firstChild.textContent = "用户、需求、产品、推广卡牌之间的多对多关系网络";
+  svg.firstChild.textContent = "用户、传播、需求、产品卡牌之间的多对多关系网络";
 
   const border = svgElement("rect", {
     x: 104,
@@ -330,7 +331,7 @@ function bindNetworkDownload() {
 
 function bindStartupLab() {
   document.querySelector("#shuffle-startup").addEventListener("click", () => {
-    const picks = ["user", "need", "product", "promotion"].map((type) => {
+    const picks = STARTUP_CARD_ORDER.map((type) => {
       const cards = networkCards(type);
       return cards[Math.floor(Math.random() * cards.length)].id;
     });
@@ -339,16 +340,19 @@ function bindStartupLab() {
 }
 
 function renderStartup(cardIds) {
-  const selected = cardIds.map((id) => cardById.get(id));
+  const selected = cardIds
+    .map((id) => cardById.get(id))
+    .sort((a, b) => STARTUP_CARD_ORDER.indexOf(a.type) - STARTUP_CARD_ORDER.indexOf(b.type));
+  const orderedCardIds = selected.map((card) => card.id);
   const pairs = [];
-  const degree = new Map(cardIds.map((id) => [id, 0]));
+  const degree = new Map(orderedCardIds.map((id) => [id, 0]));
 
-  for (let i = 0; i < cardIds.length; i += 1) {
-    for (let j = i + 1; j < cardIds.length; j += 1) {
-      const relation = relationByPair.get(pairKey(cardIds[i], cardIds[j]));
+  for (let i = 0; i < orderedCardIds.length; i += 1) {
+    for (let j = i + 1; j < orderedCardIds.length; j += 1) {
+      const relation = relationByPair.get(pairKey(orderedCardIds[i], orderedCardIds[j]));
       if (relation) {
-        degree.set(cardIds[i], degree.get(cardIds[i]) + 1);
-        degree.set(cardIds[j], degree.get(cardIds[j]) + 1);
+        degree.set(orderedCardIds[i], degree.get(orderedCardIds[i]) + 1);
+        degree.set(orderedCardIds[j], degree.get(orderedCardIds[j]) + 1);
       }
       pairs.push({ a: selected[i], b: selected[j], relation });
     }
@@ -356,7 +360,7 @@ function renderStartup(cardIds) {
 
   const edgeCount = pairs.filter((pair) => pair.relation).length;
   const hasIsland = [...degree.values()].some((count) => count === 0);
-  const isConnected = projectIsConnected(cardIds, pairs);
+  const isConnected = projectIsConnected(orderedCardIds, pairs);
   const status = evaluateStatus(isConnected, hasIsland);
   const panel = document.querySelector("#startup-result");
 
@@ -381,8 +385,8 @@ function renderStartup(cardIds) {
           .join("")}
       </div>
       <p class="startup-story">
-        为 <strong>${selected[0].name}</strong> 解决“<strong>${selected[1].name}</strong>”，
-        发明 <strong>${selected[2].name}</strong>，再用 <strong>${selected[3].name}</strong> 让大家知道。
+        为 <strong>${selected[0].name}</strong> 解决“<strong>${selected[2].name}</strong>”，
+        发明 <strong>${selected[3].name}</strong>，再用 <strong>${selected[1].name}</strong> 让大家知道。
       </p>
       <div class="startup-links">
         ${pairs
