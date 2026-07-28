@@ -1,0 +1,55 @@
+# 迷你创业桌游
+
+一款把用户、需求、产品与推广连接成完整创业项目的合作桌游原型。
+
+玩家从用户、需求、产品和推广四类卡牌中选择方案，通过限时讨论、放置、连线和解释，把四张卡连接成一个完整创业网络。项目质量不由四张牌简单加分；任何一张卡完全孤立，项目都还需要继续调整。
+
+## 网站内容
+
+- 已达成共识的 V0.1 游戏规则
+- 40 张现有卡牌名称与风格
+- 三角卡牌、四卡面板与盒内物料原型
+- 20 张核心卡、72 条关系的交互式 SVG 网络
+- 基于关系数据的随机创业组合实验台
+
+## 本地预览
+
+这是一个无依赖静态网站。由于页面通过 `fetch` 读取 JSON，请使用本地 HTTP 服务器预览：
+
+```powershell
+python -m http.server 4173
+```
+
+也可以使用任何静态服务器，例如 VS Code Live Server。
+
+## 检查
+
+```powershell
+node --test
+node --check app.js
+node scripts/generate-network.mjs
+```
+
+## 数据与关系图
+
+主要内容都在 [`data/game-data.json`](./data/game-data.json)：
+
+- `cards`：四类卡牌
+- `relations`：卡牌之间的关系、权重与理由
+- `relationMeta`：六种关系类型的配色
+
+修改数据后，可重新生成独立 SVG：
+
+```powershell
+node scripts/generate-network.mjs
+```
+
+输出文件为 [`assets/relationship-network.svg`](./assets/relationship-network.svg)。
+
+## GitHub Pages
+
+推送到 `main` 分支后，`.github/workflows/deploy-pages.yml` 会自动部署网站。
+
+线上地址：
+
+<https://jerrychen-mcgill.github.io/startupboardgame/>

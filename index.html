@@ -1,0 +1,365 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="迷你创业桌游：在隐藏信息与有限时间里，用用户、需求、产品与推广四类卡牌拼出一个彼此咬合的创业系统。"
+    />
+    <meta name="theme-color" content="#17152f" />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="zh_CN" />
+    <meta property="og:title" content="迷你创业桌游｜把离谱点子拼成自洽生意" />
+    <meta
+      property="og:description"
+      content="用用户、需求、产品与推广四类卡牌，连接一个没有孤岛、每条线都讲得通的创业项目。"
+    />
+    <meta property="og:url" content="https://jerrychen-mcgill.github.io/startupboardgame/" />
+    <meta name="twitter:card" content="summary" />
+    <link rel="canonical" href="https://jerrychen-mcgill.github.io/startupboardgame/" />
+    <link rel="icon" href="./assets/favicon.svg" type="image/svg+xml" />
+    <title>迷你创业桌游｜把离谱点子拼成自洽生意</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">跳到主要内容</a>
+
+    <header class="site-header">
+      <a class="brand" href="#top" aria-label="返回首页">
+        <span class="brand-mark" aria-hidden="true">△</span>
+        <span>迷你创业桌游</span>
+      </a>
+      <nav class="nav-links" aria-label="主导航">
+        <a href="#how">怎么玩</a>
+        <a href="#cards">卡牌</a>
+        <a href="#prototype">物料原型</a>
+        <a href="#network">关系图</a>
+      </nav>
+      <a class="nav-cta" href="#lab">随机开一局 <span aria-hidden="true">↗</span></a>
+    </header>
+
+    <main id="main">
+      <section class="hero" id="top">
+        <div class="hero-copy">
+          <p class="eyebrow"><span class="eyebrow-dot"></span> 合作 · 创业 · 关系网络</p>
+          <h1>把离谱点子，<br />拼成<span class="scribble">自洽</span>生意。</h1>
+          <p class="hero-lead">
+            建议约四名玩家，四类卡牌，不完整的手牌。你们必须通过讨论找到
+            <strong>用户、需求、产品与推广</strong>之间真正咬合的关系——而不是各自交出一张“最强卡”。
+          </p>
+          <div class="hero-actions">
+            <a class="button button-primary" href="#how">查看游戏规则 <span aria-hidden="true">↓</span></a>
+            <a class="button button-ghost" href="#network">探索关系网络</a>
+          </div>
+          <dl class="hero-stats">
+            <div><dt>4</dt><dd>类核心卡牌</dd></div>
+            <div><dt>6</dt><dd>组两两关系</dd></div>
+            <div><dt>72</dt><dd>条原型连接</dd></div>
+          </dl>
+        </div>
+
+        <div class="hero-visual" aria-label="四张三角形卡牌拼成创业项目的示意图">
+          <div class="orbit orbit-one"></div>
+          <div class="orbit orbit-two"></div>
+          <svg class="hero-board" viewBox="0 0 620 590" role="img" aria-labelledby="hero-board-title">
+            <title id="hero-board-title">用户、需求、产品、推广四张三角卡组成一个大三角形</title>
+            <defs>
+              <filter id="hero-shadow" x="-30%" y="-30%" width="160%" height="160%">
+                <feDropShadow dx="0" dy="18" stdDeviation="16" flood-color="#09081a" flood-opacity=".25" />
+              </filter>
+              <linearGradient id="hero-user" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0" stop-color="#a6d7aa" />
+                <stop offset="1" stop-color="#73b97c" />
+              </linearGradient>
+              <linearGradient id="hero-need" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0" stop-color="#ffae7a" />
+                <stop offset="1" stop-color="#ff5f68" />
+              </linearGradient>
+              <linearGradient id="hero-product" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0" stop-color="#9ed0ee" />
+                <stop offset="1" stop-color="#67a5d1" />
+              </linearGradient>
+              <linearGradient id="hero-promo" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0" stop-color="#d7a0ff" />
+                <stop offset="1" stop-color="#7a63ff" />
+              </linearGradient>
+            </defs>
+            <g filter="url(#hero-shadow)">
+              <path d="M310 42 156 306 464 306Z" fill="url(#hero-user)" />
+              <path d="M2 570 156 306 310 570Z" fill="url(#hero-need)" />
+              <path d="M310 570 464 306 618 570Z" fill="url(#hero-product)" />
+              <path d="M156 306 464 306 310 570Z" fill="url(#hero-promo)" />
+            </g>
+            <g fill="#17152f" text-anchor="middle">
+              <text x="310" y="150" class="hero-card-emoji">🌳</text>
+              <text x="310" y="197" class="hero-card-name">树精</text>
+              <text x="310" y="231" class="hero-card-type">用户 · 谁？</text>
+
+              <text x="156" y="410" class="hero-card-emoji">💭</text>
+              <text x="156" y="457" class="hero-card-name">八点焦虑</text>
+              <text x="156" y="491" class="hero-card-type">需求 · 怎么了？</text>
+
+              <text x="464" y="410" class="hero-card-emoji">🌱</text>
+              <text x="464" y="457" class="hero-card-name">魔法豆</text>
+              <text x="464" y="491" class="hero-card-type">产品 · 怎么办？</text>
+
+              <text x="310" y="392" class="hero-card-emoji">🐦</text>
+              <text x="310" y="435" class="hero-card-name hero-card-name-small">乌鸦广播</text>
+            </g>
+            <g class="match-marks" fill="none" stroke-linecap="round">
+              <path d="M250 306h45" stroke="#fff" />
+              <path d="M325 306h45" stroke="#fff" />
+              <path d="M218 410l23 40" stroke="#fff" />
+              <path d="M379 450l23-40" stroke="#fff" />
+              <path d="M82 432l23-40" stroke="#fff" />
+              <path d="M515 392l23 40" stroke="#fff" />
+            </g>
+          </svg>
+          <div class="hero-note note-one"><span>01</span> 四张卡，缺一不可</div>
+          <div class="hero-note note-two"><span>02</span> 六种两两关系</div>
+        </div>
+      </section>
+
+      <section class="manifesto section-shell">
+        <div class="manifesto-index">01 / 游戏内核</div>
+        <blockquote>
+          “没有唯一答案。<br />
+          但项目必须完整连通，<br />
+          每一条线都要讲得通。”
+        </blockquote>
+        <div class="manifesto-aside">
+          <p>它最初来自团队协作研究，如今落在一个更直接的桌面问题上：</p>
+          <p class="formula"><span>荒诞创意</span><b>×</b><span>逻辑自洽</span></p>
+        </div>
+      </section>
+
+      <section class="how section-shell" id="how">
+        <div class="section-heading">
+          <div>
+            <p class="kicker">HOW TO PLAY</p>
+            <h2>两分钟里，<br />你们到底在做什么？</h2>
+          </div>
+          <p class="section-intro">
+            当前 V0.1 原型主要围绕约四人游玩，其他人数仍需测试。快速版的核心不是职位模拟，
+            而是让团队把四类卡牌组织成一个整体连通、每条关系都有理由的创业项目。
+          </p>
+        </div>
+
+        <ol class="rule-steps">
+          <li class="rule-step">
+            <div class="rule-number">01</div>
+            <div class="rule-icon" aria-hidden="true">▦</div>
+            <div>
+              <h3>拿到不完整信息</h3>
+              <p>每人获得 6 张随机手牌。不能把全部手牌摊开，只能通过语言描述自己掌握的可能性。</p>
+            </div>
+          </li>
+          <li class="rule-step">
+            <div class="rule-number">02</div>
+            <div class="rule-icon" aria-hidden="true">◎</div>
+            <div>
+              <h3>限时寻找组合</h3>
+              <p>团队在 2 分钟内讨论一种可能的组合。已有关系只是示例，玩家也可以提出新的连接。</p>
+            </div>
+          </li>
+          <li class="rule-step">
+            <div class="rule-number">03</div>
+            <div class="rule-icon" aria-hidden="true">↔</div>
+            <div>
+              <h3>放置、连线、解释</h3>
+              <p>从四类中各选卡牌放进项目，并为每一条连接给出一句能被其他玩家理解的理由。</p>
+            </div>
+          </li>
+          <li class="rule-step">
+            <div class="rule-number">04</div>
+            <div class="rule-icon" aria-hidden="true">△</div>
+            <div>
+              <h3>检查并继续调整</h3>
+              <p>确认四类齐全、整体连通且没有孤岛。若仍有元素断开，就交换卡牌或修改关系。</p>
+            </div>
+          </li>
+        </ol>
+
+        <div class="connection-rule">
+          <div class="connection-copy">
+            <p class="kicker">不是简单加分</p>
+            <h3>卡牌价值，取决于它进入网络后能连接什么。</h3>
+            <p>
+              用户不只要匹配需求，也要匹配产品和推广。四个元素之间共有六组关系；没有绝对的“最强卡”，只有是否适合当前系统。
+            </p>
+          </div>
+          <div class="score-ladder" aria-label="项目完成检查">
+            <div class="score-row"><span>01</span><b>四类齐全</b><i>用户、需求、产品、推广</i></div>
+            <div class="score-row"><span>02</span><b>整体连通</b><i>所有卡位于同一个关系图</i></div>
+            <div class="score-row"><span>03</span><b>没有孤岛</b><i>每张卡至少连接另一张卡</i></div>
+            <div class="score-row"><span>04</span><b>关系可解释</b><i>每条线都有说得通的理由</i></div>
+            <div class="score-row perfect"><span>✓</span><b>项目完成</b><i>否则继续调整</i></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="cards-section" id="cards">
+        <div class="section-shell">
+          <div class="section-heading compact">
+            <div>
+              <p class="kicker">CARD LIBRARY</p>
+              <h2>四十张已有卡牌，<br />四种不同的语言。</h2>
+            </div>
+            <p class="section-intro">
+              角色回答“谁”，需求是一句吐槽，产品是一件魔法发明，推广则是一场离谱事件。
+            </p>
+          </div>
+
+          <div class="card-filters" role="group" aria-label="筛选卡牌类型">
+            <button class="filter-chip active" type="button" data-card-filter="all">全部 40</button>
+            <button class="filter-chip" type="button" data-card-filter="user">用户</button>
+            <button class="filter-chip" type="button" data-card-filter="need">需求</button>
+            <button class="filter-chip" type="button" data-card-filter="product">产品</button>
+            <button class="filter-chip" type="button" data-card-filter="promotion">推广</button>
+          </div>
+          <div class="card-library" id="card-library" aria-live="polite"></div>
+        </div>
+      </section>
+
+      <section class="prototype section-shell" id="prototype">
+        <div class="section-heading">
+          <div>
+            <p class="kicker">PHYSICAL PROTOTYPE</p>
+            <h2>物料不是装饰，<br />它把关系直接做进形状里。</h2>
+          </div>
+          <p class="section-intro">
+            每张三角卡的三条边分别面向另外三类卡。彩色接口可以是一条、两条或留白；
+            四张牌组合后，三条内部共边与三条外围同线关系正好覆盖全部六组连接。
+          </p>
+        </div>
+
+        <div class="prototype-grid">
+          <article class="prototype-stage">
+            <div class="stage-label"><span>原型 A</span> 三角卡面</div>
+            <div class="single-card-wrap">
+              <svg class="single-card" viewBox="0 0 420 390" role="img" aria-label="树精用户三角卡原型">
+                <defs>
+                  <filter id="card-shadow" x="-30%" y="-30%" width="160%" height="160%">
+                    <feDropShadow dx="0" dy="14" stdDeviation="12" flood-opacity=".2" />
+                  </filter>
+                </defs>
+                <path d="M210 28 26 354h368Z" fill="#f9f4e8" filter="url(#card-shadow)" />
+                <path d="M210 28 26 354" stroke="#4da8ff" stroke-width="9" stroke-linecap="round" />
+                <path d="M220 47 47 354" stroke="#9d7aff" stroke-width="5" stroke-linecap="round" />
+                <path d="M210 28 394 354" stroke="#ff7a6c" stroke-width="9" stroke-linecap="round" />
+                <path d="M26 354h368" stroke="#63cf8e" stroke-width="9" stroke-linecap="round" />
+                <path d="M52 338h316" stroke="#f5c84c" stroke-width="5" stroke-linecap="round" />
+                <text x="210" y="168" text-anchor="middle" font-size="70">🌳</text>
+                <text x="210" y="226" text-anchor="middle" font-size="34" font-weight="800" fill="#17152f">树精</text>
+                <text x="210" y="260" text-anchor="middle" font-size="16" fill="#68647a">天天掉树叶</text>
+              </svg>
+            </div>
+            <p>边缘没有黑框；有匹配就印彩线，没有匹配就直接留白。多条关系使用平行线表达。</p>
+          </article>
+
+          <article class="prototype-stage dark-stage">
+            <div class="stage-label"><span>原型 B</span> 四卡面板</div>
+            <svg class="assembly-board" viewBox="0 0 520 460" role="img" aria-label="四张卡牌组成的大三角形面板">
+              <path d="M260 20 140 230h240Z" fill="#73b97c" />
+              <path d="M20 440 140 230 260 440Z" fill="#f0a15a" />
+              <path d="M260 440 380 230 500 440Z" fill="#67a5d1" />
+              <path d="M140 230h240L260 440Z" fill="#ac85d7" />
+              <g text-anchor="middle" fill="#17152f" font-weight="800">
+                <text x="260" y="110" font-size="48">🌳</text><text x="260" y="153" font-size="23">用户</text>
+                <text x="135" y="345" font-size="38">💭</text><text x="135" y="383" font-size="20">需求</text>
+                <text x="385" y="345" font-size="38">🌱</text><text x="385" y="383" font-size="20">产品</text>
+                <text x="260" y="315" font-size="34">🐦</text><text x="260" y="353" font-size="18">推广</text>
+              </g>
+            </svg>
+            <p>四卡三角面板是当前概念原型；除用户卡外，其余卡类的完整朝向映射仍需通过测试确认。</p>
+          </article>
+
+          <aside class="materials-list">
+            <div class="stage-label"><span>V0.1</span> 盒内物料</div>
+            <ul>
+              <li><span class="material-icon">△</span><div><b>三角卡牌 × 40</b><small>四类各 10 张，数据可继续扩展</small></div></li>
+              <li><span class="material-icon">●</span><div><b>类别提示牌 × 4</b><small>用户、需求、产品、推广</small></div></li>
+              <li><span class="material-icon">⌁</span><div><b>关系参考图 × 1</b><small>展示卡牌之间的全部合理连接</small></div></li>
+              <li><span class="material-icon">⏱</span><div><b>两分钟计时器 × 1</b><small>让讨论变成真实的团队取舍</small></div></li>
+            </ul>
+            <p class="prototype-note">尺寸、卡材和最终印刷工艺仍处于原型阶段；本页展示的是已经达成共识的外形与信息结构。</p>
+          </aside>
+        </div>
+      </section>
+
+      <section class="network-section" id="network">
+        <div class="section-shell">
+          <div class="section-heading compact">
+            <div>
+              <p class="kicker">RELATIONSHIP MAP</p>
+              <h2>没有唯一答案，<br />但每一条线都要讲得通。</h2>
+            </div>
+            <p class="section-intro">
+              20 张核心示例卡分布在矩形四边，四角留白，中间只保留连接。点击卡牌可锁定相关连线，悬停或聚焦连线可查看理由。
+            </p>
+          </div>
+
+          <div class="network-toolbar">
+            <div class="relation-filters" id="relation-filters" role="group" aria-label="筛选关系类型"></div>
+            <button class="button button-dark" id="download-network" type="button">下载 SVG <span aria-hidden="true">↓</span></button>
+          </div>
+          <div class="network-canvas-wrap">
+            <svg id="relationship-network" class="relationship-network" viewBox="0 0 1200 820" role="img" aria-labelledby="network-title">
+              <title id="network-title">用户、需求、产品、推广卡牌之间的多对多关系网络</title>
+            </svg>
+            <div class="network-tooltip" id="network-tooltip" role="status"></div>
+          </div>
+          <div class="network-caption">
+            <span>20 张卡</span><span>72 条示例关系</span><span>当前图展示 4 类关系</span><span>数据模型支持全部 6 类</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="lab section-shell" id="lab">
+        <div class="lab-copy">
+          <p class="kicker">STARTUP LAB</p>
+          <h2>随机抽四张，<br />看看这门生意能不能成立。</h2>
+          <p>
+            实验台从关系图的 20 张核心卡中各抽一张，并检查当前示例数据中能成立的关系。
+            它不替代玩家的解释，也不生成未经确认的科学分数，只展示整体是否连通。
+          </p>
+          <button class="button button-primary" id="shuffle-startup" type="button">再来一组 <span aria-hidden="true">↻</span></button>
+        </div>
+        <div class="startup-result" id="startup-result" aria-live="polite"></div>
+      </section>
+
+      <section class="principles section-shell">
+        <div class="section-heading compact">
+          <div>
+            <p class="kicker">DESIGN PRINCIPLES</p>
+            <h2>这款游戏不教答案，<br />它让合作本身变得可见。</h2>
+          </div>
+        </div>
+        <div class="principle-grid">
+          <article><span>01</span><h3>两两连接</h3><p>只定义卡牌之间的两两关系，不把三张或四张卡绑定成唯一答案。</p></article>
+          <article><span>02</span><h3>连接，而非堆砌</h3><p>四张好牌不等于一个好项目。所有核心元素必须进入同一个关系网络。</p></article>
+          <article><span>03</span><h3>为逻辑负责</h3><p>数据集只是示例。玩家可以创造新关系，但必须解释并获得团队认可。</p></article>
+          <article><span>04</span><h3>离谱，但要自洽</h3><p>世界观可以荒诞，关系理由必须说得通。想象力与系统思维同时成立。</p></article>
+        </div>
+      </section>
+
+      <section class="closing">
+        <div class="section-shell closing-inner">
+          <p class="kicker">WHO · WHAT · HOW · TELL</p>
+          <h2>树精为什么每天八点焦虑？<br />魔法豆又该怎么用乌鸦广播卖出去？</h2>
+          <p>把牌拿起来，答案交给你们。</p>
+          <a class="button button-light" href="#lab">随机开一局 <span aria-hidden="true">↗</span></a>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="brand"><span class="brand-mark" aria-hidden="true">△</span><span>迷你创业桌游</span></div>
+      <p>把用户、需求、产品与推广连接成一个说得通的创业项目。</p>
+      <a href="https://github.com/JerryChen-McGill/startupboardgame">GitHub ↗</a>
+    </footer>
+
+    <script src="./app.js" defer></script>
+  </body>
+</html>

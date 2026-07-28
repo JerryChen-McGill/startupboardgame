@@ -1,0 +1,870 @@
+{
+  "meta": {
+    "title": "迷你创业桌游",
+    "version": "0.1",
+    "networkCardCount": 20,
+    "relationCount": 72
+  },
+  "categoryMeta": {
+    "user": {
+      "label": "用户",
+      "en": "USER",
+      "question": "谁？",
+      "color": "#73B97C"
+    },
+    "need": {
+      "label": "需求",
+      "en": "NEED",
+      "question": "怎么了？",
+      "color": "#F0A15A"
+    },
+    "product": {
+      "label": "产品",
+      "en": "PRODUCT",
+      "question": "怎么办？",
+      "color": "#67A5D1"
+    },
+    "promotion": {
+      "label": "推广",
+      "en": "PROMOTION",
+      "question": "怎么让大家知道？",
+      "color": "#AC85D7"
+    }
+  },
+  "cards": {
+    "user": [
+      {
+        "id": "u-tree",
+        "name": "树精",
+        "emoji": "🌳",
+        "note": "天天掉树叶",
+        "network": true
+      },
+      {
+        "id": "u-snail",
+        "name": "鼻涕虫",
+        "emoji": "🐌",
+        "note": "移动超慢",
+        "network": true
+      },
+      {
+        "id": "u-ghost",
+        "name": "小幽灵",
+        "emoji": "👻",
+        "note": "胆子很小",
+        "network": true
+      },
+      {
+        "id": "u-stone",
+        "name": "石头",
+        "emoji": "🪨",
+        "note": "特别有主见",
+        "network": true
+      },
+      {
+        "id": "u-dragon",
+        "name": "小火龙",
+        "emoji": "🐉",
+        "note": "特别怕热",
+        "network": false
+      },
+      {
+        "id": "u-firefly",
+        "name": "萤火虫",
+        "emoji": "✨",
+        "note": "白天发不了光",
+        "network": false
+      },
+      {
+        "id": "u-octopus",
+        "name": "小章鱼",
+        "emoji": "🐙",
+        "note": "八只手都很忙",
+        "network": false
+      },
+      {
+        "id": "u-crow",
+        "name": "乌鸦邮差",
+        "emoji": "🐦",
+        "note": "什么都送",
+        "network": false
+      },
+      {
+        "id": "u-cloud",
+        "name": "云团子",
+        "emoji": "☁️",
+        "note": "每天飘来飘去",
+        "network": true
+      },
+      {
+        "id": "u-mushroom",
+        "name": "蘑菇人",
+        "emoji": "🍄",
+        "note": "下雨就开心",
+        "network": false
+      }
+    ],
+    "need": [
+      {
+        "id": "n-hair",
+        "name": "刘海总是翘着",
+        "emoji": "💇",
+        "note": "一句真实的吐槽",
+        "network": true
+      },
+      {
+        "id": "n-water",
+        "name": "喝水老是呛到",
+        "emoji": "💧",
+        "note": "越小越具体",
+        "network": true
+      },
+      {
+        "id": "n-eight",
+        "name": "每天八点会焦虑",
+        "emoji": "🕗",
+        "note": "时间一到就紧张",
+        "network": true
+      },
+      {
+        "id": "n-daze",
+        "name": "发呆收不回思绪",
+        "emoji": "💭",
+        "note": "脑子飘远了",
+        "network": true
+      },
+      {
+        "id": "n-sleepy",
+        "name": "一坐下就犯困",
+        "emoji": "🥱",
+        "note": "椅子像有魔法",
+        "network": true
+      },
+      {
+        "id": "n-phone",
+        "name": "睡前总想刷手机",
+        "emoji": "📱",
+        "note": "再看五分钟",
+        "network": false
+      },
+      {
+        "id": "n-hearing",
+        "name": "总觉得有人叫我",
+        "emoji": "👂",
+        "note": "回头却没人",
+        "network": false
+      },
+      {
+        "id": "n-exam",
+        "name": "一考试就忘光",
+        "emoji": "📝",
+        "note": "脑袋瞬间清空",
+        "network": false
+      },
+      {
+        "id": "n-lost",
+        "name": "老是找不到东西",
+        "emoji": "🔎",
+        "note": "明明就在眼前",
+        "network": false
+      },
+      {
+        "id": "n-slack",
+        "name": "每天都想摸鱼",
+        "emoji": "🐟",
+        "note": "今天也不例外",
+        "network": false
+      }
+    ],
+    "product": [
+      {
+        "id": "p-pillow",
+        "name": "月亮枕",
+        "emoji": "🌙",
+        "note": "把夜色垫在脑后",
+        "network": true
+      },
+      {
+        "id": "p-cloud",
+        "name": "云口袋",
+        "emoji": "☁️",
+        "note": "装下轻飘飘的东西",
+        "network": true
+      },
+      {
+        "id": "p-shadow",
+        "name": "影子胶",
+        "emoji": "🪄",
+        "note": "把跑掉的影子粘住",
+        "network": true
+      },
+      {
+        "id": "p-bean",
+        "name": "魔法豆",
+        "emoji": "🌱",
+        "note": "种下一个意外答案",
+        "network": true
+      },
+      {
+        "id": "p-bubble",
+        "name": "泡泡鞋",
+        "emoji": "🫧",
+        "note": "每一步都轻一点",
+        "network": false
+      },
+      {
+        "id": "p-luck",
+        "name": "好运贴",
+        "emoji": "✨",
+        "note": "贴哪儿哪儿顺利",
+        "network": false
+      },
+      {
+        "id": "p-candy",
+        "name": "彩虹糖",
+        "emoji": "🌈",
+        "note": "嚼出一种天气",
+        "network": false
+      },
+      {
+        "id": "p-mirror",
+        "name": "倒放镜",
+        "emoji": "🪞",
+        "note": "把刚才重新来一遍",
+        "network": false
+      },
+      {
+        "id": "p-magnet",
+        "name": "幸运磁",
+        "emoji": "🧲",
+        "note": "只吸好事情",
+        "network": false
+      },
+      {
+        "id": "p-hat",
+        "name": "飞天帽",
+        "emoji": "🎈",
+        "note": "风一吹就出发",
+        "network": true
+      }
+    ],
+    "promotion": [
+      {
+        "id": "m-rainbow",
+        "name": "彩虹标语",
+        "emoji": "🌈",
+        "note": "把口号写在天上",
+        "network": true
+      },
+      {
+        "id": "m-dream",
+        "name": "托个梦",
+        "emoji": "💭",
+        "note": "趁用户睡着安利",
+        "network": true
+      },
+      {
+        "id": "m-crow",
+        "name": "乌鸦广播",
+        "emoji": "🐦",
+        "note": "森林里的早间频道",
+        "network": true
+      },
+      {
+        "id": "m-bottle",
+        "name": "漂流瓶",
+        "emoji": "🍾",
+        "note": "让广告自己去旅行",
+        "network": true
+      },
+      {
+        "id": "m-meteor",
+        "name": "流星快递",
+        "emoji": "🌠",
+        "note": "一闪而过但使命必达",
+        "network": true
+      },
+      {
+        "id": "m-breeze",
+        "name": "晚风安利",
+        "emoji": "🌬️",
+        "note": "在耳边轻轻说服",
+        "network": false
+      },
+      {
+        "id": "m-firefly",
+        "name": "萤火巡游",
+        "emoji": "✨",
+        "note": "夜空限定发布会",
+        "network": false
+      },
+      {
+        "id": "m-cloud",
+        "name": "白云写字",
+        "emoji": "☁️",
+        "note": "全城共享一块天幕",
+        "network": false
+      },
+      {
+        "id": "m-moon",
+        "name": "月亮直播",
+        "emoji": "🌙",
+        "note": "今晚只有一个频道",
+        "network": false
+      },
+      {
+        "id": "m-balloon",
+        "name": "气球大逃亡",
+        "emoji": "🎈",
+        "note": "广告飞得到处都是",
+        "network": false
+      }
+    ]
+  },
+  "relationMeta": {
+    "user-need": {
+      "label": "用户 × 需求",
+      "color": "#4A90E2"
+    },
+    "user-product": {
+      "label": "用户 × 产品",
+      "color": "#55A7A0"
+    },
+    "user-promotion": {
+      "label": "推广 × 用户",
+      "color": "#8B61C2"
+    },
+    "need-product": {
+      "label": "需求 × 产品",
+      "color": "#F39C3D"
+    },
+    "need-promotion": {
+      "label": "需求 × 推广",
+      "color": "#D47A9A"
+    },
+    "product-promotion": {
+      "label": "产品 × 推广",
+      "color": "#49A36B"
+    }
+  },
+  "relations": [
+    {
+      "source": "u-tree",
+      "target": "n-daze",
+      "type": "user-need",
+      "weight": 4,
+      "reason": "一站就是一天"
+    },
+    {
+      "source": "u-tree",
+      "target": "n-eight",
+      "type": "user-need",
+      "weight": 4,
+      "reason": "天黑前总担心掉叶子"
+    },
+    {
+      "source": "u-tree",
+      "target": "n-water",
+      "type": "user-need",
+      "weight": 4,
+      "reason": "下雨时一下喝太多"
+    },
+    {
+      "source": "u-snail",
+      "target": "n-hair",
+      "type": "user-need",
+      "weight": 4,
+      "reason": "头顶总黏着奇怪东西"
+    },
+    {
+      "source": "u-snail",
+      "target": "n-water",
+      "type": "user-need",
+      "weight": 4,
+      "reason": "爬水洼时容易被呛"
+    },
+    {
+      "source": "u-snail",
+      "target": "n-eight",
+      "type": "user-need",
+      "weight": 4,
+      "reason": "八点还没爬到家"
+    },
+    {
+      "source": "u-snail",
+      "target": "n-sleepy",
+      "type": "user-need",
+      "weight": 4,
+      "reason": "移动太慢，总像没睡醒"
+    },
+    {
+      "source": "u-ghost",
+      "target": "n-eight",
+      "type": "user-need",
+      "weight": 4,
+      "reason": "八点正好开始上班"
+    },
+    {
+      "source": "u-ghost",
+      "target": "n-daze",
+      "type": "user-need",
+      "weight": 4,
+      "reason": "思绪经常飘出身体"
+    },
+    {
+      "source": "u-ghost",
+      "target": "n-hair",
+      "type": "user-need",
+      "weight": 4,
+      "reason": "没有重力压住头发"
+    },
+    {
+      "source": "u-ghost",
+      "target": "n-sleepy",
+      "type": "user-need",
+      "weight": 4,
+      "reason": "白天总想睡觉"
+    },
+    {
+      "source": "u-stone",
+      "target": "n-hair",
+      "type": "user-need",
+      "weight": 4,
+      "reason": "唯一一撮刘海偏偏压不平"
+    },
+    {
+      "source": "u-stone",
+      "target": "n-water",
+      "type": "user-need",
+      "weight": 4,
+      "reason": "嘴太小，雨太大"
+    },
+    {
+      "source": "u-stone",
+      "target": "n-daze",
+      "type": "user-need",
+      "weight": 4,
+      "reason": "一发呆就是几百年"
+    },
+    {
+      "source": "u-cloud",
+      "target": "n-hair",
+      "type": "user-need",
+      "weight": 4,
+      "reason": "头发总被风吹起来"
+    },
+    {
+      "source": "u-cloud",
+      "target": "n-daze",
+      "type": "user-need",
+      "weight": 4,
+      "reason": "思绪像云一样飘散"
+    },
+    {
+      "source": "u-cloud",
+      "target": "n-sleepy",
+      "type": "user-need",
+      "weight": 4,
+      "reason": "软绵绵的很容易睡着"
+    },
+    {
+      "source": "u-cloud",
+      "target": "n-eight",
+      "type": "user-need",
+      "weight": 4,
+      "reason": "担心八点被晚风吹散"
+    },
+    {
+      "source": "n-hair",
+      "target": "p-shadow",
+      "type": "need-product",
+      "weight": 4,
+      "reason": "固定刘海的影子"
+    },
+    {
+      "source": "n-hair",
+      "target": "p-cloud",
+      "type": "need-product",
+      "weight": 4,
+      "reason": "装一团云压住刘海"
+    },
+    {
+      "source": "n-hair",
+      "target": "p-bean",
+      "type": "need-product",
+      "weight": 4,
+      "reason": "长出一顶叶子帽"
+    },
+    {
+      "source": "n-hair",
+      "target": "p-hat",
+      "type": "need-product",
+      "weight": 4,
+      "reason": "直接把翘发藏起来"
+    },
+    {
+      "source": "n-water",
+      "target": "p-pillow",
+      "type": "need-product",
+      "weight": 4,
+      "reason": "躺着慢慢喝"
+    },
+    {
+      "source": "n-water",
+      "target": "p-cloud",
+      "type": "need-product",
+      "weight": 4,
+      "reason": "先把水装进云里"
+    },
+    {
+      "source": "n-water",
+      "target": "p-bean",
+      "type": "need-product",
+      "weight": 4,
+      "reason": "种出自动吸水藤"
+    },
+    {
+      "source": "n-eight",
+      "target": "p-pillow",
+      "type": "need-product",
+      "weight": 4,
+      "reason": "八点自动放松"
+    },
+    {
+      "source": "n-eight",
+      "target": "p-cloud",
+      "type": "need-product",
+      "weight": 4,
+      "reason": "把焦虑暂时收进去"
+    },
+    {
+      "source": "n-eight",
+      "target": "p-shadow",
+      "type": "need-product",
+      "weight": 4,
+      "reason": "把乱跑的影子粘回来"
+    },
+    {
+      "source": "n-eight",
+      "target": "p-hat",
+      "type": "need-product",
+      "weight": 4,
+      "reason": "八点带人飞离烦恼"
+    },
+    {
+      "source": "n-daze",
+      "target": "p-shadow",
+      "type": "need-product",
+      "weight": 4,
+      "reason": "粘住飘走的思绪"
+    },
+    {
+      "source": "n-daze",
+      "target": "p-bean",
+      "type": "need-product",
+      "weight": 4,
+      "reason": "种出思绪回收藤"
+    },
+    {
+      "source": "n-daze",
+      "target": "p-pillow",
+      "type": "need-product",
+      "weight": 4,
+      "reason": "让脑袋安静下来"
+    },
+    {
+      "source": "n-daze",
+      "target": "p-cloud",
+      "type": "need-product",
+      "weight": 4,
+      "reason": "把散乱想法装好"
+    },
+    {
+      "source": "n-sleepy",
+      "target": "p-pillow",
+      "type": "need-product",
+      "weight": 4,
+      "reason": "把困意集中到晚上"
+    },
+    {
+      "source": "n-sleepy",
+      "target": "p-bean",
+      "type": "need-product",
+      "weight": 4,
+      "reason": "长出提神薄荷叶"
+    },
+    {
+      "source": "n-sleepy",
+      "target": "p-hat",
+      "type": "need-product",
+      "weight": 4,
+      "reason": "一困就把人升起来"
+    },
+    {
+      "source": "p-pillow",
+      "target": "m-dream",
+      "type": "product-promotion",
+      "weight": 4,
+      "reason": "直接在梦里体验"
+    },
+    {
+      "source": "p-pillow",
+      "target": "m-bottle",
+      "type": "product-promotion",
+      "weight": 4,
+      "reason": "瓶里装一片月光"
+    },
+    {
+      "source": "p-pillow",
+      "target": "m-rainbow",
+      "type": "product-promotion",
+      "weight": 4,
+      "reason": "夜空展示睡眠效果"
+    },
+    {
+      "source": "p-pillow",
+      "target": "m-meteor",
+      "type": "product-promotion",
+      "weight": 4,
+      "reason": "夜晚配送最合适"
+    },
+    {
+      "source": "p-cloud",
+      "target": "m-rainbow",
+      "type": "product-promotion",
+      "weight": 4,
+      "reason": "云朵自己拼广告词"
+    },
+    {
+      "source": "p-cloud",
+      "target": "m-crow",
+      "type": "product-promotion",
+      "weight": 4,
+      "reason": "乌鸦背云到处播报"
+    },
+    {
+      "source": "p-cloud",
+      "target": "m-bottle",
+      "type": "product-promotion",
+      "weight": 4,
+      "reason": "瓶里寄送迷你云"
+    },
+    {
+      "source": "p-cloud",
+      "target": "m-meteor",
+      "type": "product-promotion",
+      "weight": 4,
+      "reason": "从天上直接送达"
+    },
+    {
+      "source": "p-shadow",
+      "target": "m-crow",
+      "type": "product-promotion",
+      "weight": 4,
+      "reason": "神秘产品适合乌鸦传播"
+    },
+    {
+      "source": "p-shadow",
+      "target": "m-dream",
+      "type": "product-promotion",
+      "weight": 4,
+      "reason": "梦里演示影子被粘住"
+    },
+    {
+      "source": "p-shadow",
+      "target": "m-bottle",
+      "type": "product-promotion",
+      "weight": 4,
+      "reason": "瓶里附一滴体验装"
+    },
+    {
+      "source": "p-bean",
+      "target": "m-rainbow",
+      "type": "product-promotion",
+      "weight": 4,
+      "reason": "豆藤长成巨大标语"
+    },
+    {
+      "source": "p-bean",
+      "target": "m-dream",
+      "type": "product-promotion",
+      "weight": 4,
+      "reason": "梦里先看到生长结果"
+    },
+    {
+      "source": "p-bean",
+      "target": "m-crow",
+      "type": "product-promotion",
+      "weight": 4,
+      "reason": "乌鸦负责播种和宣传"
+    },
+    {
+      "source": "p-bean",
+      "target": "m-meteor",
+      "type": "product-promotion",
+      "weight": 4,
+      "reason": "像种子一样撒向各地"
+    },
+    {
+      "source": "p-hat",
+      "target": "m-rainbow",
+      "type": "product-promotion",
+      "weight": 4,
+      "reason": "飞行轨迹写成标语"
+    },
+    {
+      "source": "p-hat",
+      "target": "m-crow",
+      "type": "product-promotion",
+      "weight": 4,
+      "reason": "空中用户由乌鸦触达"
+    },
+    {
+      "source": "p-hat",
+      "target": "m-meteor",
+      "type": "product-promotion",
+      "weight": 4,
+      "reason": "本身就适合高速配送"
+    },
+    {
+      "source": "m-rainbow",
+      "target": "u-tree",
+      "type": "user-promotion",
+      "weight": 4,
+      "reason": "森林上空最容易看见"
+    },
+    {
+      "source": "m-rainbow",
+      "target": "u-stone",
+      "type": "user-promotion",
+      "weight": 4,
+      "reason": "石头抬头就能看到"
+    },
+    {
+      "source": "m-rainbow",
+      "target": "u-snail",
+      "type": "user-promotion",
+      "weight": 4,
+      "reason": "爬得慢，可以看很久"
+    },
+    {
+      "source": "m-rainbow",
+      "target": "u-cloud",
+      "type": "user-promotion",
+      "weight": 4,
+      "reason": "就在云边出现"
+    },
+    {
+      "source": "m-dream",
+      "target": "u-ghost",
+      "type": "user-promotion",
+      "weight": 4,
+      "reason": "幽灵常在梦里活动"
+    },
+    {
+      "source": "m-dream",
+      "target": "u-tree",
+      "type": "user-promotion",
+      "weight": 4,
+      "reason": "树精一睡就是很久"
+    },
+    {
+      "source": "m-dream",
+      "target": "u-stone",
+      "type": "user-promotion",
+      "weight": 4,
+      "reason": "石头难得做梦，印象更深"
+    },
+    {
+      "source": "m-dream",
+      "target": "u-cloud",
+      "type": "user-promotion",
+      "weight": 4,
+      "reason": "云团子常在梦里飘"
+    },
+    {
+      "source": "m-crow",
+      "target": "u-tree",
+      "type": "user-promotion",
+      "weight": 4,
+      "reason": "乌鸦经常停在树上"
+    },
+    {
+      "source": "m-crow",
+      "target": "u-ghost",
+      "type": "user-promotion",
+      "weight": 4,
+      "reason": "夜间广播正好覆盖幽灵"
+    },
+    {
+      "source": "m-crow",
+      "target": "u-stone",
+      "type": "user-promotion",
+      "weight": 4,
+      "reason": "声音比画面更容易注意"
+    },
+    {
+      "source": "m-crow",
+      "target": "u-cloud",
+      "type": "user-promotion",
+      "weight": 4,
+      "reason": "空中传播范围一致"
+    },
+    {
+      "source": "m-bottle",
+      "target": "u-snail",
+      "type": "user-promotion",
+      "weight": 4,
+      "reason": "喜欢沿着湿地移动"
+    },
+    {
+      "source": "m-bottle",
+      "target": "u-tree",
+      "type": "user-promotion",
+      "weight": 4,
+      "reason": "河流经常经过森林"
+    },
+    {
+      "source": "m-bottle",
+      "target": "u-ghost",
+      "type": "user-promotion",
+      "weight": 4,
+      "reason": "神秘瓶子容易吸引幽灵"
+    },
+    {
+      "source": "m-meteor",
+      "target": "u-cloud",
+      "type": "user-promotion",
+      "weight": 4,
+      "reason": "都在天空活动"
+    },
+    {
+      "source": "m-meteor",
+      "target": "u-ghost",
+      "type": "user-promotion",
+      "weight": 4,
+      "reason": "夜间收到的概率最高"
+    },
+    {
+      "source": "m-meteor",
+      "target": "u-stone",
+      "type": "user-promotion",
+      "weight": 4,
+      "reason": "砸到附近就一定会注意"
+    }
+  ],
+  "featuredCombos": {
+    "success": [
+      "u-tree",
+      "n-daze",
+      "p-bean",
+      "m-crow"
+    ],
+    "failure": [
+      "u-tree",
+      "n-hair",
+      "p-pillow",
+      "m-bottle"
+    ]
+  }
+}

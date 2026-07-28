@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://jerrychen-mcgill.github.io/startupboardgame/sitemap.xml

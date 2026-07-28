@@ -1,0 +1,496 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="820" viewBox="0 0 1200 820" role="img">
+  <title>迷你创业桌游：四元素关系网</title>
+  <desc>20 张卡分布于矩形四边，四角留白，中间以 72 条有逻辑的多对多关系连接。</desc>
+  <rect width="1200" height="820" fill="#111025"/>
+  <defs>
+    <pattern id="grid" width="30" height="30" patternUnits="userSpaceOnUse">
+      <path d="M30 0H0V30" fill="none" stroke="#ffffff" stroke-opacity=".035"/>
+    </pattern>
+  </defs>
+  <rect width="1200" height="820" fill="url(#grid)"/>
+  <rect x="104" y="73" width="994" height="675" rx="18" fill="none"
+    stroke="#ffffff" stroke-opacity=".17" stroke-width="1.5" stroke-dasharray="6 10"/>
+  <g>
+      <path d="M 210 72 Q 324.5 339.0 102 520"
+        fill="none" stroke="#4A90E2" stroke-width="2.20"
+        stroke-linecap="round" opacity=".3">
+        <title>树精 × 发呆收不回思绪：一站就是一天</title>
+      </path>
+      <path d="M 210 72 Q 315.0 301.5 102 410"
+        fill="none" stroke="#4A90E2" stroke-width="2.20"
+        stroke-linecap="round" opacity=".3">
+        <title>树精 × 每天八点会焦虑：天黑前总担心掉叶子</title>
+      </path>
+      <path d="M 210 72 Q 306.7 262.5 102 300"
+        fill="none" stroke="#4A90E2" stroke-width="2.20"
+        stroke-linecap="round" opacity=".3">
+        <title>树精 × 喝水老是呛到：下雨时一下喝太多</title>
+      </path>
+      <path d="M 405 72 Q 396.6 257.7 102 190"
+        fill="none" stroke="#4A90E2" stroke-width="2.20"
+        stroke-linecap="round" opacity=".3">
+        <title>鼻涕虫 × 刘海总是翘着：头顶总黏着奇怪东西</title>
+      </path>
+      <path d="M 405 72 Q 396.3 278.3 102 300"
+        fill="none" stroke="#4A90E2" stroke-width="2.20"
+        stroke-linecap="round" opacity=".3">
+        <title>鼻涕虫 × 喝水老是呛到：爬水洼时容易被呛</title>
+      </path>
+      <path d="M 405 72 Q 357.9 286.4 102 410"
+        fill="none" stroke="#4A90E2" stroke-width="2.20"
+        stroke-linecap="round" opacity=".3">
+        <title>鼻涕虫 × 每天八点会焦虑：八点还没爬到家</title>
+      </path>
+      <path d="M 405 72 Q 393.4 380.7 102 630"
+        fill="none" stroke="#4A90E2" stroke-width="2.20"
+        stroke-linecap="round" opacity=".3">
+        <title>鼻涕虫 × 一坐下就犯困：移动太慢，总像没睡醒</title>
+      </path>
+      <path d="M 600 72 Q 444.6 304.5 102 410"
+        fill="none" stroke="#4A90E2" stroke-width="2.20"
+        stroke-linecap="round" opacity=".3">
+        <title>小幽灵 × 每天八点会焦虑：八点正好开始上班</title>
+      </path>
+      <path d="M 600 72 Q 437.1 327.5 102 520"
+        fill="none" stroke="#4A90E2" stroke-width="2.20"
+        stroke-linecap="round" opacity=".3">
+        <title>小幽灵 × 发呆收不回思绪：思绪经常飘出身体</title>
+      </path>
+      <path d="M 600 72 Q 457.7 263.5 102 190"
+        fill="none" stroke="#4A90E2" stroke-width="2.20"
+        stroke-linecap="round" opacity=".3">
+        <title>小幽灵 × 刘海总是翘着：没有重力压住头发</title>
+      </path>
+      <path d="M 600 72 Q 435.7 371.1 102 630"
+        fill="none" stroke="#4A90E2" stroke-width="2.20"
+        stroke-linecap="round" opacity=".3">
+        <title>小幽灵 × 一坐下就犯困：白天总想睡觉</title>
+      </path>
+      <path d="M 795 72 Q 499.7 213.1 102 190"
+        fill="none" stroke="#4A90E2" stroke-width="2.20"
+        stroke-linecap="round" opacity=".3">
+        <title>石头 × 刘海总是翘着：唯一一撮刘海偏偏压不平</title>
+      </path>
+      <path d="M 795 72 Q 511.1 287.3 102 300"
+        fill="none" stroke="#4A90E2" stroke-width="2.20"
+        stroke-linecap="round" opacity=".3">
+        <title>石头 × 喝水老是呛到：嘴太小，雨太大</title>
+      </path>
+      <path d="M 795 72 Q 508.2 340.9 102 520"
+        fill="none" stroke="#4A90E2" stroke-width="2.20"
+        stroke-linecap="round" opacity=".3">
+        <title>石头 × 发呆收不回思绪：一发呆就是几百年</title>
+      </path>
+      <path d="M 990 72 Q 565.9 228.1 102 190"
+        fill="none" stroke="#4A90E2" stroke-width="2.20"
+        stroke-linecap="round" opacity=".3">
+        <title>云团子 × 刘海总是翘着：头发总被风吹起来</title>
+      </path>
+      <path d="M 990 72 Q 572.5 350.8 102 520"
+        fill="none" stroke="#4A90E2" stroke-width="2.20"
+        stroke-linecap="round" opacity=".3">
+        <title>云团子 × 发呆收不回思绪：思绪像云一样飘散</title>
+      </path>
+      <path d="M 990 72 Q 565.3 372.1 102 630"
+        fill="none" stroke="#4A90E2" stroke-width="2.20"
+        stroke-linecap="round" opacity=".3">
+        <title>云团子 × 一坐下就犯困：软绵绵的很容易睡着</title>
+      </path>
+      <path d="M 990 72 Q 559.9 287.7 102 410"
+        fill="none" stroke="#4A90E2" stroke-width="2.20"
+        stroke-linecap="round" opacity=".3">
+        <title>云团子 × 每天八点会焦虑：担心八点被晚风吹散</title>
+      </path>
+      <path d="M 102 190 Q 462.5 433.8 600 748"
+        fill="none" stroke="#F39C3D" stroke-width="2.20"
+        stroke-linecap="round" opacity=".3">
+        <title>刘海总是翘着 × 影子胶：固定刘海的影子</title>
+      </path>
+      <path d="M 102 190 Q 396.3 444.7 405 748"
+        fill="none" stroke="#F39C3D" stroke-width="2.20"
+        stroke-linecap="round" opacity=".3">
+        <title>刘海总是翘着 × 云口袋：装一团云压住刘海</title>
+      </path>
+      <path d="M 102 190 Q 488.7 463.0 795 748"
+        fill="none" stroke="#F39C3D" stroke-width="2.20"
+        stroke-linecap="round" opacity=".3">
+        <title>刘海总是翘着 × 魔法豆：长出一顶叶子帽</title>
+      </path>
+      <path d="M 102 190 Q 574.9 432.6 990 748"
+        fill="none" stroke="#F39C3D" stroke-width="2.20"
+        stroke-linecap="round" opacity=".3">
+        <title>刘海总是翘着 × 飞天帽：直接把翘发藏起来</title>
+      </path>
+      <path d="M 102 300 Q 322.9 481.1 210 748"
+        fill="none" stroke="#F39C3D" stroke-width="2.20"
+        stroke-linecap="round" opacity=".3">
+        <title>喝水老是呛到 × 月亮枕：躺着慢慢喝</title>
+      </path>
+      <path d="M 102 300 Q 375.1 489.2 405 748"
+        fill="none" stroke="#F39C3D" stroke-width="2.20"
+        stroke-linecap="round" opacity=".3">
+        <title>喝水老是呛到 × 云口袋：先把水装进云里</title>
+      </path>
+      <path d="M 102 300 Q 520.7 461.9 795 748"
+        fill="none" stroke="#F39C3D" stroke-width="2.20"
+        stroke-linecap="round" opacity=".3">
+        <title>喝水老是呛到 × 魔法豆：种出自动吸水藤</title>
+      </path>
+      <path d="M 102 410 Q 307.0 521.5 210 748"
+        fill="none" stroke="#F39C3D" stroke-width="2.20"
+        stroke-linecap="round" opacity=".3">
+        <title>每天八点会焦虑 × 月亮枕：八点自动放松</title>
+      </path>
+      <path d="M 102 410 Q 364.1 530.5 405 748"
+        fill="none" stroke="#F39C3D" stroke-width="2.20"
+        stroke-linecap="round" opacity=".3">
+        <title>每天八点会焦虑 × 云口袋：把焦虑暂时收进去</title>
+      </path>
+      <path d="M 102 410 Q 454.7 500.6 600 748"
+        fill="none" stroke="#F39C3D" stroke-width="2.20"
+        stroke-linecap="round" opacity=".3">
+        <title>每天八点会焦虑 × 影子胶：把乱跑的影子粘回来</title>
+      </path>
+      <path d="M 102 410 Q 567.3 512.4 990 748"
+        fill="none" stroke="#F39C3D" stroke-width="2.20"
+        stroke-linecap="round" opacity=".3">
+        <title>每天八点会焦虑 × 飞天帽：八点带人飞离烦恼</title>
+      </path>
+      <path d="M 102 520 Q 446.1 558.1 600 748"
+        fill="none" stroke="#F39C3D" stroke-width="2.20"
+        stroke-linecap="round" opacity=".3">
+        <title>发呆收不回思绪 × 影子胶：粘住飘走的思绪</title>
+      </path>
+      <path d="M 102 520 Q 505.6 540.7 795 748"
+        fill="none" stroke="#F39C3D" stroke-width="2.20"
+        stroke-linecap="round" opacity=".3">
+        <title>发呆收不回思绪 × 魔法豆：种出思绪回收藤</title>
+      </path>
+      <path d="M 102 520 Q 315.0 553.8 210 748"
+        fill="none" stroke="#F39C3D" stroke-width="2.20"
+        stroke-linecap="round" opacity=".3">
+        <title>发呆收不回思绪 × 月亮枕：让脑袋安静下来</title>
+      </path>
+      <path d="M 102 520 Q 373.0 564.2 405 748"
+        fill="none" stroke="#F39C3D" stroke-width="2.20"
+        stroke-linecap="round" opacity=".3">
+        <title>发呆收不回思绪 × 云口袋：把散乱想法装好</title>
+      </path>
+      <path d="M 102 630 Q 344.2 566.9 210 748"
+        fill="none" stroke="#F39C3D" stroke-width="2.20"
+        stroke-linecap="round" opacity=".3">
+        <title>一坐下就犯困 × 月亮枕：把困意集中到晚上</title>
+      </path>
+      <path d="M 102 630 Q 510.9 574.1 795 748"
+        fill="none" stroke="#F39C3D" stroke-width="2.20"
+        stroke-linecap="round" opacity=".3">
+        <title>一坐下就犯困 × 魔法豆：长出提神薄荷叶</title>
+      </path>
+      <path d="M 102 630 Q 562.0 612.0 990 748"
+        fill="none" stroke="#F39C3D" stroke-width="2.20"
+        stroke-linecap="round" opacity=".3">
+        <title>一坐下就犯困 × 飞天帽：一困就把人升起来</title>
+      </path>
+      <path d="M 210 748 Q 626.6 467.1 1098 300"
+        fill="none" stroke="#49A36B" stroke-width="2.20"
+        stroke-linecap="round" opacity=".3">
+        <title>月亮枕 × 托个梦：直接在梦里体验</title>
+      </path>
+      <path d="M 210 748 Q 633.7 549.8 1098 520"
+        fill="none" stroke="#49A36B" stroke-width="2.20"
+        stroke-linecap="round" opacity=".3">
+        <title>月亮枕 × 漂流瓶：瓶里装一片月光</title>
+      </path>
+      <path d="M 210 748 Q 642.3 461.0 1098 190"
+        fill="none" stroke="#49A36B" stroke-width="2.20"
+        stroke-linecap="round" opacity=".3">
+        <title>月亮枕 × 彩虹标语：夜空展示睡眠效果</title>
+      </path>
+      <path d="M 210 748 Q 629.4 556.2 1098 630"
+        fill="none" stroke="#49A36B" stroke-width="2.20"
+        stroke-linecap="round" opacity=".3">
+        <title>月亮枕 × 流星快递：夜晚配送最合适</title>
+      </path>
+      <path d="M 405 748 Q 700.0 448.9 1098 190"
+        fill="none" stroke="#49A36B" stroke-width="2.20"
+        stroke-linecap="round" opacity=".3">
+        <title>云口袋 × 彩虹标语：云朵自己拼广告词</title>
+      </path>
+      <path d="M 405 748 Q 705.2 534.7 1098 410"
+        fill="none" stroke="#49A36B" stroke-width="2.20"
+        stroke-linecap="round" opacity=".3">
+        <title>云口袋 × 乌鸦广播：乌鸦背云到处播报</title>
+      </path>
+      <path d="M 405 748 Q 688.9 532.7 1098 520"
+        fill="none" stroke="#49A36B" stroke-width="2.20"
+        stroke-linecap="round" opacity=".3">
+        <title>云口袋 × 漂流瓶：瓶里寄送迷你云</title>
+      </path>
+      <path d="M 405 748 Q 691.8 579.1 1098 630"
+        fill="none" stroke="#49A36B" stroke-width="2.20"
+        stroke-linecap="round" opacity=".3">
+        <title>云口袋 × 流星快递：从天上直接送达</title>
+      </path>
+      <path d="M 600 748 Q 756.5 524.3 1098 410"
+        fill="none" stroke="#49A36B" stroke-width="2.20"
+        stroke-linecap="round" opacity=".3">
+        <title>影子胶 × 乌鸦广播：神秘产品适合乌鸦传播</title>
+      </path>
+      <path d="M 600 748 Q 752.3 471.9 1098 300"
+        fill="none" stroke="#49A36B" stroke-width="2.20"
+        stroke-linecap="round" opacity=".3">
+        <title>影子胶 × 托个梦：梦里演示影子被粘住</title>
+      </path>
+      <path d="M 600 748 Q 759.9 553.8 1098 520"
+        fill="none" stroke="#49A36B" stroke-width="2.20"
+        stroke-linecap="round" opacity=".3">
+        <title>影子胶 × 漂流瓶：瓶里附一滴体验装</title>
+      </path>
+      <path d="M 795 748 Q 832.0 455.4 1098 190"
+        fill="none" stroke="#49A36B" stroke-width="2.20"
+        stroke-linecap="round" opacity=".3">
+        <title>魔法豆 × 彩虹标语：豆藤长成巨大标语</title>
+      </path>
+      <path d="M 795 748 Q 795.1 469.0 1098 300"
+        fill="none" stroke="#49A36B" stroke-width="2.20"
+        stroke-linecap="round" opacity=".3">
+        <title>魔法豆 × 托个梦：梦里先看到生长结果</title>
+      </path>
+      <path d="M 795 748 Q 803.7 509.4 1098 410"
+        fill="none" stroke="#49A36B" stroke-width="2.20"
+        stroke-linecap="round" opacity=".3">
+        <title>魔法豆 × 乌鸦广播：乌鸦负责播种和宣传</title>
+      </path>
+      <path d="M 795 748 Q 835.2 610.9 1098 630"
+        fill="none" stroke="#49A36B" stroke-width="2.20"
+        stroke-linecap="round" opacity=".3">
+        <title>魔法豆 × 流星快递：像种子一样撒向各地</title>
+      </path>
+      <path d="M 990 748 Q 867.4 444.5 1098 190"
+        fill="none" stroke="#49A36B" stroke-width="2.20"
+        stroke-linecap="round" opacity=".3">
+        <title>飞天帽 × 彩虹标语：飞行轨迹写成标语</title>
+      </path>
+      <path d="M 990 748 Q 877.1 515.5 1098 410"
+        fill="none" stroke="#49A36B" stroke-width="2.20"
+        stroke-linecap="round" opacity=".3">
+        <title>飞天帽 × 乌鸦广播：空中用户由乌鸦触达</title>
+      </path>
+      <path d="M 990 748 Q 882.3 591.2 1098 630"
+        fill="none" stroke="#49A36B" stroke-width="2.20"
+        stroke-linecap="round" opacity=".3">
+        <title>飞天帽 × 流星快递：本身就适合高速配送</title>
+      </path>
+      <path d="M 1098 190 Q 629.4 263.8 210 72"
+        fill="none" stroke="#8B61C2" stroke-width="2.20"
+        stroke-linecap="round" opacity=".3">
+        <title>彩虹标语 × 树精：森林上空最容易看见</title>
+      </path>
+      <path d="M 1098 190 Q 828.7 225.9 795 72"
+        fill="none" stroke="#8B61C2" stroke-width="2.20"
+        stroke-linecap="round" opacity=".3">
+        <title>彩虹标语 × 石头：石头抬头就能看到</title>
+      </path>
+      <path d="M 1098 190 Q 700.3 213.1 405 72"
+        fill="none" stroke="#8B61C2" stroke-width="2.20"
+        stroke-linecap="round" opacity=".3">
+        <title>彩虹标语 × 鼻涕虫：爬得慢，可以看很久</title>
+      </path>
+      <path d="M 1098 190 Q 863.8 248.1 990 72"
+        fill="none" stroke="#8B61C2" stroke-width="2.20"
+        stroke-linecap="round" opacity=".3">
+        <title>彩虹标语 × 云团子：就在云边出现</title>
+      </path>
+      <path d="M 1098 300 Q 750.9 274.3 600 72"
+        fill="none" stroke="#8B61C2" stroke-width="2.20"
+        stroke-linecap="round" opacity=".3">
+        <title>托个梦 × 小幽灵：幽灵常在梦里活动</title>
+      </path>
+      <path d="M 1098 300 Q 636.2 260.9 210 72"
+        fill="none" stroke="#8B61C2" stroke-width="2.20"
+        stroke-linecap="round" opacity=".3">
+        <title>托个梦 × 树精：树精一睡就是很久</title>
+      </path>
+      <path d="M 1098 300 Q 817.9 276.5 795 72"
+        fill="none" stroke="#8B61C2" stroke-width="2.20"
+        stroke-linecap="round" opacity=".3">
+        <title>托个梦 × 石头：石头难得做梦，印象更深</title>
+      </path>
+      <path d="M 1098 300 Q 885.0 266.2 990 72"
+        fill="none" stroke="#8B61C2" stroke-width="2.20"
+        stroke-linecap="round" opacity=".3">
+        <title>托个梦 × 云团子：云团子常在梦里飘</title>
+      </path>
+      <path d="M 1098 410 Q 640.1 287.7 210 72"
+        fill="none" stroke="#8B61C2" stroke-width="2.20"
+        stroke-linecap="round" opacity=".3">
+        <title>乌鸦广播 × 树精：乌鸦经常停在树上</title>
+      </path>
+      <path d="M 1098 410 Q 740.8 322.5 600 72"
+        fill="none" stroke="#8B61C2" stroke-width="2.20"
+        stroke-linecap="round" opacity=".3">
+        <title>乌鸦广播 × 小幽灵：夜间广播正好覆盖幽灵</title>
+      </path>
+      <path d="M 1098 410 Q 803.7 310.6 795 72"
+        fill="none" stroke="#8B61C2" stroke-width="2.20"
+        stroke-linecap="round" opacity=".3">
+        <title>乌鸦广播 × 石头：声音比画面更容易注意</title>
+      </path>
+      <path d="M 1098 410 Q 910.2 293.0 990 72"
+        fill="none" stroke="#8B61C2" stroke-width="2.20"
+        stroke-linecap="round" opacity=".3">
+        <title>乌鸦广播 × 云团子：空中传播范围一致</title>
+      </path>
+      <path d="M 1098 520 Q 687.5 351.9 405 72"
+        fill="none" stroke="#8B61C2" stroke-width="2.20"
+        stroke-linecap="round" opacity=".3">
+        <title>漂流瓶 × 鼻涕虫：喜欢沿着湿地移动</title>
+      </path>
+      <path d="M 1098 520 Q 633.7 338.9 210 72"
+        fill="none" stroke="#8B61C2" stroke-width="2.20"
+        stroke-linecap="round" opacity=".3">
+        <title>漂流瓶 × 树精：河流经常经过森林</title>
+      </path>
+      <path d="M 1098 520 Q 762.9 327.5 600 72"
+        fill="none" stroke="#8B61C2" stroke-width="2.20"
+        stroke-linecap="round" opacity=".3">
+        <title>漂流瓶 × 小幽灵：神秘瓶子容易吸引幽灵</title>
+      </path>
+      <path d="M 1098 630 Q 843.4 378.7 990 72"
+        fill="none" stroke="#8B61C2" stroke-width="2.20"
+        stroke-linecap="round" opacity=".3">
+        <title>流星快递 × 云团子：都在天空活动</title>
+      </path>
+      <path d="M 1098 630 Q 764.3 371.1 600 72"
+        fill="none" stroke="#8B61C2" stroke-width="2.20"
+        stroke-linecap="round" opacity=".3">
+        <title>流星快递 × 小幽灵：夜间收到的概率最高</title>
+      </path>
+      <path d="M 1098 630 Q 838.3 363.5 795 72"
+        fill="none" stroke="#8B61C2" stroke-width="2.20"
+        stroke-linecap="round" opacity=".3">
+        <title>流星快递 × 石头：砸到附近就一定会注意</title>
+      </path></g>
+  <g>
+      <g transform="translate(210 72)">
+        <rect x="-83" y="-27" width="166" height="54" rx="15" fill="#73B97C" stroke="#ffffff" stroke-opacity=".18"/>
+        <text x="0" y="2" text-anchor="middle" dominant-baseline="middle"
+          fill="#17152f" font-family="Microsoft YaHei, PingFang SC, sans-serif"
+          font-size="16" font-weight="800">🌳 树精</text>
+      </g>
+      <g transform="translate(405 72)">
+        <rect x="-83" y="-27" width="166" height="54" rx="15" fill="#73B97C" stroke="#ffffff" stroke-opacity=".18"/>
+        <text x="0" y="2" text-anchor="middle" dominant-baseline="middle"
+          fill="#17152f" font-family="Microsoft YaHei, PingFang SC, sans-serif"
+          font-size="16" font-weight="800">🐌 鼻涕虫</text>
+      </g>
+      <g transform="translate(600 72)">
+        <rect x="-83" y="-27" width="166" height="54" rx="15" fill="#73B97C" stroke="#ffffff" stroke-opacity=".18"/>
+        <text x="0" y="2" text-anchor="middle" dominant-baseline="middle"
+          fill="#17152f" font-family="Microsoft YaHei, PingFang SC, sans-serif"
+          font-size="16" font-weight="800">👻 小幽灵</text>
+      </g>
+      <g transform="translate(795 72)">
+        <rect x="-83" y="-27" width="166" height="54" rx="15" fill="#73B97C" stroke="#ffffff" stroke-opacity=".18"/>
+        <text x="0" y="2" text-anchor="middle" dominant-baseline="middle"
+          fill="#17152f" font-family="Microsoft YaHei, PingFang SC, sans-serif"
+          font-size="16" font-weight="800">🪨 石头</text>
+      </g>
+      <g transform="translate(990 72)">
+        <rect x="-83" y="-27" width="166" height="54" rx="15" fill="#73B97C" stroke="#ffffff" stroke-opacity=".18"/>
+        <text x="0" y="2" text-anchor="middle" dominant-baseline="middle"
+          fill="#17152f" font-family="Microsoft YaHei, PingFang SC, sans-serif"
+          font-size="16" font-weight="800">☁️ 云团子</text>
+      </g>
+      <g transform="translate(102 190)">
+        <rect x="-83" y="-27" width="166" height="54" rx="15" fill="#F0A15A" stroke="#ffffff" stroke-opacity=".18"/>
+        <text x="0" y="2" text-anchor="middle" dominant-baseline="middle"
+          fill="#17152f" font-family="Microsoft YaHei, PingFang SC, sans-serif"
+          font-size="16" font-weight="800">💇 刘海总是翘着</text>
+      </g>
+      <g transform="translate(102 300)">
+        <rect x="-83" y="-27" width="166" height="54" rx="15" fill="#F0A15A" stroke="#ffffff" stroke-opacity=".18"/>
+        <text x="0" y="2" text-anchor="middle" dominant-baseline="middle"
+          fill="#17152f" font-family="Microsoft YaHei, PingFang SC, sans-serif"
+          font-size="16" font-weight="800">💧 喝水老是呛到</text>
+      </g>
+      <g transform="translate(102 410)">
+        <rect x="-83" y="-27" width="166" height="54" rx="15" fill="#F0A15A" stroke="#ffffff" stroke-opacity=".18"/>
+        <text x="0" y="2" text-anchor="middle" dominant-baseline="middle"
+          fill="#17152f" font-family="Microsoft YaHei, PingFang SC, sans-serif"
+          font-size="16" font-weight="800">🕗 每天八点会焦虑</text>
+      </g>
+      <g transform="translate(102 520)">
+        <rect x="-83" y="-27" width="166" height="54" rx="15" fill="#F0A15A" stroke="#ffffff" stroke-opacity=".18"/>
+        <text x="0" y="2" text-anchor="middle" dominant-baseline="middle"
+          fill="#17152f" font-family="Microsoft YaHei, PingFang SC, sans-serif"
+          font-size="16" font-weight="800">💭 发呆收不回思绪</text>
+      </g>
+      <g transform="translate(102 630)">
+        <rect x="-83" y="-27" width="166" height="54" rx="15" fill="#F0A15A" stroke="#ffffff" stroke-opacity=".18"/>
+        <text x="0" y="2" text-anchor="middle" dominant-baseline="middle"
+          fill="#17152f" font-family="Microsoft YaHei, PingFang SC, sans-serif"
+          font-size="16" font-weight="800">🥱 一坐下就犯困</text>
+      </g>
+      <g transform="translate(210 748)">
+        <rect x="-83" y="-27" width="166" height="54" rx="15" fill="#67A5D1" stroke="#ffffff" stroke-opacity=".18"/>
+        <text x="0" y="2" text-anchor="middle" dominant-baseline="middle"
+          fill="#17152f" font-family="Microsoft YaHei, PingFang SC, sans-serif"
+          font-size="16" font-weight="800">🌙 月亮枕</text>
+      </g>
+      <g transform="translate(405 748)">
+        <rect x="-83" y="-27" width="166" height="54" rx="15" fill="#67A5D1" stroke="#ffffff" stroke-opacity=".18"/>
+        <text x="0" y="2" text-anchor="middle" dominant-baseline="middle"
+          fill="#17152f" font-family="Microsoft YaHei, PingFang SC, sans-serif"
+          font-size="16" font-weight="800">☁️ 云口袋</text>
+      </g>
+      <g transform="translate(600 748)">
+        <rect x="-83" y="-27" width="166" height="54" rx="15" fill="#67A5D1" stroke="#ffffff" stroke-opacity=".18"/>
+        <text x="0" y="2" text-anchor="middle" dominant-baseline="middle"
+          fill="#17152f" font-family="Microsoft YaHei, PingFang SC, sans-serif"
+          font-size="16" font-weight="800">🪄 影子胶</text>
+      </g>
+      <g transform="translate(795 748)">
+        <rect x="-83" y="-27" width="166" height="54" rx="15" fill="#67A5D1" stroke="#ffffff" stroke-opacity=".18"/>
+        <text x="0" y="2" text-anchor="middle" dominant-baseline="middle"
+          fill="#17152f" font-family="Microsoft YaHei, PingFang SC, sans-serif"
+          font-size="16" font-weight="800">🌱 魔法豆</text>
+      </g>
+      <g transform="translate(990 748)">
+        <rect x="-83" y="-27" width="166" height="54" rx="15" fill="#67A5D1" stroke="#ffffff" stroke-opacity=".18"/>
+        <text x="0" y="2" text-anchor="middle" dominant-baseline="middle"
+          fill="#17152f" font-family="Microsoft YaHei, PingFang SC, sans-serif"
+          font-size="16" font-weight="800">🎈 飞天帽</text>
+      </g>
+      <g transform="translate(1098 190)">
+        <rect x="-83" y="-27" width="166" height="54" rx="15" fill="#AC85D7" stroke="#ffffff" stroke-opacity=".18"/>
+        <text x="0" y="2" text-anchor="middle" dominant-baseline="middle"
+          fill="#17152f" font-family="Microsoft YaHei, PingFang SC, sans-serif"
+          font-size="16" font-weight="800">🌈 彩虹标语</text>
+      </g>
+      <g transform="translate(1098 300)">
+        <rect x="-83" y="-27" width="166" height="54" rx="15" fill="#AC85D7" stroke="#ffffff" stroke-opacity=".18"/>
+        <text x="0" y="2" text-anchor="middle" dominant-baseline="middle"
+          fill="#17152f" font-family="Microsoft YaHei, PingFang SC, sans-serif"
+          font-size="16" font-weight="800">💭 托个梦</text>
+      </g>
+      <g transform="translate(1098 410)">
+        <rect x="-83" y="-27" width="166" height="54" rx="15" fill="#AC85D7" stroke="#ffffff" stroke-opacity=".18"/>
+        <text x="0" y="2" text-anchor="middle" dominant-baseline="middle"
+          fill="#17152f" font-family="Microsoft YaHei, PingFang SC, sans-serif"
+          font-size="16" font-weight="800">🐦 乌鸦广播</text>
+      </g>
+      <g transform="translate(1098 520)">
+        <rect x="-83" y="-27" width="166" height="54" rx="15" fill="#AC85D7" stroke="#ffffff" stroke-opacity=".18"/>
+        <text x="0" y="2" text-anchor="middle" dominant-baseline="middle"
+          fill="#17152f" font-family="Microsoft YaHei, PingFang SC, sans-serif"
+          font-size="16" font-weight="800">🍾 漂流瓶</text>
+      </g>
+      <g transform="translate(1098 630)">
+        <rect x="-83" y="-27" width="166" height="54" rx="15" fill="#AC85D7" stroke="#ffffff" stroke-opacity=".18"/>
+        <text x="0" y="2" text-anchor="middle" dominant-baseline="middle"
+          fill="#17152f" font-family="Microsoft YaHei, PingFang SC, sans-serif"
+          font-size="16" font-weight="800">🌠 流星快递</text>
+      </g></g>
+</svg>
