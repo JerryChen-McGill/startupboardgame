@@ -351,22 +351,122 @@
               <h2>没有唯一答案，<br />但每一条线都要讲得通。</h2>
             </div>
             <p class="section-intro">
-              20 张核心示例卡分布在矩形四边，四角留白，中间只保留连接。点击卡牌可锁定相关连线，悬停或聚焦连线可查看理由。
+              40 张卡全部进入关系工作台。卡牌块与关系线默认使用虚线；只有经过确认的对象才显示为实线。
+              点击卡牌或连线即可检查、修改、删除、确认或取消确认，所有操作都会保存在本地草稿并写入修改记录。
             </p>
           </div>
 
           <div class="network-toolbar">
             <div class="relation-filters" id="relation-filters" role="group" aria-label="筛选关系类型"></div>
-            <button class="button button-dark" id="download-network" type="button">下载 SVG <span aria-hidden="true">↓</span></button>
+            <div class="network-toolbar-actions">
+              <a class="button button-light" href="#relationship-editor">打开编辑器</a>
+              <button class="button button-dark" id="download-network" type="button">下载 SVG <span aria-hidden="true">↓</span></button>
+              <button class="button button-light" id="export-game-json" type="button">导出 JSON</button>
+              <button class="button button-light" id="export-change-log" type="button">导出修改记录</button>
+            </div>
           </div>
-          <div class="network-canvas-wrap">
-            <svg id="relationship-network" class="relationship-network" viewBox="0 0 1200 820" role="img" aria-labelledby="network-title">
-              <title id="network-title">用户、传播、需求、产品卡牌之间的多对多关系网络</title>
-            </svg>
-            <div class="network-tooltip" id="network-tooltip" role="status"></div>
-          </div>
-          <div class="network-caption">
-            <span>20 张卡</span><span>72 条示例关系</span><span>仅允许 4 类相邻关系</span><span>不检查两个对角组合</span>
+
+          <div class="network-workbench">
+            <div class="network-map-column">
+              <div class="network-canvas-wrap">
+                <svg id="relationship-network" class="relationship-network" viewBox="0 0 1400 980" role="img" aria-labelledby="network-title">
+                  <title id="network-title">40 张用户、传播、需求、产品卡牌之间的可编辑关系网络</title>
+                </svg>
+                <div class="network-tooltip" id="network-tooltip" role="status"></div>
+              </div>
+              <div class="network-caption" id="network-caption">
+                <span id="network-card-count">40 张卡</span>
+                <span id="network-relation-count">72 条关系</span>
+                <span id="network-card-confirmed">0 张卡已确认</span>
+                <span id="network-relation-confirmed">0 条关系已确认</span>
+              </div>
+            </div>
+
+            <aside class="network-editor" id="relationship-editor" aria-labelledby="network-editor-title">
+              <div class="network-editor-header">
+                <div>
+                  <p class="kicker">DATA EDITOR</p>
+                  <h3 id="network-editor-title">逐项检查与确认</h3>
+                </div>
+                <span class="draft-status" id="editor-draft-status">0 项修改</span>
+              </div>
+
+              <div class="editor-primary-actions">
+                <button type="button" id="new-card">＋ 新增卡牌</button>
+                <button type="button" id="new-relation">＋ 新增关系</button>
+              </div>
+
+              <p class="editor-message" id="editor-message" aria-live="polite"></p>
+              <div class="editor-empty" id="editor-empty">
+                <b>选择一个对象开始检查</b>
+                <p>点击图中的卡牌块或关系线；未确认对象保持虚线，确认后转为实线。</p>
+              </div>
+
+              <form class="editor-form" id="card-editor-form" hidden>
+                <input type="hidden" id="card-original-id" />
+                <div class="editor-form-title">
+                  <h4>卡牌</h4>
+                  <span class="confirmation-badge" id="card-confirmation-badge">待确认</span>
+                </div>
+                <div class="editor-field-grid">
+                  <label>卡牌 ID<input id="card-id" name="id" required pattern="[a-z0-9-]+" /></label>
+                  <label>类别
+                    <select id="card-type" name="type" required>
+                      <option value="user">用户</option>
+                      <option value="promotion">传播</option>
+                      <option value="need">需求</option>
+                      <option value="product">产品</option>
+                    </select>
+                  </label>
+                  <label>名称<input id="card-name-input" name="name" required /></label>
+                  <label>图标<input id="card-emoji-input" name="emoji" required maxlength="8" /></label>
+                  <label class="editor-field-wide">描述<input id="card-note-input" name="note" required /></label>
+                  <label>专属色名称<input id="card-accent-name" name="accentName" required /></label>
+                  <label>专属色<input id="card-accent" name="accent" type="color" required /></label>
+                  <label class="editor-checkbox editor-field-wide">
+                    <input id="card-network" name="network" type="checkbox" />
+                    保留为 STARTUP LAB 核心抽卡
+                  </label>
+                </div>
+                <div class="editor-form-actions">
+                  <button class="editor-save" type="submit">保存卡牌</button>
+                  <button class="editor-confirm" id="toggle-card-confirmation" type="button">确认卡牌</button>
+                  <button class="editor-delete" id="delete-card" type="button">删除</button>
+                </div>
+              </form>
+
+              <form class="editor-form" id="relation-editor-form" hidden>
+                <input type="hidden" id="relation-original-key" />
+                <div class="editor-form-title">
+                  <h4>关系</h4>
+                  <span class="confirmation-badge" id="relation-confirmation-badge">待确认</span>
+                </div>
+                <div class="editor-field-grid">
+                  <label class="editor-field-wide">起点
+                    <select id="relation-source" name="source" required></select>
+                  </label>
+                  <label class="editor-field-wide">终点
+                    <select id="relation-target" name="target" required></select>
+                  </label>
+                  <label>关系类型<output id="relation-type-label">选择两张卡</output></label>
+                  <label>权重<input id="relation-weight" name="weight" type="number" min="1" max="5" value="3" required /></label>
+                  <label class="editor-field-wide">关系理由<textarea id="relation-reason" name="reason" rows="3" required></textarea></label>
+                </div>
+                <div class="editor-form-actions">
+                  <button class="editor-save" type="submit">保存关系</button>
+                  <button class="editor-confirm" id="toggle-relation-confirmation" type="button">确认关系</button>
+                  <button class="editor-delete" id="delete-relation" type="button">删除</button>
+                </div>
+              </form>
+
+              <div class="change-log-panel">
+                <div class="change-log-heading">
+                  <b>最近修改</b>
+                  <span id="change-log-count">0 条</span>
+                </div>
+                <ol id="change-log-preview"></ol>
+              </div>
+            </aside>
           </div>
         </div>
       </section>
