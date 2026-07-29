@@ -33,6 +33,18 @@ const CARD_EDGE_CONFIG = {
     { neighborType: "need", side: "left", mode: "receive" },
   ],
 };
+const CONNECTOR_SHAPES = {
+  red: { name: "圆", markup: '<circle cx="20" cy="20" r="13" />' },
+  orange: { name: "正方形", markup: '<rect x="7" y="7" width="26" height="26" />' },
+  yellow: { name: "菱形", markup: '<path d="M20 4 36 20 20 36 4 20Z" />' },
+  green: { name: "等边三角形", markup: '<path d="M20 4 36 34 4 34Z" />' },
+  cyan: { name: "六边形", markup: '<path d="M11 4h18l9 16-9 16H11L2 20Z" />' },
+  blue: { name: "长方形", markup: '<rect x="4" y="11" width="32" height="18" rx="2" />' },
+  purple: { name: "八边形", markup: '<path d="M12 3h16l9 9v16l-9 9H12l-9-9V12Z" />' },
+  white: { name: "线段", markup: '<path d="M4 20h32" fill="none" />' },
+  black: { name: "十字", markup: '<path d="M15 4h10v11h11v10H25v11H15V25H4V15h11Z" />' },
+  brown: { name: "椭圆", markup: '<ellipse cx="20" cy="20" rx="16" ry="10" />' },
+};
 
 document.addEventListener("DOMContentLoaded", async () => {
   try {
@@ -145,12 +157,13 @@ function renderCardLibrary(filter = "all") {
         <article
           class="library-card"
           data-type="${card.type}"
-          style="--category-bg:${meta.color};--card-halo:${card.accent};animation-delay:${index * 20}ms"
+          data-card-id="${card.id}"
+          style="animation-delay:${index * 20}ms"
         >
           ${renderLibraryEdges(card)}
           <div class="card-topline">
             <span>${meta.label}卡</span>
-            <span>${card.accentName} · ${meta.en}</span>
+            <span>${meta.en} CARD</span>
           </div>
           <h3 class="card-name">${card.name}</h3>
           <div class="card-emoji" aria-hidden="true"><i></i><span>${card.emoji}</span></div>
@@ -165,13 +178,14 @@ function renderLibraryEdges(card) {
   return CARD_EDGE_CONFIG[card.type]
     .map(({ neighborType, side, mode }) => {
       if (mode === "own") {
+        const shape = CONNECTOR_SHAPES[card.accentKey] || CONNECTOR_SHAPES.black;
         return `
           <div
             class="card-edge edge-${side} edge-own"
-            title="专属色延伸：${card.accentName}"
+            title="本卡接口：${shape.name}"
             aria-hidden="true"
           >
-            <span style="background:${card.accent}"></span>
+            ${renderConnectorShape(card.accentKey, side)}
           </div>
         `;
       }
@@ -188,14 +202,39 @@ function renderLibraryEdges(card) {
       return `
         <div
           class="card-edge edge-${side} edge-receive"
-          title="接收可匹配色：${names}"
+          title="可匹配：${names}"
           aria-hidden="true"
         >
-          ${matches.map((match) => `<span style="background:${match.accent}"></span>`).join("")}
+          ${matches.map((match) => renderConnectorShape(match.accentKey, side)).join("")}
         </div>
       `;
     })
     .join("");
+}
+
+function renderConnectorShape(shapeKey, side) {
+  const shape = CONNECTOR_SHAPES[shapeKey] || CONNECTOR_SHAPES.black;
+  const shapeTransform =
+    (shapeKey === "green" || shapeKey === "white") && (side === "top" || side === "bottom")
+      ? ' transform="rotate(90 20 20)"'
+      : "";
+  const viewBoxes = {
+    right: "0 0 20 40",
+    left: "20 0 20 40",
+    bottom: "0 0 40 20",
+    top: "0 20 40 20",
+  };
+  return `
+    <svg
+      class="connector-shape"
+      viewBox="${viewBoxes[side]}"
+      preserveAspectRatio="none"
+      role="img"
+      aria-label="${shape.name}的一半"
+    >
+      <g${shapeTransform}>${shape.markup}</g>
+    </svg>
+  `;
 }
 
 function bindCardFilters() {

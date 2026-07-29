@@ -215,8 +215,8 @@
               <h2>四十张已有卡牌，<br />四种不同的语言。</h2>
             </div>
             <p class="section-intro">
-              每类卡牌使用固定背景色，每张卡再获得一个独立的红、橙、黄、绿、青、蓝、紫、白、黑或棕色光环。
-              一条边延伸本卡的单种专属色，另一条边接收关系图中所有可匹配卡牌的多种颜色。
+              黑白卡面使用简洁图标呈现角色与情境。卡牌边缘预留半个正方形作为接口；
+              当两张卡的半图形沿连接轴拼成完整的对称图形时，即表示它们可以匹配。
             </p>
           </div>
 
@@ -226,6 +226,14 @@
             <button class="filter-chip" type="button" data-card-filter="promotion">传播</button>
             <button class="filter-chip" type="button" data-card-filter="need">需求</button>
             <button class="filter-chip" type="button" data-card-filter="product">产品</button>
+          </div>
+          <div class="connector-legend" aria-label="几何接口匹配说明">
+            <div class="connector-demo" aria-hidden="true">
+              <span class="demo-card demo-left"></span>
+              <svg viewBox="0 0 40 40"><path d="M20 4 36 20 20 36 4 20Z" /></svg>
+              <span class="demo-card demo-right"></span>
+            </div>
+            <p><b>几何接口</b><span>相邻边的两个半图形能沿轴线拼成完整图形，即为匹配。每个接口包含 1–4 种候选图形。</span></p>
           </div>
           <div class="card-library" id="card-library" aria-live="polite"></div>
         </div>
