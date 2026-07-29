@@ -216,7 +216,7 @@
             </div>
             <p class="section-intro">
               每类卡牌使用固定背景色，每张卡再获得一个独立的红、橙、黄、绿、青、蓝、紫、白、黑或棕色光环。
-              卡牌边缘的粗色条来自关系图，颜色对应它能匹配的另一张卡。
+              一条边延伸本卡的单种专属色，另一条边接收关系图中所有可匹配卡牌的多种颜色。
             </p>
           </div>
 
@@ -235,11 +235,11 @@
         <div class="section-heading">
           <div>
             <p class="kicker">PHYSICAL PROTOTYPE</p>
-            <h2>底色说明类别，<br />光环与边条说明匹配。</h2>
+            <h2>浅色底说明类别，<br />单色输出，多色接收。</h2>
           </div>
           <p class="section-intro">
-            每张卡都是 3:4 长方形。类别决定背景，专属色包围图像形成光环；
-            两条相邻边用粗色条列出关系图中可匹配卡牌的专属颜色。
+            每张卡都是 3:4 长方形。类别决定浅色背景，专属色包围图像形成轮廓；
+            一条边把自己的专属色延伸出去，另一条边用分段色条接收所有可匹配对象。
           </p>
         </div>
 
@@ -253,24 +253,26 @@
                     <feDropShadow dx="0" dy="14" stdDeviation="12" flood-opacity=".2" />
                   </filter>
                 </defs>
-                <rect x="18" y="16" width="324" height="432" rx="22" fill="#9fcea4" filter="url(#card-shadow)" />
-                <text x="44" y="58" font-size="14" font-weight="850" fill="#68647a">用户 · USER</text>
-                <text x="316" y="58" text-anchor="end" font-size="14" font-weight="850" fill="#68647a">绿 · 01</text>
-                <circle cx="180" cy="190" r="80" fill="#43a66b" fill-opacity=".28" stroke="#43a66b" stroke-width="8" />
-                <text x="180" y="216" text-anchor="middle" font-size="82">🌳</text>
-                <text x="180" y="310" text-anchor="middle" font-size="38" font-weight="900" fill="#17152f">树精</text>
-                <text x="180" y="345" text-anchor="middle" font-size="17" fill="#68647a">天天掉树叶</text>
+                <rect x="18" y="16" width="324" height="432" rx="22" fill="#e7f4e4" filter="url(#card-shadow)" />
+                <rect x="27" y="25" width="306" height="414" rx="16" fill="none" stroke="#73b97c" stroke-width="2" />
+                <text x="180" y="56" text-anchor="middle" font-size="15" font-weight="850" fill="#285e36">用户卡</text>
+                <path d="M135 67h36l9 9 9-9h36" fill="none" stroke="#285e36" stroke-width="1.5" />
+                <text x="180" y="89" text-anchor="middle" font-size="12" font-weight="800" fill="#68647a">绿 · USER 01</text>
+                <text x="180" y="132" text-anchor="middle" font-size="38" font-weight="900" fill="#1f4f2c">树精</text>
+                <circle cx="180" cy="237" r="86" fill="#43a66b" fill-opacity=".1" stroke="#43a66b" stroke-width="8" />
+                <text x="180" y="264" text-anchor="middle" font-size="82">🌳</text>
+                <text x="55" y="370" font-size="17" font-weight="750" fill="#3e6547">天天掉树叶</text>
                 <path d="M337 28v101" stroke="#8e67d5" stroke-width="10" />
                 <path d="M337 133v101" stroke="#f8f5ec" stroke-width="10" />
                 <path d="M337 238v101" stroke="#25232d" stroke-width="10" />
                 <path d="M337 343v93" stroke="#4d8fe5" stroke-width="10" />
-                <path d="M30 443h98" stroke="#f8f5ec" stroke-width="10" />
-                <path d="M132 443h98" stroke="#e5524a" stroke-width="10" />
-                <path d="M234 443h96" stroke="#4d8fe5" stroke-width="10" />
-                <text x="180" y="410" text-anchor="middle" font-size="13" font-weight="800" fill="#68647a">右边匹配传播 · 下边匹配需求</text>
+                <path d="M180 323v120" stroke="#43a66b" stroke-width="8" />
+                <path d="M30 443h300" stroke="#43a66b" stroke-width="10" />
+                <text x="55" y="408" font-size="12" font-weight="800" fill="#3e6547">右边接收传播色</text>
+                <text x="205" y="408" font-size="12" font-weight="800" fill="#3e6547">下边延伸专属色</text>
               </svg>
             </div>
-            <p>树精使用用户绿背景与绿色专属光环；右边四段色条对应四张传播卡，下边三段对应三张需求卡。</p>
+            <p>树精使用浅用户绿背景与绿色专属轮廓；右边四段接收可匹配的传播色，下边只延伸树精自己的绿色。</p>
           </article>
 
           <aside class="materials-list">

@@ -14,20 +14,20 @@ const STARTUP_PAIR_TYPES = [
 ];
 const CARD_EDGE_CONFIG = {
   user: [
-    { neighborType: "promotion", side: "right" },
-    { neighborType: "need", side: "bottom" },
+    { neighborType: "promotion", side: "right", mode: "receive" },
+    { neighborType: "need", side: "bottom", mode: "own" },
   ],
   promotion: [
-    { neighborType: "user", side: "left" },
-    { neighborType: "product", side: "bottom" },
+    { neighborType: "user", side: "left", mode: "own" },
+    { neighborType: "product", side: "bottom", mode: "receive" },
   ],
   need: [
-    { neighborType: "user", side: "top" },
-    { neighborType: "product", side: "right" },
+    { neighborType: "user", side: "top", mode: "receive" },
+    { neighborType: "product", side: "right", mode: "own" },
   ],
   product: [
-    { neighborType: "promotion", side: "top" },
-    { neighborType: "need", side: "left" },
+    { neighborType: "promotion", side: "top", mode: "own" },
+    { neighborType: "need", side: "left", mode: "receive" },
   ],
 };
 
@@ -87,11 +87,11 @@ function renderCardLibrary(filter = "all") {
         >
           ${renderLibraryEdges(card)}
           <div class="card-topline">
-            <span>${meta.label}</span>
+            <span>${meta.label}卡</span>
             <span>${card.accentName} · ${meta.en}</span>
           </div>
-          <div class="card-emoji" aria-hidden="true"><i></i><span>${card.emoji}</span></div>
           <h3 class="card-name">${card.name}</h3>
+          <div class="card-emoji" aria-hidden="true"><i></i><span>${card.emoji}</span></div>
           <p class="card-question">${card.note}</p>
         </article>
       `;
@@ -101,7 +101,19 @@ function renderCardLibrary(filter = "all") {
 
 function renderLibraryEdges(card) {
   return CARD_EDGE_CONFIG[card.type]
-    .map(({ neighborType, side }) => {
+    .map(({ neighborType, side, mode }) => {
+      if (mode === "own") {
+        return `
+          <div
+            class="card-edge edge-${side} edge-own"
+            title="专属色延伸：${card.accentName}"
+            aria-hidden="true"
+          >
+            <span style="background:${card.accent}"></span>
+          </div>
+        `;
+      }
+
       const matches = gameData.relations
         .filter((relation) => relation.source === card.id || relation.target === card.id)
         .map((relation) => {
@@ -112,7 +124,11 @@ function renderLibraryEdges(card) {
       if (!matches.length) return "";
       const names = matches.map((match) => match.name).join("、");
       return `
-        <div class="card-edge edge-${side}" title="可匹配：${names}" aria-hidden="true">
+        <div
+          class="card-edge edge-${side} edge-receive"
+          title="接收可匹配色：${names}"
+          aria-hidden="true"
+        >
           ${matches.map((match) => `<span style="background:${match.accent}"></span>`).join("")}
         </div>
       `;
@@ -461,14 +477,15 @@ function renderStartup(cardIds) {
 
 function renderStartupEdges(card, selectedByType) {
   return CARD_EDGE_CONFIG[card.type]
-    .map(({ neighborType, side }) => {
+    .map(({ neighborType, side, mode }) => {
       const neighbor = selectedByType.get(neighborType);
       const relation = relationByPair.get(pairKey(card.id, neighbor.id));
       if (!relation) return "";
+      const edgeColor = mode === "own" ? card.accent : neighbor.accent;
       return `
         <div
-          class="project-edge edge-${side}"
-          style="--edge-color:${neighbor.accent}"
+          class="project-edge edge-${side} edge-${mode}"
+          style="--edge-color:${edgeColor}"
           title="${relation.reason}"
           aria-hidden="true"
         ></div>
