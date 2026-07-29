@@ -7,6 +7,26 @@ const rootDirectory = path.resolve(scriptDirectory, "..");
 const dataPath = path.join(rootDirectory, "data", "game-data.json");
 const data = JSON.parse(fs.readFileSync(dataPath, "utf8"));
 
+const accentPalette = {
+  red: { label: "红", color: "#E5524A" },
+  orange: { label: "橙", color: "#F08A3E" },
+  yellow: { label: "黄", color: "#F4C542" },
+  green: { label: "绿", color: "#43A66B" },
+  cyan: { label: "青", color: "#31B7B3" },
+  blue: { label: "蓝", color: "#4D8FE5" },
+  purple: { label: "紫", color: "#8E67D5" },
+  white: { label: "白", color: "#F8F5EC" },
+  black: { label: "黑", color: "#25232D" },
+  brown: { label: "棕", color: "#8A5B3D" },
+};
+
+const cardAccentKeys = {
+  user: ["green", "brown", "white", "black", "red", "yellow", "purple", "blue", "cyan", "orange"],
+  need: ["brown", "blue", "red", "white", "purple", "black", "yellow", "green", "cyan", "orange"],
+  product: ["yellow", "white", "black", "green", "cyan", "red", "purple", "blue", "brown", "orange"],
+  promotion: ["purple", "white", "black", "blue", "yellow", "cyan", "green", "orange", "brown", "red"],
+};
+
 const approvedNetworkCards = {
   user: ["树精", "鼻涕虫", "小幽灵", "石头", "云团子"],
   need: ["刘海总是翘着", "喝水老是呛到", "每天八点会焦虑", "发呆收不回思绪", "一坐下就犯困"],
@@ -98,20 +118,24 @@ data.categoryMeta.product.color = "#67A5D1";
 data.categoryMeta.promotion.color = "#AC85D7";
 data.categoryMeta.promotion.label = "传播";
 data.categoryMeta.promotion.en = "SPREAD";
+data.accentPalette = accentPalette;
 
 data.relationMeta = {
   "user-need": { label: "用户 × 需求", color: "#4A90E2" },
-  "user-product": { label: "用户 × 产品", color: "#55A7A0" },
   "user-promotion": { label: "传播 × 用户", color: "#8B61C2" },
   "need-product": { label: "需求 × 产品", color: "#F39C3D" },
-  "need-promotion": { label: "需求 × 传播", color: "#D47A9A" },
   "product-promotion": { label: "产品 × 传播", color: "#49A36B" },
 };
 
 Object.entries(data.cards).forEach(([type, cards]) => {
   const approvedNames = new Set(approvedNetworkCards[type]);
-  cards.forEach((card) => {
+  cards.forEach((card, index) => {
+    const accentKey = cardAccentKeys[type][index];
+    const accent = accentPalette[accentKey];
     card.network = approvedNames.has(card.name);
+    card.accentKey = accentKey;
+    card.accentName = accent.label;
+    card.accent = accent.color;
   });
 });
 

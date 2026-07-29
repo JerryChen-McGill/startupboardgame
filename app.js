@@ -6,6 +6,30 @@ let relationByPair;
 let activeRelationType = "all";
 let selectedNodeId = null;
 const STARTUP_CARD_ORDER = ["user", "promotion", "need", "product"];
+const STARTUP_PAIR_TYPES = [
+  ["user", "promotion"],
+  ["user", "need"],
+  ["promotion", "product"],
+  ["need", "product"],
+];
+const CARD_EDGE_CONFIG = {
+  user: [
+    { neighborType: "promotion", side: "right" },
+    { neighborType: "need", side: "bottom" },
+  ],
+  promotion: [
+    { neighborType: "user", side: "left" },
+    { neighborType: "product", side: "bottom" },
+  ],
+  need: [
+    { neighborType: "user", side: "top" },
+    { neighborType: "product", side: "right" },
+  ],
+  product: [
+    { neighborType: "promotion", side: "top" },
+    { neighborType: "need", side: "left" },
+  ],
+};
 
 document.addEventListener("DOMContentLoaded", async () => {
   try {
@@ -49,21 +73,48 @@ function renderCardLibrary(filter = "all") {
   const library = document.querySelector("#card-library");
   const cards = Object.entries(gameData.cards)
     .flatMap(([type, entries]) => entries.map((card) => ({ ...card, type })))
-    .filter((card) => filter === "all" || card.type === filter);
+    .filter((card) => filter === "all" || card.type === filter)
+    .sort((a, b) => STARTUP_CARD_ORDER.indexOf(a.type) - STARTUP_CARD_ORDER.indexOf(b.type));
 
   library.innerHTML = cards
     .map((card, index) => {
       const meta = gameData.categoryMeta[card.type];
       return `
-        <article class="library-card" data-type="${card.type}" style="animation-delay:${index * 20}ms">
+        <article
+          class="library-card"
+          data-type="${card.type}"
+          style="--category-bg:${meta.color};--card-halo:${card.accent};animation-delay:${index * 20}ms"
+        >
+          ${renderLibraryEdges(card)}
           <div class="card-topline">
             <span>${meta.label}</span>
-            <span>${meta.en}</span>
+            <span>${card.accentName} · ${meta.en}</span>
           </div>
-          <div class="card-emoji" aria-hidden="true">${card.emoji}</div>
+          <div class="card-emoji" aria-hidden="true"><i></i><span>${card.emoji}</span></div>
           <h3 class="card-name">${card.name}</h3>
           <p class="card-question">${card.note}</p>
         </article>
+      `;
+    })
+    .join("");
+}
+
+function renderLibraryEdges(card) {
+  return CARD_EDGE_CONFIG[card.type]
+    .map(({ neighborType, side }) => {
+      const matches = gameData.relations
+        .filter((relation) => relation.source === card.id || relation.target === card.id)
+        .map((relation) => {
+          const otherId = relation.source === card.id ? relation.target : relation.source;
+          return cardById.get(otherId);
+        })
+        .filter((otherCard) => otherCard?.type === neighborType);
+      if (!matches.length) return "";
+      const names = matches.map((match) => match.name).join("、");
+      return `
+        <div class="card-edge edge-${side}" title="可匹配：${names}" aria-hidden="true">
+          ${matches.map((match) => `<span style="background:${match.accent}"></span>`).join("")}
+        </div>
       `;
     })
     .join("");
@@ -344,40 +395,44 @@ function renderStartup(cardIds) {
     .map((id) => cardById.get(id))
     .sort((a, b) => STARTUP_CARD_ORDER.indexOf(a.type) - STARTUP_CARD_ORDER.indexOf(b.type));
   const orderedCardIds = selected.map((card) => card.id);
-  const pairs = [];
+  const selectedByType = new Map(selected.map((card) => [card.type, card]));
+  const pairs = STARTUP_PAIR_TYPES.map(([typeA, typeB]) => {
+    const a = selectedByType.get(typeA);
+    const b = selectedByType.get(typeB);
+    return { a, b, relation: relationByPair.get(pairKey(a.id, b.id)) };
+  });
   const degree = new Map(orderedCardIds.map((id) => [id, 0]));
 
-  for (let i = 0; i < orderedCardIds.length; i += 1) {
-    for (let j = i + 1; j < orderedCardIds.length; j += 1) {
-      const relation = relationByPair.get(pairKey(orderedCardIds[i], orderedCardIds[j]));
-      if (relation) {
-        degree.set(orderedCardIds[i], degree.get(orderedCardIds[i]) + 1);
-        degree.set(orderedCardIds[j], degree.get(orderedCardIds[j]) + 1);
-      }
-      pairs.push({ a: selected[i], b: selected[j], relation });
-    }
-  }
+  pairs.forEach(({ a, b, relation }) => {
+    if (!relation) return;
+    degree.set(a.id, degree.get(a.id) + 1);
+    degree.set(b.id, degree.get(b.id) + 1);
+  });
 
   const edgeCount = pairs.filter((pair) => pair.relation).length;
   const hasIsland = [...degree.values()].some((count) => count === 0);
   const isConnected = projectIsConnected(orderedCardIds, pairs);
-  const status = evaluateStatus(isConnected, hasIsland);
+  const status = evaluateStatus(edgeCount, isConnected, hasIsland);
   const panel = document.querySelector("#startup-result");
 
   panel.innerHTML = `
     <div class="startup-panel">
       <div class="startup-panel-header">
         <span class="startup-status ${status.className}">${status.label}</span>
-        <span class="startup-score">${edgeCount} 条示例关系 · ${isConnected ? "整体已连通" : "整体未连通"}</span>
+        <span class="startup-score">${edgeCount}/4 条相邻关系 · 融资 ${status.funding}</span>
       </div>
       <div class="startup-cards">
         ${selected
           .map((card) => {
             const meta = gameData.categoryMeta[card.type];
             return `
-              <article class="startup-mini-card ${card.type}">
+              <article
+                class="startup-mini-card ${card.type}"
+                style="--mini-accent:${meta.color};--mini-halo:${card.accent}"
+              >
+                ${renderStartupEdges(card, selectedByType)}
                 <small>${meta.label}</small>
-                <span aria-hidden="true">${card.emoji}</span>
+                <div class="startup-emoji" aria-hidden="true"><i></i><span>${card.emoji}</span></div>
                 <b>${card.name}</b>
               </article>
             `;
@@ -404,6 +459,24 @@ function renderStartup(cardIds) {
   `;
 }
 
+function renderStartupEdges(card, selectedByType) {
+  return CARD_EDGE_CONFIG[card.type]
+    .map(({ neighborType, side }) => {
+      const neighbor = selectedByType.get(neighborType);
+      const relation = relationByPair.get(pairKey(card.id, neighbor.id));
+      if (!relation) return "";
+      return `
+        <div
+          class="project-edge edge-${side}"
+          style="--edge-color:${neighbor.accent}"
+          title="${relation.reason}"
+          aria-hidden="true"
+        ></div>
+      `;
+    })
+    .join("");
+}
+
 function projectIsConnected(cardIds, pairs) {
   if (!cardIds.length) return false;
   const adjacency = new Map(cardIds.map((id) => [id, new Set()]));
@@ -425,8 +498,12 @@ function projectIsConnected(cardIds, pairs) {
   return visited.size === cardIds.length;
 }
 
-function evaluateStatus(isConnected, hasIsland) {
-  if (hasIsland) return { label: "需要调整 · 存在孤岛", className: "fail" };
-  if (!isConnected) return { label: "需要调整 · 尚未连通", className: "fail" };
-  return { label: "项目完成 · 整体连通", className: "great" };
+function evaluateStatus(edgeCount, isConnected, hasIsland) {
+  if (edgeCount === 4) {
+    return { label: "强强合作 · 四边连通", className: "great", funding: "200 万 / 人" };
+  }
+  if (edgeCount === 3 && isConnected && !hasIsland) {
+    return { label: "创业成立 · T 字连通", className: "partial", funding: "100 万 / 人" };
+  }
+  return { label: "创业失败 · 存在孤岛", className: "fail", funding: "0" };
 }

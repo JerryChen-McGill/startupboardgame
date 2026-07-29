@@ -38,70 +38,100 @@
         "name": "树精",
         "emoji": "🌳",
         "note": "天天掉树叶",
-        "network": true
+        "network": true,
+        "accentKey": "green",
+        "accentName": "绿",
+        "accent": "#43A66B"
       },
       {
         "id": "u-snail",
         "name": "鼻涕虫",
         "emoji": "🐌",
         "note": "移动超慢",
-        "network": true
+        "network": true,
+        "accentKey": "brown",
+        "accentName": "棕",
+        "accent": "#8A5B3D"
       },
       {
         "id": "u-ghost",
         "name": "小幽灵",
         "emoji": "👻",
         "note": "胆子很小",
-        "network": true
+        "network": true,
+        "accentKey": "white",
+        "accentName": "白",
+        "accent": "#F8F5EC"
       },
       {
         "id": "u-stone",
         "name": "石头",
         "emoji": "🪨",
         "note": "特别有主见",
-        "network": true
+        "network": true,
+        "accentKey": "black",
+        "accentName": "黑",
+        "accent": "#25232D"
       },
       {
         "id": "u-dragon",
         "name": "小火龙",
         "emoji": "🐉",
         "note": "特别怕热",
-        "network": false
+        "network": false,
+        "accentKey": "red",
+        "accentName": "红",
+        "accent": "#E5524A"
       },
       {
         "id": "u-firefly",
         "name": "萤火虫",
         "emoji": "✨",
         "note": "白天发不了光",
-        "network": false
+        "network": false,
+        "accentKey": "yellow",
+        "accentName": "黄",
+        "accent": "#F4C542"
       },
       {
         "id": "u-octopus",
         "name": "小章鱼",
         "emoji": "🐙",
         "note": "八只手都很忙",
-        "network": false
+        "network": false,
+        "accentKey": "purple",
+        "accentName": "紫",
+        "accent": "#8E67D5"
       },
       {
         "id": "u-crow",
         "name": "乌鸦邮差",
         "emoji": "🐦",
         "note": "什么都送",
-        "network": false
+        "network": false,
+        "accentKey": "blue",
+        "accentName": "蓝",
+        "accent": "#4D8FE5"
       },
       {
         "id": "u-cloud",
         "name": "云团子",
         "emoji": "☁️",
         "note": "每天飘来飘去",
-        "network": true
+        "network": true,
+        "accentKey": "cyan",
+        "accentName": "青",
+        "accent": "#31B7B3"
       },
       {
         "id": "u-mushroom",
         "name": "蘑菇人",
         "emoji": "🍄",
         "note": "下雨就开心",
-        "network": false
+        "network": false,
+        "accentKey": "orange",
+        "accentName": "橙",
+        "accent": "#F08A3E"
       }
     ],
     "need": [
@@ -110,70 +140,100 @@
         "name": "刘海总是翘着",
         "emoji": "💇",
         "note": "一句真实的吐槽",
-        "network": true
+        "network": true,
+        "accentKey": "brown",
+        "accentName": "棕",
+        "accent": "#8A5B3D"
       },
       {
         "id": "n-water",
         "name": "喝水老是呛到",
         "emoji": "💧",
         "note": "越小越具体",
-        "network": true
+        "network": true,
+        "accentKey": "blue",
+        "accentName": "蓝",
+        "accent": "#4D8FE5"
       },
       {
         "id": "n-eight",
         "name": "每天八点会焦虑",
         "emoji": "🕗",
         "note": "时间一到就紧张",
-        "network": true
+        "network": true,
+        "accentKey": "red",
+        "accentName": "红",
+        "accent": "#E5524A"
       },
       {
         "id": "n-daze",
         "name": "发呆收不回思绪",
         "emoji": "💭",
         "note": "脑子飘远了",
-        "network": true
+        "network": true,
+        "accentKey": "white",
+        "accentName": "白",
+        "accent": "#F8F5EC"
       },
       {
         "id": "n-sleepy",
         "name": "一坐下就犯困",
         "emoji": "🥱",
         "note": "椅子像有魔法",
-        "network": true
+        "network": true,
+        "accentKey": "purple",
+        "accentName": "紫",
+        "accent": "#8E67D5"
       },
       {
         "id": "n-phone",
         "name": "睡前总想刷手机",
         "emoji": "📱",
         "note": "再看五分钟",
-        "network": false
+        "network": false,
+        "accentKey": "black",
+        "accentName": "黑",
+        "accent": "#25232D"
       },
       {
         "id": "n-hearing",
         "name": "总觉得有人叫我",
         "emoji": "👂",
         "note": "回头却没人",
-        "network": false
+        "network": false,
+        "accentKey": "yellow",
+        "accentName": "黄",
+        "accent": "#F4C542"
       },
       {
         "id": "n-exam",
         "name": "一考试就忘光",
         "emoji": "📝",
         "note": "脑袋瞬间清空",
-        "network": false
+        "network": false,
+        "accentKey": "green",
+        "accentName": "绿",
+        "accent": "#43A66B"
       },
       {
         "id": "n-lost",
         "name": "老是找不到东西",
         "emoji": "🔎",
         "note": "明明就在眼前",
-        "network": false
+        "network": false,
+        "accentKey": "cyan",
+        "accentName": "青",
+        "accent": "#31B7B3"
       },
       {
         "id": "n-slack",
         "name": "每天都想摸鱼",
         "emoji": "🐟",
         "note": "今天也不例外",
-        "network": false
+        "network": false,
+        "accentKey": "orange",
+        "accentName": "橙",
+        "accent": "#F08A3E"
       }
     ],
     "product": [
@@ -182,70 +242,100 @@
         "name": "月亮枕",
         "emoji": "🌙",
         "note": "把夜色垫在脑后",
-        "network": true
+        "network": true,
+        "accentKey": "yellow",
+        "accentName": "黄",
+        "accent": "#F4C542"
       },
       {
         "id": "p-cloud",
         "name": "云口袋",
         "emoji": "☁️",
         "note": "装下轻飘飘的东西",
-        "network": true
+        "network": true,
+        "accentKey": "white",
+        "accentName": "白",
+        "accent": "#F8F5EC"
       },
       {
         "id": "p-shadow",
         "name": "影子胶",
         "emoji": "🪄",
         "note": "把跑掉的影子粘住",
-        "network": true
+        "network": true,
+        "accentKey": "black",
+        "accentName": "黑",
+        "accent": "#25232D"
       },
       {
         "id": "p-bean",
         "name": "魔法豆",
         "emoji": "🌱",
         "note": "种下一个意外答案",
-        "network": true
+        "network": true,
+        "accentKey": "green",
+        "accentName": "绿",
+        "accent": "#43A66B"
       },
       {
         "id": "p-bubble",
         "name": "泡泡鞋",
         "emoji": "🫧",
         "note": "每一步都轻一点",
-        "network": false
+        "network": false,
+        "accentKey": "cyan",
+        "accentName": "青",
+        "accent": "#31B7B3"
       },
       {
         "id": "p-luck",
         "name": "好运贴",
         "emoji": "✨",
         "note": "贴哪儿哪儿顺利",
-        "network": false
+        "network": false,
+        "accentKey": "red",
+        "accentName": "红",
+        "accent": "#E5524A"
       },
       {
         "id": "p-candy",
         "name": "彩虹糖",
         "emoji": "🌈",
         "note": "嚼出一种天气",
-        "network": false
+        "network": false,
+        "accentKey": "purple",
+        "accentName": "紫",
+        "accent": "#8E67D5"
       },
       {
         "id": "p-mirror",
         "name": "倒放镜",
         "emoji": "🪞",
         "note": "把刚才重新来一遍",
-        "network": false
+        "network": false,
+        "accentKey": "blue",
+        "accentName": "蓝",
+        "accent": "#4D8FE5"
       },
       {
         "id": "p-magnet",
         "name": "幸运磁",
         "emoji": "🧲",
         "note": "只吸好事情",
-        "network": false
+        "network": false,
+        "accentKey": "brown",
+        "accentName": "棕",
+        "accent": "#8A5B3D"
       },
       {
         "id": "p-hat",
         "name": "飞天帽",
         "emoji": "🎈",
         "note": "风一吹就出发",
-        "network": true
+        "network": true,
+        "accentKey": "orange",
+        "accentName": "橙",
+        "accent": "#F08A3E"
       }
     ],
     "promotion": [
@@ -254,70 +344,100 @@
         "name": "彩虹标语",
         "emoji": "🌈",
         "note": "把口号写在天上",
-        "network": true
+        "network": true,
+        "accentKey": "purple",
+        "accentName": "紫",
+        "accent": "#8E67D5"
       },
       {
         "id": "m-dream",
         "name": "托个梦",
         "emoji": "💭",
         "note": "趁用户睡着安利",
-        "network": true
+        "network": true,
+        "accentKey": "white",
+        "accentName": "白",
+        "accent": "#F8F5EC"
       },
       {
         "id": "m-crow",
         "name": "乌鸦广播",
         "emoji": "🐦",
         "note": "森林里的早间频道",
-        "network": true
+        "network": true,
+        "accentKey": "black",
+        "accentName": "黑",
+        "accent": "#25232D"
       },
       {
         "id": "m-bottle",
         "name": "漂流瓶",
         "emoji": "🍾",
         "note": "让广告自己去旅行",
-        "network": true
+        "network": true,
+        "accentKey": "blue",
+        "accentName": "蓝",
+        "accent": "#4D8FE5"
       },
       {
         "id": "m-meteor",
         "name": "流星快递",
         "emoji": "🌠",
         "note": "一闪而过但使命必达",
-        "network": true
+        "network": true,
+        "accentKey": "yellow",
+        "accentName": "黄",
+        "accent": "#F4C542"
       },
       {
         "id": "m-breeze",
         "name": "晚风安利",
         "emoji": "🌬️",
         "note": "在耳边轻轻说服",
-        "network": false
+        "network": false,
+        "accentKey": "cyan",
+        "accentName": "青",
+        "accent": "#31B7B3"
       },
       {
         "id": "m-firefly",
         "name": "萤火巡游",
         "emoji": "✨",
         "note": "夜空限定发布会",
-        "network": false
+        "network": false,
+        "accentKey": "green",
+        "accentName": "绿",
+        "accent": "#43A66B"
       },
       {
         "id": "m-cloud",
         "name": "白云写字",
         "emoji": "☁️",
         "note": "全城共享一块天幕",
-        "network": false
+        "network": false,
+        "accentKey": "orange",
+        "accentName": "橙",
+        "accent": "#F08A3E"
       },
       {
         "id": "m-moon",
         "name": "月亮直播",
         "emoji": "🌙",
         "note": "今晚只有一个频道",
-        "network": false
+        "network": false,
+        "accentKey": "brown",
+        "accentName": "棕",
+        "accent": "#8A5B3D"
       },
       {
         "id": "m-balloon",
         "name": "气球大逃亡",
         "emoji": "🎈",
         "note": "广告飞得到处都是",
-        "network": false
+        "network": false,
+        "accentKey": "red",
+        "accentName": "红",
+        "accent": "#E5524A"
       }
     ]
   },
@@ -326,10 +446,6 @@
       "label": "用户 × 需求",
       "color": "#4A90E2"
     },
-    "user-product": {
-      "label": "用户 × 产品",
-      "color": "#55A7A0"
-    },
     "user-promotion": {
       "label": "传播 × 用户",
       "color": "#8B61C2"
@@ -337,10 +453,6 @@
     "need-product": {
       "label": "需求 × 产品",
       "color": "#F39C3D"
-    },
-    "need-promotion": {
-      "label": "需求 × 传播",
-      "color": "#D47A9A"
     },
     "product-promotion": {
       "label": "产品 × 传播",
@@ -866,5 +978,47 @@
       "p-pillow",
       "m-bottle"
     ]
+  },
+  "accentPalette": {
+    "red": {
+      "label": "红",
+      "color": "#E5524A"
+    },
+    "orange": {
+      "label": "橙",
+      "color": "#F08A3E"
+    },
+    "yellow": {
+      "label": "黄",
+      "color": "#F4C542"
+    },
+    "green": {
+      "label": "绿",
+      "color": "#43A66B"
+    },
+    "cyan": {
+      "label": "青",
+      "color": "#31B7B3"
+    },
+    "blue": {
+      "label": "蓝",
+      "color": "#4D8FE5"
+    },
+    "purple": {
+      "label": "紫",
+      "color": "#8E67D5"
+    },
+    "white": {
+      "label": "白",
+      "color": "#F8F5EC"
+    },
+    "black": {
+      "label": "黑",
+      "color": "#25232D"
+    },
+    "brown": {
+      "label": "棕",
+      "color": "#8A5B3D"
+    }
   }
 }
