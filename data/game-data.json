@@ -1,1024 +1,211 @@
 {
   "meta": {
     "title": "迷你创业桌游",
-    "version": "0.1",
-    "networkCardCount": 20,
-    "relationCount": 72
+    "version": "0.2",
+    "networkCardCount": 39,
+    "relationCount": 120,
+    "relationshipPrinciple": "每一条关系都必须说明具体场景或作用机制"
   },
   "categoryMeta": {
-    "user": {
-      "label": "用户",
-      "en": "USER",
-      "question": "谁？",
-      "color": "#73B97C"
-    },
-    "need": {
-      "label": "需求",
-      "en": "NEED",
-      "question": "怎么了？",
-      "color": "#F0A15A"
-    },
-    "product": {
-      "label": "产品",
-      "en": "PRODUCT",
-      "question": "怎么办？",
-      "color": "#67A5D1"
-    },
-    "promotion": {
-      "label": "传播",
-      "en": "SPREAD",
-      "question": "怎么让大家知道？",
-      "color": "#AC85D7"
-    }
+    "user": { "label": "用户", "en": "USER", "question": "谁？", "color": "#73B97C" },
+    "need": { "label": "需求", "en": "NEED", "question": "怎么了？", "color": "#F0A15A" },
+    "product": { "label": "产品", "en": "PRODUCT", "question": "怎么办？", "color": "#67A5D1" },
+    "promotion": { "label": "传播", "en": "SPREAD", "question": "怎么让大家知道？", "color": "#AC85D7" }
   },
   "cards": {
     "user": [
-      {
-        "id": "u-tree",
-        "name": "树精",
-        "emoji": "🌳",
-        "note": "天天掉树叶",
-        "network": true,
-        "accentKey": "green",
-        "accentName": "绿",
-        "accent": "#43A66B"
-      },
-      {
-        "id": "u-snail",
-        "name": "鼻涕虫",
-        "emoji": "🐌",
-        "note": "移动超慢",
-        "network": true,
-        "accentKey": "brown",
-        "accentName": "棕",
-        "accent": "#8A5B3D"
-      },
-      {
-        "id": "u-ghost",
-        "name": "小幽灵",
-        "emoji": "👻",
-        "note": "胆子很小",
-        "network": true,
-        "accentKey": "white",
-        "accentName": "白",
-        "accent": "#F8F5EC"
-      },
-      {
-        "id": "u-stone",
-        "name": "石头",
-        "emoji": "🪨",
-        "note": "特别有主见",
-        "network": true,
-        "accentKey": "black",
-        "accentName": "黑",
-        "accent": "#25232D"
-      },
-      {
-        "id": "u-dragon",
-        "name": "小火龙",
-        "emoji": "🐉",
-        "note": "特别怕热",
-        "network": false,
-        "accentKey": "red",
-        "accentName": "红",
-        "accent": "#E5524A"
-      },
-      {
-        "id": "u-firefly",
-        "name": "萤火虫",
-        "emoji": "✨",
-        "note": "白天发不了光",
-        "network": false,
-        "accentKey": "yellow",
-        "accentName": "黄",
-        "accent": "#F4C542"
-      },
-      {
-        "id": "u-octopus",
-        "name": "小章鱼",
-        "emoji": "🐙",
-        "note": "八只手都很忙",
-        "network": false,
-        "accentKey": "purple",
-        "accentName": "紫",
-        "accent": "#8E67D5"
-      },
-      {
-        "id": "u-crow",
-        "name": "乌鸦邮差",
-        "emoji": "🐦",
-        "note": "什么都送",
-        "network": false,
-        "accentKey": "blue",
-        "accentName": "蓝",
-        "accent": "#4D8FE5"
-      },
-      {
-        "id": "u-cloud",
-        "name": "云团子",
-        "emoji": "☁️",
-        "note": "每天飘来飘去",
-        "network": true,
-        "accentKey": "cyan",
-        "accentName": "青",
-        "accent": "#31B7B3"
-      },
-      {
-        "id": "u-mushroom",
-        "name": "蘑菇人",
-        "emoji": "🍄",
-        "note": "下雨就开心",
-        "network": false,
-        "accentKey": "orange",
-        "accentName": "橙",
-        "accent": "#F08A3E"
-      }
+      { "id": "u-tree", "name": "树精灵", "emoji": "🌳", "note": "天天掉树叶", "network": true, "accentKey": "green", "accentName": "绿", "accent": "#43A66B", "confirmed": false },
+      { "id": "u-snail", "name": "蜗牛", "emoji": "🐌", "note": "移动超慢", "network": true, "accentKey": "brown", "accentName": "棕", "accent": "#8A5B3D", "confirmed": false },
+      { "id": "u-stone", "name": "无名石头", "emoji": "🪨", "note": "特别有主见", "network": true, "accentKey": "black", "accentName": "黑", "accent": "#25232D", "confirmed": false },
+      { "id": "u-firefly", "name": "萤火虫", "emoji": "✨", "note": "白天发不了光", "network": false, "accentKey": "yellow", "accentName": "黄", "accent": "#F4C542", "confirmed": false },
+      { "id": "u-octopus", "name": "小章鱼", "emoji": "🐙", "note": "八只手都很忙", "network": false, "accentKey": "purple", "accentName": "紫", "accent": "#8E67D5", "confirmed": false },
+      { "id": "u-crow", "name": "乌鸦邮差", "emoji": "🐦", "note": "什么都送", "network": false, "accentKey": "blue", "accentName": "蓝", "accent": "#4D8FE5", "confirmed": false },
+      { "id": "u-cloud", "name": "云团子", "emoji": "☁️", "note": "每天飘来飘去", "network": true, "accentKey": "cyan", "accentName": "青", "accent": "#31B7B3", "confirmed": false },
+      { "id": "u-mushroom", "name": "小蘑菇", "emoji": "🍄", "note": "下雨就开心", "network": false, "accentKey": "orange", "accentName": "橙", "accent": "#F08A3E", "confirmed": false },
+      { "id": "new-card-ms60m3pb", "name": "忙碌的厨师", "emoji": "🧑‍🍳", "note": "他太忙了，没时间干任何事", "network": false, "accentKey": "custom-new-card-ms60m3pb", "accentName": "自定义", "accent": "#878787", "confirmed": false },
+      { "id": "new-card-ms60pajb", "name": "老头", "emoji": "👴", "note": "他有点老", "network": false, "accentKey": "custom-new-card-ms60pajb", "accentName": "自定义", "accent": "#888888", "confirmed": false }
     ],
     "need": [
-      {
-        "id": "n-hair",
-        "name": "刘海总是翘着",
-        "emoji": "💇",
-        "note": "一句真实的吐槽",
-        "network": true,
-        "accentKey": "brown",
-        "accentName": "棕",
-        "accent": "#8A5B3D"
-      },
-      {
-        "id": "n-water",
-        "name": "喝水老是呛到",
-        "emoji": "💧",
-        "note": "越小越具体",
-        "network": true,
-        "accentKey": "blue",
-        "accentName": "蓝",
-        "accent": "#4D8FE5"
-      },
-      {
-        "id": "n-eight",
-        "name": "每天八点会焦虑",
-        "emoji": "🕗",
-        "note": "时间一到就紧张",
-        "network": true,
-        "accentKey": "red",
-        "accentName": "红",
-        "accent": "#E5524A"
-      },
-      {
-        "id": "n-daze",
-        "name": "发呆收不回思绪",
-        "emoji": "💭",
-        "note": "脑子飘远了",
-        "network": true,
-        "accentKey": "white",
-        "accentName": "白",
-        "accent": "#F8F5EC"
-      },
-      {
-        "id": "n-sleepy",
-        "name": "一坐下就犯困",
-        "emoji": "🥱",
-        "note": "椅子像有魔法",
-        "network": true,
-        "accentKey": "purple",
-        "accentName": "紫",
-        "accent": "#8E67D5"
-      },
-      {
-        "id": "n-phone",
-        "name": "睡前总想刷手机",
-        "emoji": "📱",
-        "note": "再看五分钟",
-        "network": false,
-        "accentKey": "black",
-        "accentName": "黑",
-        "accent": "#25232D"
-      },
-      {
-        "id": "n-hearing",
-        "name": "总觉得有人叫我",
-        "emoji": "👂",
-        "note": "回头却没人",
-        "network": false,
-        "accentKey": "yellow",
-        "accentName": "黄",
-        "accent": "#F4C542"
-      },
-      {
-        "id": "n-exam",
-        "name": "一考试就忘光",
-        "emoji": "📝",
-        "note": "脑袋瞬间清空",
-        "network": false,
-        "accentKey": "green",
-        "accentName": "绿",
-        "accent": "#43A66B"
-      },
-      {
-        "id": "n-lost",
-        "name": "老是找不到东西",
-        "emoji": "🔎",
-        "note": "明明就在眼前",
-        "network": false,
-        "accentKey": "cyan",
-        "accentName": "青",
-        "accent": "#31B7B3"
-      },
-      {
-        "id": "n-slack",
-        "name": "每天都想摸鱼",
-        "emoji": "🐟",
-        "note": "今天也不例外",
-        "network": false,
-        "accentKey": "orange",
-        "accentName": "橙",
-        "accent": "#F08A3E"
-      }
+      { "id": "n-water", "name": "喝水老是呛到", "emoji": "💧", "note": "越小越具体", "network": true, "accentKey": "blue", "accentName": "蓝", "accent": "#4D8FE5", "confirmed": false },
+      { "id": "n-eight", "name": "天黑就会焦虑", "emoji": "🕗", "note": "时间一到就紧张", "network": true, "accentKey": "red", "accentName": "红", "accent": "#E5524A", "confirmed": false },
+      { "id": "n-daze", "name": "一发起呆就停不下来", "emoji": "💭", "note": "脑子飘远了", "network": true, "accentKey": "white", "accentName": "白", "accent": "#F8F5EC", "confirmed": false },
+      { "id": "n-sleepy", "name": "一坐下就犯困", "emoji": "🥱", "note": "椅子像有魔法", "network": true, "accentKey": "purple", "accentName": "紫", "accent": "#8E67D5", "confirmed": false },
+      { "id": "n-phone", "name": "睡前总想刷手机", "emoji": "📱", "note": "再看五分钟", "network": false, "accentKey": "black", "accentName": "黑", "accent": "#25232D", "confirmed": false },
+      { "id": "n-hearing", "name": "总觉得有人叫我", "emoji": "👂", "note": "回头却没人", "network": false, "accentKey": "yellow", "accentName": "黄", "accent": "#F4C542", "confirmed": false },
+      { "id": "n-exam", "name": "记忆太短了只有七秒", "emoji": "📝", "note": "脑袋瞬间清空", "network": false, "accentKey": "green", "accentName": "绿", "accent": "#43A66B", "confirmed": false },
+      { "id": "n-lost", "name": "东西丢了老是找不着", "emoji": "🔎", "note": "明明就在眼前", "network": false, "accentKey": "cyan", "accentName": "青", "accent": "#31B7B3", "confirmed": false },
+      { "id": "n-slack", "name": "每天都想摸鱼", "emoji": "🐟", "note": "今天也不例外", "network": false, "accentKey": "orange", "accentName": "橙", "accent": "#F08A3E", "confirmed": false }
     ],
     "product": [
-      {
-        "id": "p-pillow",
-        "name": "月亮枕",
-        "emoji": "🌙",
-        "note": "把夜色垫在脑后",
-        "network": true,
-        "accentKey": "yellow",
-        "accentName": "黄",
-        "accent": "#F4C542"
-      },
-      {
-        "id": "p-cloud",
-        "name": "云口袋",
-        "emoji": "☁️",
-        "note": "装下轻飘飘的东西",
-        "network": true,
-        "accentKey": "white",
-        "accentName": "白",
-        "accent": "#F8F5EC"
-      },
-      {
-        "id": "p-shadow",
-        "name": "影子胶",
-        "emoji": "🪄",
-        "note": "把跑掉的影子粘住",
-        "network": true,
-        "accentKey": "black",
-        "accentName": "黑",
-        "accent": "#25232D"
-      },
-      {
-        "id": "p-bean",
-        "name": "魔法豆",
-        "emoji": "🌱",
-        "note": "种下一个意外答案",
-        "network": true,
-        "accentKey": "green",
-        "accentName": "绿",
-        "accent": "#43A66B"
-      },
-      {
-        "id": "p-bubble",
-        "name": "泡泡鞋",
-        "emoji": "🫧",
-        "note": "每一步都轻一点",
-        "network": false,
-        "accentKey": "cyan",
-        "accentName": "青",
-        "accent": "#31B7B3"
-      },
-      {
-        "id": "p-luck",
-        "name": "好运贴",
-        "emoji": "✨",
-        "note": "贴哪儿哪儿顺利",
-        "network": false,
-        "accentKey": "red",
-        "accentName": "红",
-        "accent": "#E5524A"
-      },
-      {
-        "id": "p-candy",
-        "name": "彩虹糖",
-        "emoji": "🌈",
-        "note": "嚼出一种天气",
-        "network": false,
-        "accentKey": "purple",
-        "accentName": "紫",
-        "accent": "#8E67D5"
-      },
-      {
-        "id": "p-mirror",
-        "name": "倒放镜",
-        "emoji": "🪞",
-        "note": "把刚才重新来一遍",
-        "network": false,
-        "accentKey": "blue",
-        "accentName": "蓝",
-        "accent": "#4D8FE5"
-      },
-      {
-        "id": "p-magnet",
-        "name": "幸运磁",
-        "emoji": "🧲",
-        "note": "只吸好事情",
-        "network": false,
-        "accentKey": "brown",
-        "accentName": "棕",
-        "accent": "#8A5B3D"
-      },
-      {
-        "id": "p-hat",
-        "name": "飞天帽",
-        "emoji": "🎈",
-        "note": "风一吹就出发",
-        "network": true,
-        "accentKey": "orange",
-        "accentName": "橙",
-        "accent": "#F08A3E"
-      }
+      { "id": "p-pillow", "name": "月亮枕", "emoji": "🌙", "note": "把夜色垫在脑后", "network": true, "accentKey": "yellow", "accentName": "黄", "accent": "#F4C542", "confirmed": false },
+      { "id": "p-cloud", "name": "云口袋", "emoji": "☁️", "note": "装下轻飘飘的东西", "network": true, "accentKey": "white", "accentName": "白", "accent": "#F8F5EC", "confirmed": false },
+      { "id": "p-shadow", "name": "影子胶", "emoji": "🪄", "note": "把跑掉的影子粘住", "network": true, "accentKey": "black", "accentName": "黑", "accent": "#25232D", "confirmed": false },
+      { "id": "p-bean", "name": "魔法豆", "emoji": "🌱", "note": "种下一个意外答案", "network": true, "accentKey": "green", "accentName": "绿", "accent": "#43A66B", "confirmed": false },
+      { "id": "p-bubble", "name": "泡泡鞋", "emoji": "🫧", "note": "每一步都轻一点", "network": false, "accentKey": "cyan", "accentName": "青", "accent": "#31B7B3", "confirmed": false },
+      { "id": "p-luck", "name": "好运贴", "emoji": "✨", "note": "贴哪儿哪儿顺利", "network": false, "accentKey": "red", "accentName": "红", "accent": "#E5524A", "confirmed": false },
+      { "id": "p-candy", "name": "彩虹糖", "emoji": "🌈", "note": "嚼出一种天气", "network": false, "accentKey": "purple", "accentName": "紫", "accent": "#8E67D5", "confirmed": false },
+      { "id": "p-mirror", "name": "倒放镜", "emoji": "🪞", "note": "把刚才重新来一遍", "network": false, "accentKey": "blue", "accentName": "蓝", "accent": "#4D8FE5", "confirmed": false },
+      { "id": "p-magnet", "name": "幸运磁", "emoji": "🧲", "note": "只吸好事情", "network": false, "accentKey": "brown", "accentName": "棕", "accent": "#8A5B3D", "confirmed": false },
+      { "id": "p-hat", "name": "飞天帽", "emoji": "🎈", "note": "风一吹就出发", "network": true, "accentKey": "orange", "accentName": "橙", "accent": "#F08A3E", "confirmed": false }
     ],
     "promotion": [
-      {
-        "id": "m-rainbow",
-        "name": "彩虹标语",
-        "emoji": "🌈",
-        "note": "把口号写在天上",
-        "network": true,
-        "accentKey": "purple",
-        "accentName": "紫",
-        "accent": "#8E67D5"
-      },
-      {
-        "id": "m-dream",
-        "name": "托个梦",
-        "emoji": "💭",
-        "note": "趁用户睡着安利",
-        "network": true,
-        "accentKey": "white",
-        "accentName": "白",
-        "accent": "#F8F5EC"
-      },
-      {
-        "id": "m-crow",
-        "name": "乌鸦广播",
-        "emoji": "🐦",
-        "note": "森林里的早间频道",
-        "network": true,
-        "accentKey": "black",
-        "accentName": "黑",
-        "accent": "#25232D"
-      },
-      {
-        "id": "m-bottle",
-        "name": "漂流瓶",
-        "emoji": "🍾",
-        "note": "让广告自己去旅行",
-        "network": true,
-        "accentKey": "blue",
-        "accentName": "蓝",
-        "accent": "#4D8FE5"
-      },
-      {
-        "id": "m-meteor",
-        "name": "流星快递",
-        "emoji": "🌠",
-        "note": "一闪而过但使命必达",
-        "network": true,
-        "accentKey": "yellow",
-        "accentName": "黄",
-        "accent": "#F4C542"
-      },
-      {
-        "id": "m-breeze",
-        "name": "晚风安利",
-        "emoji": "🌬️",
-        "note": "在耳边轻轻说服",
-        "network": false,
-        "accentKey": "cyan",
-        "accentName": "青",
-        "accent": "#31B7B3"
-      },
-      {
-        "id": "m-firefly",
-        "name": "萤火巡游",
-        "emoji": "✨",
-        "note": "夜空限定发布会",
-        "network": false,
-        "accentKey": "green",
-        "accentName": "绿",
-        "accent": "#43A66B"
-      },
-      {
-        "id": "m-cloud",
-        "name": "白云写字",
-        "emoji": "☁️",
-        "note": "全城共享一块天幕",
-        "network": false,
-        "accentKey": "orange",
-        "accentName": "橙",
-        "accent": "#F08A3E"
-      },
-      {
-        "id": "m-moon",
-        "name": "月亮直播",
-        "emoji": "🌙",
-        "note": "今晚只有一个频道",
-        "network": false,
-        "accentKey": "brown",
-        "accentName": "棕",
-        "accent": "#8A5B3D"
-      },
-      {
-        "id": "m-balloon",
-        "name": "气球大逃亡",
-        "emoji": "🎈",
-        "note": "广告飞得到处都是",
-        "network": false,
-        "accentKey": "red",
-        "accentName": "红",
-        "accent": "#E5524A"
-      }
+      { "id": "m-rainbow", "name": "彩虹标语", "emoji": "🌈", "note": "把口号写在天上", "network": true, "accentKey": "purple", "accentName": "紫", "accent": "#8E67D5", "confirmed": false },
+      { "id": "m-dream", "name": "托个梦", "emoji": "💭", "note": "趁用户睡着安利", "network": true, "accentKey": "white", "accentName": "白", "accent": "#F8F5EC", "confirmed": false },
+      { "id": "m-crow", "name": "乌鸦广播", "emoji": "🐦", "note": "森林里的早间频道", "network": true, "accentKey": "black", "accentName": "黑", "accent": "#25232D", "confirmed": false },
+      { "id": "m-bottle", "name": "漂流瓶", "emoji": "🍾", "note": "让广告自己去旅行", "network": true, "accentKey": "blue", "accentName": "蓝", "accent": "#4D8FE5", "confirmed": false },
+      { "id": "m-meteor", "name": "流星快递", "emoji": "🌠", "note": "一闪而过但使命必达", "network": true, "accentKey": "yellow", "accentName": "黄", "accent": "#F4C542", "confirmed": false },
+      { "id": "m-breeze", "name": "晚风安利", "emoji": "🌬️", "note": "在耳边轻轻说服", "network": false, "accentKey": "cyan", "accentName": "青", "accent": "#31B7B3", "confirmed": false },
+      { "id": "m-firefly", "name": "萤火乱飞", "emoji": "✨", "note": "夜空限定发布会", "network": false, "accentKey": "green", "accentName": "绿", "accent": "#43A66B", "confirmed": false },
+      { "id": "m-cloud", "name": "白云写字", "emoji": "☁️", "note": "全城共享一块天幕", "network": false, "accentKey": "orange", "accentName": "橙", "accent": "#F08A3E", "confirmed": false },
+      { "id": "m-moon", "name": "月亮直播", "emoji": "🌙", "note": "今晚只有一个频道", "network": false, "accentKey": "brown", "accentName": "棕", "accent": "#8A5B3D", "confirmed": false },
+      { "id": "m-balloon", "name": "气球大逃亡", "emoji": "🎈", "note": "广告飞得到处都是", "network": false, "accentKey": "red", "accentName": "红", "accent": "#E5524A", "confirmed": false }
     ]
   },
   "relationMeta": {
-    "user-need": {
-      "label": "用户 × 需求",
-      "color": "#4A90E2"
-    },
-    "user-promotion": {
-      "label": "传播 × 用户",
-      "color": "#8B61C2"
-    },
-    "need-product": {
-      "label": "需求 × 产品",
-      "color": "#F39C3D"
-    },
-    "product-promotion": {
-      "label": "产品 × 传播",
-      "color": "#49A36B"
-    }
+    "user-need": { "label": "用户 × 需求", "color": "#4A90E2" },
+    "user-promotion": { "label": "传播 × 用户", "color": "#8B61C2" },
+    "need-product": { "label": "需求 × 产品", "color": "#F39C3D" },
+    "product-promotion": { "label": "产品 × 传播", "color": "#49A36B" }
   },
   "relations": [
-    {
-      "source": "u-tree",
-      "target": "n-daze",
-      "type": "user-need",
-      "weight": 4,
-      "reason": "一站就是一天"
-    },
-    {
-      "source": "u-tree",
-      "target": "n-eight",
-      "type": "user-need",
-      "weight": 4,
-      "reason": "天黑前总担心掉叶子"
-    },
-    {
-      "source": "u-tree",
-      "target": "n-water",
-      "type": "user-need",
-      "weight": 4,
-      "reason": "下雨时一下喝太多"
-    },
-    {
-      "source": "u-snail",
-      "target": "n-hair",
-      "type": "user-need",
-      "weight": 4,
-      "reason": "头顶总黏着奇怪东西"
-    },
-    {
-      "source": "u-snail",
-      "target": "n-water",
-      "type": "user-need",
-      "weight": 4,
-      "reason": "爬水洼时容易被呛"
-    },
-    {
-      "source": "u-snail",
-      "target": "n-eight",
-      "type": "user-need",
-      "weight": 4,
-      "reason": "八点还没爬到家"
-    },
-    {
-      "source": "u-snail",
-      "target": "n-sleepy",
-      "type": "user-need",
-      "weight": 4,
-      "reason": "移动太慢，总像没睡醒"
-    },
-    {
-      "source": "u-ghost",
-      "target": "n-eight",
-      "type": "user-need",
-      "weight": 4,
-      "reason": "八点正好开始上班"
-    },
-    {
-      "source": "u-ghost",
-      "target": "n-daze",
-      "type": "user-need",
-      "weight": 4,
-      "reason": "思绪经常飘出身体"
-    },
-    {
-      "source": "u-ghost",
-      "target": "n-hair",
-      "type": "user-need",
-      "weight": 4,
-      "reason": "没有重力压住头发"
-    },
-    {
-      "source": "u-ghost",
-      "target": "n-sleepy",
-      "type": "user-need",
-      "weight": 4,
-      "reason": "白天总想睡觉"
-    },
-    {
-      "source": "u-stone",
-      "target": "n-hair",
-      "type": "user-need",
-      "weight": 4,
-      "reason": "唯一一撮刘海偏偏压不平"
-    },
-    {
-      "source": "u-stone",
-      "target": "n-water",
-      "type": "user-need",
-      "weight": 4,
-      "reason": "嘴太小，雨太大"
-    },
-    {
-      "source": "u-stone",
-      "target": "n-daze",
-      "type": "user-need",
-      "weight": 4,
-      "reason": "一发呆就是几百年"
-    },
-    {
-      "source": "u-cloud",
-      "target": "n-hair",
-      "type": "user-need",
-      "weight": 4,
-      "reason": "头发总被风吹起来"
-    },
-    {
-      "source": "u-cloud",
-      "target": "n-daze",
-      "type": "user-need",
-      "weight": 4,
-      "reason": "思绪像云一样飘散"
-    },
-    {
-      "source": "u-cloud",
-      "target": "n-sleepy",
-      "type": "user-need",
-      "weight": 4,
-      "reason": "软绵绵的很容易睡着"
-    },
-    {
-      "source": "u-cloud",
-      "target": "n-eight",
-      "type": "user-need",
-      "weight": 4,
-      "reason": "担心八点被晚风吹散"
-    },
-    {
-      "source": "n-hair",
-      "target": "p-shadow",
-      "type": "need-product",
-      "weight": 4,
-      "reason": "固定刘海的影子"
-    },
-    {
-      "source": "n-hair",
-      "target": "p-cloud",
-      "type": "need-product",
-      "weight": 4,
-      "reason": "装一团云压住刘海"
-    },
-    {
-      "source": "n-hair",
-      "target": "p-bean",
-      "type": "need-product",
-      "weight": 4,
-      "reason": "长出一顶叶子帽"
-    },
-    {
-      "source": "n-hair",
-      "target": "p-hat",
-      "type": "need-product",
-      "weight": 4,
-      "reason": "直接把翘发藏起来"
-    },
-    {
-      "source": "n-water",
-      "target": "p-pillow",
-      "type": "need-product",
-      "weight": 4,
-      "reason": "躺着慢慢喝"
-    },
-    {
-      "source": "n-water",
-      "target": "p-cloud",
-      "type": "need-product",
-      "weight": 4,
-      "reason": "先把水装进云里"
-    },
-    {
-      "source": "n-water",
-      "target": "p-bean",
-      "type": "need-product",
-      "weight": 4,
-      "reason": "种出自动吸水藤"
-    },
-    {
-      "source": "n-eight",
-      "target": "p-pillow",
-      "type": "need-product",
-      "weight": 4,
-      "reason": "八点自动放松"
-    },
-    {
-      "source": "n-eight",
-      "target": "p-cloud",
-      "type": "need-product",
-      "weight": 4,
-      "reason": "把焦虑暂时收进去"
-    },
-    {
-      "source": "n-eight",
-      "target": "p-shadow",
-      "type": "need-product",
-      "weight": 4,
-      "reason": "把乱跑的影子粘回来"
-    },
-    {
-      "source": "n-eight",
-      "target": "p-hat",
-      "type": "need-product",
-      "weight": 4,
-      "reason": "八点带人飞离烦恼"
-    },
-    {
-      "source": "n-daze",
-      "target": "p-shadow",
-      "type": "need-product",
-      "weight": 4,
-      "reason": "粘住飘走的思绪"
-    },
-    {
-      "source": "n-daze",
-      "target": "p-bean",
-      "type": "need-product",
-      "weight": 4,
-      "reason": "种出思绪回收藤"
-    },
-    {
-      "source": "n-daze",
-      "target": "p-pillow",
-      "type": "need-product",
-      "weight": 4,
-      "reason": "让脑袋安静下来"
-    },
-    {
-      "source": "n-daze",
-      "target": "p-cloud",
-      "type": "need-product",
-      "weight": 4,
-      "reason": "把散乱想法装好"
-    },
-    {
-      "source": "n-sleepy",
-      "target": "p-pillow",
-      "type": "need-product",
-      "weight": 4,
-      "reason": "把困意集中到晚上"
-    },
-    {
-      "source": "n-sleepy",
-      "target": "p-bean",
-      "type": "need-product",
-      "weight": 4,
-      "reason": "长出提神薄荷叶"
-    },
-    {
-      "source": "n-sleepy",
-      "target": "p-hat",
-      "type": "need-product",
-      "weight": 4,
-      "reason": "一困就把人升起来"
-    },
-    {
-      "source": "p-pillow",
-      "target": "m-dream",
-      "type": "product-promotion",
-      "weight": 4,
-      "reason": "直接在梦里体验"
-    },
-    {
-      "source": "p-pillow",
-      "target": "m-bottle",
-      "type": "product-promotion",
-      "weight": 4,
-      "reason": "瓶里装一片月光"
-    },
-    {
-      "source": "p-pillow",
-      "target": "m-rainbow",
-      "type": "product-promotion",
-      "weight": 4,
-      "reason": "夜空展示睡眠效果"
-    },
-    {
-      "source": "p-pillow",
-      "target": "m-meteor",
-      "type": "product-promotion",
-      "weight": 4,
-      "reason": "夜晚配送最合适"
-    },
-    {
-      "source": "p-cloud",
-      "target": "m-rainbow",
-      "type": "product-promotion",
-      "weight": 4,
-      "reason": "云朵自己拼广告词"
-    },
-    {
-      "source": "p-cloud",
-      "target": "m-crow",
-      "type": "product-promotion",
-      "weight": 4,
-      "reason": "乌鸦背云到处播报"
-    },
-    {
-      "source": "p-cloud",
-      "target": "m-bottle",
-      "type": "product-promotion",
-      "weight": 4,
-      "reason": "瓶里寄送迷你云"
-    },
-    {
-      "source": "p-cloud",
-      "target": "m-meteor",
-      "type": "product-promotion",
-      "weight": 4,
-      "reason": "从天上直接送达"
-    },
-    {
-      "source": "p-shadow",
-      "target": "m-crow",
-      "type": "product-promotion",
-      "weight": 4,
-      "reason": "神秘产品适合乌鸦传播"
-    },
-    {
-      "source": "p-shadow",
-      "target": "m-dream",
-      "type": "product-promotion",
-      "weight": 4,
-      "reason": "梦里演示影子被粘住"
-    },
-    {
-      "source": "p-shadow",
-      "target": "m-bottle",
-      "type": "product-promotion",
-      "weight": 4,
-      "reason": "瓶里附一滴体验装"
-    },
-    {
-      "source": "p-bean",
-      "target": "m-rainbow",
-      "type": "product-promotion",
-      "weight": 4,
-      "reason": "豆藤长成巨大标语"
-    },
-    {
-      "source": "p-bean",
-      "target": "m-dream",
-      "type": "product-promotion",
-      "weight": 4,
-      "reason": "梦里先看到生长结果"
-    },
-    {
-      "source": "p-bean",
-      "target": "m-crow",
-      "type": "product-promotion",
-      "weight": 4,
-      "reason": "乌鸦负责播种和宣传"
-    },
-    {
-      "source": "p-bean",
-      "target": "m-meteor",
-      "type": "product-promotion",
-      "weight": 4,
-      "reason": "像种子一样撒向各地"
-    },
-    {
-      "source": "p-hat",
-      "target": "m-rainbow",
-      "type": "product-promotion",
-      "weight": 4,
-      "reason": "飞行轨迹写成标语"
-    },
-    {
-      "source": "p-hat",
-      "target": "m-crow",
-      "type": "product-promotion",
-      "weight": 4,
-      "reason": "空中用户由乌鸦触达"
-    },
-    {
-      "source": "p-hat",
-      "target": "m-meteor",
-      "type": "product-promotion",
-      "weight": 4,
-      "reason": "本身就适合高速配送"
-    },
-    {
-      "source": "m-rainbow",
-      "target": "u-tree",
-      "type": "user-promotion",
-      "weight": 4,
-      "reason": "森林上空最容易看见"
-    },
-    {
-      "source": "m-rainbow",
-      "target": "u-stone",
-      "type": "user-promotion",
-      "weight": 4,
-      "reason": "石头抬头就能看到"
-    },
-    {
-      "source": "m-rainbow",
-      "target": "u-snail",
-      "type": "user-promotion",
-      "weight": 4,
-      "reason": "爬得慢，可以看很久"
-    },
-    {
-      "source": "m-rainbow",
-      "target": "u-cloud",
-      "type": "user-promotion",
-      "weight": 4,
-      "reason": "就在云边出现"
-    },
-    {
-      "source": "m-dream",
-      "target": "u-ghost",
-      "type": "user-promotion",
-      "weight": 4,
-      "reason": "幽灵常在梦里活动"
-    },
-    {
-      "source": "m-dream",
-      "target": "u-tree",
-      "type": "user-promotion",
-      "weight": 4,
-      "reason": "树精一睡就是很久"
-    },
-    {
-      "source": "m-dream",
-      "target": "u-stone",
-      "type": "user-promotion",
-      "weight": 4,
-      "reason": "石头难得做梦，印象更深"
-    },
-    {
-      "source": "m-dream",
-      "target": "u-cloud",
-      "type": "user-promotion",
-      "weight": 4,
-      "reason": "云团子常在梦里飘"
-    },
-    {
-      "source": "m-crow",
-      "target": "u-tree",
-      "type": "user-promotion",
-      "weight": 4,
-      "reason": "乌鸦经常停在树上"
-    },
-    {
-      "source": "m-crow",
-      "target": "u-ghost",
-      "type": "user-promotion",
-      "weight": 4,
-      "reason": "夜间广播正好覆盖幽灵"
-    },
-    {
-      "source": "m-crow",
-      "target": "u-stone",
-      "type": "user-promotion",
-      "weight": 4,
-      "reason": "声音比画面更容易注意"
-    },
-    {
-      "source": "m-crow",
-      "target": "u-cloud",
-      "type": "user-promotion",
-      "weight": 4,
-      "reason": "空中传播范围一致"
-    },
-    {
-      "source": "m-bottle",
-      "target": "u-snail",
-      "type": "user-promotion",
-      "weight": 4,
-      "reason": "喜欢沿着湿地移动"
-    },
-    {
-      "source": "m-bottle",
-      "target": "u-tree",
-      "type": "user-promotion",
-      "weight": 4,
-      "reason": "河流经常经过森林"
-    },
-    {
-      "source": "m-bottle",
-      "target": "u-ghost",
-      "type": "user-promotion",
-      "weight": 4,
-      "reason": "神秘瓶子容易吸引幽灵"
-    },
-    {
-      "source": "m-meteor",
-      "target": "u-cloud",
-      "type": "user-promotion",
-      "weight": 4,
-      "reason": "都在天空活动"
-    },
-    {
-      "source": "m-meteor",
-      "target": "u-ghost",
-      "type": "user-promotion",
-      "weight": 4,
-      "reason": "夜间收到的概率最高"
-    },
-    {
-      "source": "m-meteor",
-      "target": "u-stone",
-      "type": "user-promotion",
-      "weight": 4,
-      "reason": "砸到附近就一定会注意"
-    }
+    { "source": "u-tree", "target": "n-water", "type": "user-need", "weight": 3, "reason": "暴雨时树洞会瞬间灌满水，根系来不及分流就会呛到", "confirmed": false },
+    { "source": "u-tree", "target": "n-daze", "type": "user-need", "weight": 3, "reason": "扎根原地几百年，安静下来就容易让思绪一直飘远", "confirmed": false },
+    { "source": "u-tree", "target": "n-lost", "type": "user-need", "weight": 3, "reason": "不断掉落的树叶会盖住钥匙和随身小物", "confirmed": false },
+    { "source": "u-snail", "target": "n-water", "type": "user-need", "weight": 3, "reason": "经过水洼时水会灌进呼吸孔，移动又来不及躲开", "confirmed": false },
+    { "source": "u-snail", "target": "n-sleepy", "type": "user-need", "weight": 3, "reason": "蜗牛把壳当成随身座椅，一停下来就容易睡着", "confirmed": false },
+    { "source": "u-snail", "target": "n-hearing", "type": "user-need", "weight": 3, "reason": "空壳里的回声会把风声放大，听起来像有人在叫它", "confirmed": false },
+    { "source": "u-stone", "target": "n-daze", "type": "user-need", "weight": 3, "reason": "几百年不动时很容易陷入一次持续很久的发呆", "confirmed": false },
+    { "source": "u-stone", "target": "n-hearing", "type": "user-need", "weight": 3, "reason": "山谷回声绕着石面反弹，常常像有人在点名", "confirmed": false },
+    { "source": "u-stone", "target": "n-sleepy", "type": "user-need", "weight": 3, "reason": "石头一直保持坐着不动的姿势，安静下来就会犯困", "confirmed": false },
+    { "source": "u-firefly", "target": "n-eight", "type": "user-need", "weight": 3, "reason": "萤火虫天黑才开始发光，入夜就等于必须上工", "confirmed": true },
+    { "source": "u-firefly", "target": "n-sleepy", "type": "user-need", "weight": 3, "reason": "昼伏夜出的作息让它白天一坐下来就进入补觉状态", "confirmed": false },
+    { "source": "u-firefly", "target": "n-phone", "type": "user-need", "weight": 3, "reason": "屏幕亮光会被当成同伴信号，睡前忍不住一直盯着", "confirmed": false },
+    { "source": "u-octopus", "target": "n-slack", "type": "user-need", "weight": 3, "reason": "八只手同时被任务占满，越忙越想偷出一只手摸鱼", "confirmed": true },
+    { "source": "u-octopus", "target": "n-lost", "type": "user-need", "weight": 3, "reason": "八只手会同时挪动物品，转头就忘了是哪只手放的", "confirmed": false },
+    { "source": "u-octopus", "target": "n-daze", "type": "user-need", "weight": 3, "reason": "多项任务同时涌入时，八只手会一起停住发呆", "confirmed": false },
+    { "source": "u-crow", "target": "n-lost", "type": "user-need", "weight": 3, "reason": "包裹太多，飞行途中容易忘记某件货放在哪个树洞", "confirmed": false },
+    { "source": "u-crow", "target": "n-hearing", "type": "user-need", "weight": 3, "reason": "收件人的呼喊和同伴鸦叫混在一起，常误以为有人叫它", "confirmed": false },
+    { "source": "u-crow", "target": "n-exam", "type": "user-need", "weight": 3, "reason": "配送地址只记得七秒，很快就会忘记下一站", "confirmed": false },
+    { "source": "u-cloud", "target": "n-daze", "type": "user-need", "weight": 3, "reason": "身体一直随风漂，思绪也很容易跟着飘走", "confirmed": false },
+    { "source": "u-cloud", "target": "n-eight", "type": "user-need", "weight": 3, "reason": "天黑后看不清风向，它会担心自己被夜风吹散", "confirmed": false },
+    { "source": "u-cloud", "target": "n-lost", "type": "user-need", "weight": 3, "reason": "随身物品会从松软云层里掉下去，回头很难找到", "confirmed": false },
+    { "source": "u-mushroom", "target": "n-water", "type": "user-need", "weight": 3, "reason": "伞盖会在雨里积满水，一低头就整片灌进嘴里", "confirmed": false },
+    { "source": "u-mushroom", "target": "n-sleepy", "type": "user-need", "weight": 3, "reason": "阴凉潮湿的环境太舒服，一坐下就很想睡觉", "confirmed": false },
+    { "source": "u-mushroom", "target": "n-hearing", "type": "user-need", "weight": 3, "reason": "雨滴敲在伞盖上像连续叫名字，回头却没有人", "confirmed": false },
+    { "source": "new-card-ms60m3pb", "target": "n-eight", "type": "user-need", "weight": 3, "reason": "晚上八点正是出餐高峰，天一黑就担心来不及", "confirmed": false },
+    { "source": "new-card-ms60m3pb", "target": "n-lost", "type": "user-need", "weight": 3, "reason": "忙乱中不停换厨具，常忘记把刀勺放到了哪里", "confirmed": false },
+    { "source": "new-card-ms60m3pb", "target": "n-slack", "type": "user-need", "weight": 3, "reason": "忙到没有休息时间，最强烈的愿望就是偷空摸一会儿鱼", "confirmed": false },
+    { "source": "new-card-ms60pajb", "target": "n-exam", "type": "user-need", "weight": 3, "reason": "七秒后就忘记刚听到的信息，短时记忆问题最直接", "confirmed": false },
+    { "source": "new-card-ms60pajb", "target": "n-lost", "type": "user-need", "weight": 3, "reason": "刚放下的眼镜或钥匙，转身就想不起位置", "confirmed": false },
+    { "source": "new-card-ms60pajb", "target": "n-hearing", "type": "user-need", "weight": 3, "reason": "听力变弱后容易把环境杂音误认成有人叫他", "confirmed": false },
+
+    { "source": "n-water", "target": "p-cloud", "type": "need-product", "weight": 3, "reason": "把一大口水先装进云口袋，再按小滴慢慢放出", "confirmed": false },
+    { "source": "n-water", "target": "p-bubble", "type": "need-product", "weight": 3, "reason": "泡泡鞋把身体托高越过水洼，避免水突然灌入口鼻", "confirmed": false },
+    { "source": "n-water", "target": "p-candy", "type": "need-product", "weight": 3, "reason": "彩虹糖把饮水凝成可咀嚼的小口剂量，不再猛吞", "confirmed": false },
+    { "source": "n-eight", "target": "p-pillow", "type": "need-product", "weight": 3, "reason": "月亮枕在入夜时启动呼吸节奏，用固定仪式降低焦虑", "confirmed": false },
+    { "source": "n-eight", "target": "p-luck", "type": "need-product", "weight": 3, "reason": "好运贴作为随身安全提示，天黑时提醒一切仍按计划", "confirmed": false },
+    { "source": "n-eight", "target": "p-candy", "type": "need-product", "weight": 3, "reason": "彩虹糖能嚼出白昼味道，在天黑后提供熟悉的感官锚点", "confirmed": false },
+    { "source": "n-eight", "target": "p-cloud", "type": "need-product", "weight": 3, "reason": "云口袋保存一小片白天的亮云，焦虑时可以拿出来照明", "confirmed": false },
+    { "source": "n-daze", "target": "p-shadow", "type": "need-product", "weight": 3, "reason": "影子胶把脚下影子固定住，用视觉锚点提醒注意力回来", "confirmed": false },
+    { "source": "n-daze", "target": "p-cloud", "type": "need-product", "weight": 3, "reason": "云口袋把突然冒出的想法先收好，减少继续追着思绪跑", "confirmed": false },
+    { "source": "n-daze", "target": "p-bean", "type": "need-product", "weight": 3, "reason": "魔法豆长出思绪回收藤，把越飘越远的注意力牵回来", "confirmed": false },
+    { "source": "n-sleepy", "target": "p-pillow", "type": "need-product", "weight": 3, "reason": "月亮枕把困意留到固定夜间释放，白天不再随坐随睡", "confirmed": false },
+    { "source": "n-sleepy", "target": "p-bean", "type": "need-product", "weight": 3, "reason": "魔法豆长出薄荷叶，坐下犯困时用气味提神", "confirmed": false },
+    { "source": "n-sleepy", "target": "p-bubble", "type": "need-product", "weight": 3, "reason": "泡泡鞋在脚底轻响，久坐时用微小刺激把人叫醒", "confirmed": false },
+    { "source": "n-sleepy", "target": "p-candy", "type": "need-product", "weight": 3, "reason": "彩虹糖嚼出清晨酸味，用强烈口感驱散坐下后的困意", "confirmed": false },
+    { "source": "n-phone", "target": "p-pillow", "type": "need-product", "weight": 3, "reason": "月亮枕带有手机收纳层，躺下后把屏幕挡在视线之外", "confirmed": false },
+    { "source": "n-phone", "target": "p-shadow", "type": "need-product", "weight": 3, "reason": "影子胶把手机固定在卧室门外，睡前无法顺手拿回", "confirmed": false },
+    { "source": "n-phone", "target": "p-mirror", "type": "need-product", "weight": 3, "reason": "倒放镜回放刚才的刷屏时长，让再五分钟变得可见", "confirmed": false },
+    { "source": "n-hearing", "target": "p-cloud", "type": "need-product", "weight": 3, "reason": "云口袋捕捉飘来的声音，回放后即可确认是不是有人叫", "confirmed": false },
+    { "source": "n-hearing", "target": "p-mirror", "type": "need-product", "weight": 3, "reason": "倒放镜重现刚才几秒的场景，帮助确认声音来源", "confirmed": false },
+    { "source": "n-hearing", "target": "p-magnet", "type": "need-product", "weight": 3, "reason": "幸运磁只吸引真实呼叫的声源，把无来源杂音排除在外", "confirmed": false },
+    { "source": "n-exam", "target": "p-bean", "type": "need-product", "weight": 3, "reason": "魔法豆长成记忆藤，把零散知识按顺序挂在叶片上", "confirmed": false },
+    { "source": "n-exam", "target": "p-mirror", "type": "need-product", "weight": 3, "reason": "倒放镜反复重播刚学过的内容，补上七秒记忆的缺口", "confirmed": false },
+    { "source": "n-exam", "target": "p-magnet", "type": "need-product", "weight": 3, "reason": "幸运磁把关键词吸成一组，考试时可沿线索逐项回忆", "confirmed": false },
+    { "source": "n-lost", "target": "p-shadow", "type": "need-product", "weight": 3, "reason": "影子胶把物品和固定位置的影子粘在一起，离开就留下痕迹", "confirmed": false },
+    { "source": "n-lost", "target": "p-luck", "type": "need-product", "weight": 3, "reason": "好运贴贴在常用物上，寻找时会发亮提示位置", "confirmed": false },
+    { "source": "n-lost", "target": "p-magnet", "type": "need-product", "weight": 3, "reason": "幸运磁会把被标记的小物吸回固定收纳点", "confirmed": false },
+    { "source": "n-slack", "target": "p-bubble", "type": "need-product", "weight": 3, "reason": "泡泡鞋把枯燥任务变成一步一响的小游戏，让开始工作更轻松", "confirmed": false },
+    { "source": "n-slack", "target": "p-luck", "type": "need-product", "weight": 3, "reason": "好运贴把最难的步骤变顺，先做完就能安心摸鱼", "confirmed": false },
+    { "source": "n-slack", "target": "p-hat", "type": "need-product", "weight": 3, "reason": "飞天帽提供定时离座休息，休息结束再把人送回工位", "confirmed": false },
+    { "source": "n-slack", "target": "p-cloud", "type": "need-product", "weight": 3, "reason": "云口袋暂存非紧急待办，腾出一段真正无负担的摸鱼时间", "confirmed": false },
+
+    { "source": "p-pillow", "target": "m-dream", "type": "product-promotion", "weight": 3, "reason": "用户睡在月亮枕上时可直接在梦里体验完整效果", "confirmed": false },
+    { "source": "p-pillow", "target": "m-moon", "type": "product-promotion", "weight": 3, "reason": "月亮直播在固定睡前时段演示枕头的放松流程", "confirmed": false },
+    { "source": "p-pillow", "target": "m-breeze", "type": "product-promotion", "weight": 3, "reason": "晚风用耳语播放睡前引导，让用户同步试用月亮枕", "confirmed": false },
+    { "source": "p-cloud", "target": "m-rainbow", "type": "product-promotion", "weight": 3, "reason": "云口袋放出的云能在天空排成彩虹产品标语", "confirmed": false },
+    { "source": "p-cloud", "target": "m-cloud", "type": "product-promotion", "weight": 3, "reason": "白云写字直接演示口袋如何收放和塑造云朵", "confirmed": false },
+    { "source": "p-cloud", "target": "m-bottle", "type": "product-promotion", "weight": 3, "reason": "漂流瓶可以寄送一团迷你云作为可触摸的试用品", "confirmed": false },
+    { "source": "p-shadow", "target": "m-moon", "type": "product-promotion", "weight": 3, "reason": "月光能投出最清晰的影子，直播前后效果一眼可见", "confirmed": false },
+    { "source": "p-shadow", "target": "m-dream", "type": "product-promotion", "weight": 3, "reason": "梦里可以安全演示影子逃跑后被影子胶粘回的过程", "confirmed": false },
+    { "source": "p-shadow", "target": "m-crow", "type": "product-promotion", "weight": 3, "reason": "乌鸦广播把影子失踪案讲成连续故事，逐集展示产品作用", "confirmed": false },
+    { "source": "p-bean", "target": "m-rainbow", "type": "product-promotion", "weight": 3, "reason": "魔法豆长出的藤能爬上天空组成巨大的彩虹标语", "confirmed": false },
+    { "source": "p-bean", "target": "m-crow", "type": "product-promotion", "weight": 3, "reason": "乌鸦一边分发试种豆一边播报各地的生长结果", "confirmed": false },
+    { "source": "p-bean", "target": "m-meteor", "type": "product-promotion", "weight": 3, "reason": "流星快递把试种豆像种子雨一样精准撒到不同地区", "confirmed": false },
+    { "source": "p-bubble", "target": "m-balloon", "type": "product-promotion", "weight": 3, "reason": "气球队在空中穿着泡泡鞋巡游，直接展示轻盈效果", "confirmed": false },
+    { "source": "p-bubble", "target": "m-breeze", "type": "product-promotion", "weight": 3, "reason": "晚风吹过鞋底会产生连续泡泡，形成可跟随的街头演示", "confirmed": false },
+    { "source": "p-bubble", "target": "m-firefly", "type": "product-promotion", "weight": 3, "reason": "萤火虫沿着每次弹跳的轨迹发光，把步态效果画出来", "confirmed": false },
+    { "source": "p-luck", "target": "m-meteor", "type": "product-promotion", "weight": 3, "reason": "流星代表许愿，也能把好运贴快速送到许愿者手里", "confirmed": false },
+    { "source": "p-luck", "target": "m-bottle", "type": "product-promotion", "weight": 3, "reason": "漂流瓶中的幸运留言附带一枚好运贴，收到即可试用", "confirmed": false },
+    { "source": "p-luck", "target": "m-moon", "type": "product-promotion", "weight": 3, "reason": "月亮直播公开抽取试用者，并现场验证贴上后的顺利变化", "confirmed": false },
+    { "source": "p-candy", "target": "m-rainbow", "type": "product-promotion", "weight": 3, "reason": "彩虹标语与糖果外观一致，可以直接标出每种天气口味", "confirmed": false },
+    { "source": "p-candy", "target": "m-cloud", "type": "product-promotion", "weight": 3, "reason": "白云写字每天公布当天可嚼出的限定天气口味", "confirmed": false },
+    { "source": "p-candy", "target": "m-balloon", "type": "product-promotion", "weight": 3, "reason": "气球飞过街区时投放密封试吃装，形成一场彩色糖果雨", "confirmed": false },
+    { "source": "p-mirror", "target": "m-dream", "type": "product-promotion", "weight": 3, "reason": "托梦可以让同一段场景正放再倒放，完整展示镜子的能力", "confirmed": false },
+    { "source": "p-mirror", "target": "m-moon", "type": "product-promotion", "weight": 3, "reason": "月亮直播现场重播刚发生的动作，让倒放效果无法剪辑造假", "confirmed": false },
+    { "source": "p-mirror", "target": "m-firefly", "type": "product-promotion", "weight": 3, "reason": "萤火光轨先向前再倒退，远处也能看懂倒放镜的效果", "confirmed": false },
+    { "source": "p-magnet", "target": "m-meteor", "type": "product-promotion", "weight": 3, "reason": "流星承载许愿主题，并把幸运磁快速送给许愿者", "confirmed": false },
+    { "source": "p-magnet", "target": "m-crow", "type": "product-promotion", "weight": 3, "reason": "乌鸦撒下带标记的奖品，再现场展示幸运磁把它们吸回", "confirmed": false },
+    { "source": "p-magnet", "target": "m-balloon", "type": "product-promotion", "weight": 3, "reason": "气球释放的幸运筹码会弯曲飞向磁铁，演示效果清楚可见", "confirmed": false },
+    { "source": "p-hat", "target": "m-balloon", "type": "product-promotion", "weight": 3, "reason": "气球编队带着飞天帽空中巡游，产品本身就是广告表演", "confirmed": false },
+    { "source": "p-hat", "target": "m-rainbow", "type": "product-promotion", "weight": 3, "reason": "飞天帽的航迹可以在天空画出一整句彩虹标语", "confirmed": false },
+    { "source": "p-hat", "target": "m-meteor", "type": "product-promotion", "weight": 3, "reason": "流星快递用高速空投展示飞天帽的飞行和配送能力", "confirmed": false },
+
+    { "source": "m-crow", "target": "u-tree", "type": "user-promotion", "weight": 3, "reason": "乌鸦每天停在树枝上播报，树精灵无需移动就能听见", "confirmed": false },
+    { "source": "m-rainbow", "target": "u-tree", "type": "user-promotion", "weight": 3, "reason": "彩虹标语悬在森林树冠上方，树精灵抬头就能看到", "confirmed": false },
+    { "source": "m-breeze", "target": "u-tree", "type": "user-promotion", "weight": 3, "reason": "晚风吹动树叶时把口号变成沙沙声，直接传到树精灵身上", "confirmed": false },
+    { "source": "m-bottle", "target": "u-snail", "type": "user-promotion", "weight": 3, "reason": "漂流瓶沿蜗牛常走的潮湿低地停靠，慢速移动也不会错过", "confirmed": false },
+    { "source": "m-firefly", "target": "u-snail", "type": "user-promotion", "weight": 3, "reason": "萤火虫在夜路上围着蜗牛慢慢飞，广告速度与它完全同步", "confirmed": false },
+    { "source": "m-dream", "target": "u-snail", "type": "user-promotion", "weight": 3, "reason": "蜗牛缩进壳里长时间休息时，托梦能完整讲完产品故事", "confirmed": false },
+    { "source": "m-crow", "target": "u-stone", "type": "user-promotion", "weight": 3, "reason": "无名石头不会追广告，乌鸦停在旁边反复播报才能触达", "confirmed": false },
+    { "source": "m-meteor", "target": "u-stone", "type": "user-promotion", "weight": 3, "reason": "流星把信息刻进石头旁的落点，无法移动也能长期阅读", "confirmed": false },
+    { "source": "m-moon", "target": "u-stone", "type": "user-promotion", "weight": 3, "reason": "月亮直播持续整夜，固定不动的石头正适合长时间观看", "confirmed": false },
+    { "source": "m-firefly", "target": "u-firefly", "type": "user-promotion", "weight": 3, "reason": "萤火乱飞使用同类能读懂的闪光节奏传递消息", "confirmed": false },
+    { "source": "m-moon", "target": "u-firefly", "type": "user-promotion", "weight": 3, "reason": "月亮直播与萤火虫的夜间活动时间完全重合", "confirmed": false },
+    { "source": "m-breeze", "target": "u-firefly", "type": "user-promotion", "weight": 3, "reason": "夜风在萤火虫出门发光时贴身传递语音信息", "confirmed": false },
+    { "source": "m-bottle", "target": "u-octopus", "type": "user-promotion", "weight": 3, "reason": "漂流瓶能直接进入水下，被章鱼任意一只手捞起", "confirmed": false },
+    { "source": "m-meteor", "target": "u-octopus", "type": "user-promotion", "weight": 3, "reason": "流星快递把信息压缩成瞬时闪光，八只手都忙时也能看完", "confirmed": false },
+    { "source": "m-cloud", "target": "u-octopus", "type": "user-promotion", "weight": 3, "reason": "白云写字覆盖整片海面，章鱼浮上来换气时就能看到", "confirmed": false },
+    { "source": "m-crow", "target": "u-crow", "type": "user-promotion", "weight": 3, "reason": "乌鸦邮差本来就在鸦群频道里，广播可以直接进入它的配送网", "confirmed": false },
+    { "source": "m-meteor", "target": "u-crow", "type": "user-promotion", "weight": 3, "reason": "流星快递与乌鸦邮差共享空中路线，能在途中交换信息", "confirmed": false },
+    { "source": "m-balloon", "target": "u-crow", "type": "user-promotion", "weight": 3, "reason": "气球广告悬在乌鸦每天送件的高度，沿途会反复经过", "confirmed": false },
+    { "source": "m-rainbow", "target": "u-cloud", "type": "user-promotion", "weight": 3, "reason": "彩虹就在云层边缘形成，云团子是最靠近它的观众", "confirmed": false },
+    { "source": "m-cloud", "target": "u-cloud", "type": "user-promotion", "weight": 3, "reason": "白云写字使用云团子熟悉的形态，信息可混入同一片云层", "confirmed": false },
+    { "source": "m-meteor", "target": "u-cloud", "type": "user-promotion", "weight": 3, "reason": "流星穿过云层时留下发光信息，正好经过云团子的活动区域", "confirmed": false },
+    { "source": "m-crow", "target": "u-mushroom", "type": "user-promotion", "weight": 3, "reason": "乌鸦广播覆盖森林地面，小蘑菇躲在树下也能听见", "confirmed": false },
+    { "source": "m-breeze", "target": "u-mushroom", "type": "user-promotion", "weight": 3, "reason": "晚风沿地面吹过菌群，在散播孢子的同时带来广告", "confirmed": false },
+    { "source": "m-firefly", "target": "u-mushroom", "type": "user-promotion", "weight": 3, "reason": "萤火虫在夜间森林贴近地面巡游，能照亮小蘑菇周围的信息", "confirmed": false },
+    { "source": "m-crow", "target": "new-card-ms60m3pb", "type": "user-promotion", "weight": 3, "reason": "厨师双手被占用时仍能听乌鸦广播，不必停下做菜", "confirmed": false },
+    { "source": "m-meteor", "target": "new-card-ms60m3pb", "type": "user-promotion", "weight": 3, "reason": "流星快递把信息和样品直接送到后厨，节省忙碌厨师的时间", "confirmed": false },
+    { "source": "m-breeze", "target": "new-card-ms60m3pb", "type": "user-promotion", "weight": 3, "reason": "晚风在耳边用一句话完成安利，不占用厨师的手和屏幕", "confirmed": false },
+    { "source": "m-moon", "target": "new-card-ms60pajb", "type": "user-promotion", "weight": 3, "reason": "月亮直播只有一个固定频道，画面大且不用学习复杂操作", "confirmed": false },
+    { "source": "m-crow", "target": "new-card-ms60pajb", "type": "user-promotion", "weight": 3, "reason": "乌鸦广播以声音重复信息，老头不用盯着小字也能接收", "confirmed": false },
+    { "source": "m-bottle", "target": "new-card-ms60pajb", "type": "user-promotion", "weight": 3, "reason": "漂流瓶留下实体纸条，老头忘记后可以拿出来反复阅读", "confirmed": false }
   ],
   "featuredCombos": {
-    "success": [
-      "u-tree",
-      "n-daze",
-      "p-bean",
-      "m-crow"
-    ],
-    "failure": [
-      "u-tree",
-      "n-hair",
-      "p-pillow",
-      "m-bottle"
-    ]
+    "success": ["u-tree", "n-daze", "p-bean", "m-crow"],
+    "failure": ["u-tree", "n-phone", "p-mirror", "m-balloon"]
   },
   "accentPalette": {
-    "red": {
-      "label": "红",
-      "color": "#E5524A"
-    },
-    "orange": {
-      "label": "橙",
-      "color": "#F08A3E"
-    },
-    "yellow": {
-      "label": "黄",
-      "color": "#F4C542"
-    },
-    "green": {
-      "label": "绿",
-      "color": "#43A66B"
-    },
-    "cyan": {
-      "label": "青",
-      "color": "#31B7B3"
-    },
-    "blue": {
-      "label": "蓝",
-      "color": "#4D8FE5"
-    },
-    "purple": {
-      "label": "紫",
-      "color": "#8E67D5"
-    },
-    "white": {
-      "label": "白",
-      "color": "#F8F5EC"
-    },
-    "black": {
-      "label": "黑",
-      "color": "#25232D"
-    },
-    "brown": {
-      "label": "棕",
-      "color": "#8A5B3D"
-    }
+    "red": { "label": "红", "color": "#E5524A" },
+    "orange": { "label": "橙", "color": "#F08A3E" },
+    "yellow": { "label": "黄", "color": "#F4C542" },
+    "green": { "label": "绿", "color": "#43A66B" },
+    "cyan": { "label": "青", "color": "#31B7B3" },
+    "blue": { "label": "蓝", "color": "#4D8FE5" },
+    "purple": { "label": "紫", "color": "#8E67D5" },
+    "white": { "label": "白", "color": "#F8F5EC" },
+    "black": { "label": "黑", "color": "#25232D" },
+    "brown": { "label": "棕", "color": "#8A5B3D" }
   }
 }

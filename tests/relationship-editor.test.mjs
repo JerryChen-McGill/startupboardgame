@@ -11,11 +11,11 @@ const htmlSource = fs.readFileSync(path.join(rootDirectory, "index.html"), "utf8
 const cssSource = fs.readFileSync(path.join(rootDirectory, "styles.css"), "utf8");
 const data = JSON.parse(fs.readFileSync(path.join(rootDirectory, "data", "game-data.json"), "utf8"));
 
-test("relationship workbench exposes all forty cards instead of the twenty-card subset", () => {
+test("relationship workbench exposes every card in the revised data set", () => {
   const totalCards = Object.values(data.cards).flat().length;
-  assert.equal(totalCards, 40);
+  assert.equal(totalCards, 39);
   assert.match(appSource, /function relationshipMapCards\(type\)\s*{\s*return gameData\.cards\[type\];\s*}/);
-  assert.match(htmlSource, /id="network-card-count">40 张卡/);
+  assert.match(htmlSource, /id="network-card-count">39 张卡/);
 });
 
 test("unconfirmed and confirmed objects have distinct dashed and solid styles", () => {
@@ -37,7 +37,7 @@ test("editor supports both entities, local drafts, audit history, and separate e
     'id="export-change-log"',
     'id="change-log-preview"',
   ].forEach((marker) => assert.ok(htmlSource.includes(marker), `missing ${marker}`));
-  assert.match(appSource, /const EDITOR_STORAGE_KEY = "startup-boardgame-relationship-editor-v1"/);
+  assert.match(appSource, /const EDITOR_STORAGE_KEY = "startup-boardgame-relationship-editor-v2"/);
   assert.match(appSource, /function recordEditorChange\(/);
   assert.match(appSource, /function exportEditedGameData\(/);
   assert.match(appSource, /function exportEditorChangeLog\(/);

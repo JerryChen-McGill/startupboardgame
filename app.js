@@ -7,7 +7,7 @@ let activeRelationType = "all";
 let selectedNodeId = null;
 let selectedRelationKey = null;
 let editorChangeLog = [];
-const EDITOR_STORAGE_KEY = "startup-boardgame-relationship-editor-v1";
+const EDITOR_STORAGE_KEY = "startup-boardgame-relationship-editor-v2";
 const STARTUP_CARD_ORDER = ["user", "promotion", "need", "product"];
 const STARTUP_PAIR_TYPES = [
   ["user", "promotion"],
@@ -285,14 +285,16 @@ function relationshipMapCards(type) {
 function networkPositions() {
   const spread = (start, end, count) =>
     Array.from({ length: count }, (_, index) => (count === 1 ? (start + end) / 2 : start + ((end - start) * index) / (count - 1)));
-  const horizontal = spread(110, 1290, Math.max(...Object.values(gameData.cards).map((cards) => cards.length)));
-  const vertical = spread(116, 864, Math.max(...Object.values(gameData.cards).map((cards) => cards.length)));
+  const userHorizontal = spread(110, 1290, gameData.cards.user.length);
+  const productHorizontal = spread(110, 1290, gameData.cards.product.length);
+  const needVertical = spread(116, 864, gameData.cards.need.length);
+  const promotionVertical = spread(116, 864, gameData.cards.promotion.length);
   const positions = new Map();
 
-  relationshipMapCards("user").forEach((card, index) => positions.set(card.id, { x: horizontal[index], y: 68, side: "top" }));
-  relationshipMapCards("need").forEach((card, index) => positions.set(card.id, { x: 72, y: vertical[index], side: "left" }));
-  relationshipMapCards("product").forEach((card, index) => positions.set(card.id, { x: horizontal[index], y: 912, side: "bottom" }));
-  relationshipMapCards("promotion").forEach((card, index) => positions.set(card.id, { x: 1328, y: vertical[index], side: "right" }));
+  relationshipMapCards("user").forEach((card, index) => positions.set(card.id, { x: userHorizontal[index], y: 68, side: "top" }));
+  relationshipMapCards("need").forEach((card, index) => positions.set(card.id, { x: 72, y: needVertical[index], side: "left" }));
+  relationshipMapCards("product").forEach((card, index) => positions.set(card.id, { x: productHorizontal[index], y: 912, side: "bottom" }));
+  relationshipMapCards("promotion").forEach((card, index) => positions.set(card.id, { x: 1328, y: promotionVertical[index], side: "right" }));
 
   return positions;
 }
