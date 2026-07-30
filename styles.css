@@ -741,7 +741,7 @@ button {
   display: flex;
   flex-direction: column;
   aspect-ratio: 3 / 4;
-  padding: 1rem 1.35rem 2.35rem;
+  padding: 1rem 1.35rem 3.35rem;
   overflow: visible;
   color: #111;
   background: #fff;
@@ -789,6 +789,21 @@ button {
   content: "";
 }
 
+.library-card.type-label-bottom {
+  padding-bottom: 1rem;
+}
+
+.card-bottomline {
+  margin-top: 1rem;
+  padding-top: 0.55rem;
+  padding-bottom: 0;
+}
+
+.card-bottomline::after {
+  top: 0;
+  bottom: auto;
+}
+
 .card-emoji {
   position: relative;
   display: grid;
@@ -808,12 +823,16 @@ button {
 .card-name {
   position: relative;
   z-index: 4;
-  margin: 0.55rem 0 0.2rem;
+  margin: 1.55rem 0 0.2rem;
   font-size: clamp(1.25rem, 1.65vw, 1.65rem);
   font-weight: 950;
   letter-spacing: -0.04em;
   line-height: 1.2;
   text-align: center;
+}
+
+.type-label-bottom .card-name {
+  margin-top: 3.1rem;
 }
 
 .card-question {

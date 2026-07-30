@@ -31,6 +31,8 @@ test("card faces use Chinese type labels, unframed icons, and complete descripti
     assert.ok(appSource.includes(`"${label}"`), `missing card type label ${label}`);
   });
   assert.match(appSource, /\$\{CARD_TYPE_LABELS\[card\.type\]\}/);
+  assert.match(appSource, /card\.type === "need" \|\| card\.type === "product"/);
+  assert.match(cssSource, /\.card-bottomline::after\s*{[\s\S]*top:\s*0;[\s\S]*bottom:\s*auto;/);
   assert.doesNotMatch(appSource, /\$\{meta\.en\}\s*CARD/);
   assert.doesNotMatch(appSource, /class="card-emoji"[^>]*><i>/);
   assert.doesNotMatch(cssSource, /\.card-emoji i/);

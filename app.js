@@ -207,20 +207,25 @@ function renderCardLibrary(filter = "all") {
     .map((card, index) => {
       const visibleNote = /[\p{L}\p{N}]/u.test(card.note || "") ? card.note : "&nbsp;";
       const startsCategory = index === 0 || cards[index - 1].type !== card.type;
+      const typeAtBottom = card.type === "need" || card.type === "product";
+      const typeLabel = `
+        <div class="card-topline${typeAtBottom ? " card-bottomline" : ""}">
+          <span>${CARD_TYPE_LABELS[card.type]}</span>
+        </div>
+      `;
       return `
         <article
-          class="library-card${startsCategory ? " category-start" : ""}"
+          class="library-card${startsCategory ? " category-start" : ""}${typeAtBottom ? " type-label-bottom" : ""}"
           data-type="${card.type}"
           data-card-id="${card.id}"
           style="animation-delay:${index * 20}ms"
         >
           ${renderLibraryEdges(card)}
-          <div class="card-topline">
-            <span>${CARD_TYPE_LABELS[card.type]}</span>
-          </div>
+          ${typeAtBottom ? "" : typeLabel}
           <h3 class="card-name">${card.name}</h3>
           <div class="card-emoji" aria-hidden="true"><span>${card.emoji}</span></div>
           <p class="card-question">${visibleNote}</p>
+          ${typeAtBottom ? typeLabel : ""}
         </article>
       `;
     })
