@@ -60,7 +60,7 @@ test("connector shapes are doubled and use the requested visual styles", () => {
     assert.match(
       cssSource,
       new RegExp(
-        `\\.connector-shape\\[data-shape="${key}"\\][\\s\\S]*?fill:\\s*#888;[\\s\\S]*?stroke:\\s*none;`,
+        `\\.connector-shape\\[data-shape="${key}"\\][\\s\\S]*?fill:\\s*none;[\\s\\S]*?stroke:\\s*#888;[\\s\\S]*?stroke-dasharray:\\s*none;`,
       ),
     );
   });
@@ -69,7 +69,7 @@ test("connector shapes are doubled and use the requested visual styles", () => {
     assert.match(
       cssSource,
       new RegExp(
-        `\\.connector-shape\\[data-shape="${key}"\\][\\s\\S]*?stroke-dasharray:\\s*5 4;`,
+        `\\.connector-shape\\[data-shape="${key}"\\][\\s\\S]*?fill:\\s*none;[\\s\\S]*?stroke:\\s*#111;[\\s\\S]*?stroke-dasharray:\\s*none;`,
       ),
     );
   });

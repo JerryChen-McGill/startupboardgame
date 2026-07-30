@@ -885,15 +885,16 @@ button {
 .connector-shape[data-shape="hexagon"],
 .connector-shape[data-shape="pentagon"],
 .connector-shape[data-shape="star"] {
-  fill: #888;
-  stroke: none;
+  fill: none;
+  stroke: #888;
+  stroke-dasharray: none;
 }
 
 .connector-shape[data-shape="ellipse-horizontal"],
 .connector-shape[data-shape="ellipse-vertical"] {
   fill: none;
   stroke: #111;
-  stroke-dasharray: 5 4;
+  stroke-dasharray: none;
 }
 
 .edge-right,
