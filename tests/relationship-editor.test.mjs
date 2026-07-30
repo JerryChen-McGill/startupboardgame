@@ -108,14 +108,14 @@ test("connector shapes are doubled and use the requested visual styles", () => {
     assert.match(
       cssSource,
       new RegExp(
-        `\\.connector-shape\\[data-shape="${key}"\\][\\s\\S]*?fill:\\s*none;[\\s\\S]*?stroke:\\s*#888;[\\s\\S]*?stroke-dasharray:\\s*none;`,
+        `\\.connector-shape\\[data-shape="${key}"\\][\\s\\S]*?fill:\\s*none;[\\s\\S]*?stroke:\\s*#888;[\\s\\S]*?stroke-dasharray:\\s*none;[\\s\\S]*?stroke-width:\\s*1\\.3;`,
       ),
     );
   });
 });
 
 test("the connector stylesheet URL is versioned to bypass stale browser caches", () => {
-  assert.match(htmlSource, /href="\.\/styles\.css\?v=20260731-2"/);
+  assert.match(htmlSource, /href="\.\/styles\.css\?v=20260731-3"/);
 });
 
 test("the application script URL is versioned to publish ordering changes immediately", () => {
