@@ -446,7 +446,7 @@ button {
   font-size: 1.05rem;
   font-weight: 950;
   place-items: center;
-  transform: translate(-50%, -50%) translate(10px, -10px);
+  transform: translate(-50%, -50%) translate(28px, -28px);
 }
 
 .board-match.is-match { background: #2f9a62; }
