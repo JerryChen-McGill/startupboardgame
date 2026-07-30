@@ -43,6 +43,38 @@ test("ten same-bounds connector shapes are encoded and overlaid", () => {
   assert.match(cssSource, /\.card-edge\s*{[\s\S]*overflow:\s*hidden/);
 });
 
+test("connector shapes are doubled and use the requested visual styles", () => {
+  assert.match(cssSource, /\.edge-right,[\s\S]*width:\s*40px;[\s\S]*height:\s*80px/);
+  assert.match(cssSource, /\.edge-top,[\s\S]*width:\s*80px;[\s\S]*height:\s*40px/);
+
+  ["line", "square", "circle"].forEach((key) => {
+    assert.match(
+      cssSource,
+      new RegExp(
+        `\\.connector-shape\\[data-shape="${key}"\\][\\s\\S]*?fill:\\s*none;[\\s\\S]*?stroke:\\s*#111;`,
+      ),
+    );
+  });
+
+  ["diamond", "triangle", "hexagon", "pentagon", "star"].forEach((key) => {
+    assert.match(
+      cssSource,
+      new RegExp(
+        `\\.connector-shape\\[data-shape="${key}"\\][\\s\\S]*?fill:\\s*#888;[\\s\\S]*?stroke:\\s*none;`,
+      ),
+    );
+  });
+
+  ["ellipse-horizontal", "ellipse-vertical"].forEach((key) => {
+    assert.match(
+      cssSource,
+      new RegExp(
+        `\\.connector-shape\\[data-shape="${key}"\\][\\s\\S]*?stroke-dasharray:\\s*5 4;`,
+      ),
+    );
+  });
+});
+
 test("the imported workspace starts fully confirmed and without unconfirmed relations", () => {
   const cards = Object.values(data.cards).flat();
   assert.ok(cards.every((card) => card.confirmed));

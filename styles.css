@@ -857,27 +857,51 @@ button {
   stroke-width: 2.6;
 }
 
+.connector-shape[data-shape="line"],
+.connector-shape[data-shape="square"],
+.connector-shape[data-shape="circle"] {
+  fill: none;
+  stroke: #111;
+  stroke-dasharray: none;
+}
+
+.connector-shape[data-shape="diamond"],
+.connector-shape[data-shape="triangle"],
+.connector-shape[data-shape="hexagon"],
+.connector-shape[data-shape="pentagon"],
+.connector-shape[data-shape="star"] {
+  fill: #888;
+  stroke: none;
+}
+
+.connector-shape[data-shape="ellipse-horizontal"],
+.connector-shape[data-shape="ellipse-vertical"] {
+  fill: none;
+  stroke: #111;
+  stroke-dasharray: 5 4;
+}
+
 .edge-right,
 .edge-left {
   top: 50%;
-  width: 20px;
-  height: 40px;
+  width: 40px;
+  height: 80px;
   transform: translateY(-50%);
 }
 
-.edge-right { right: -3px; }
-.edge-left { left: -3px; }
+.edge-right { right: -6px; }
+.edge-left { left: -6px; }
 
 .edge-top,
 .edge-bottom {
   left: 50%;
-  width: 40px;
-  height: 20px;
+  width: 80px;
+  height: 40px;
   transform: translateX(-50%);
 }
 
-.edge-top { top: -3px; }
-.edge-bottom { bottom: -3px; }
+.edge-top { top: -6px; }
+.edge-bottom { bottom: -6px; }
 
 .connector-legend {
   display: flex;
