@@ -11,12 +11,6 @@ let selectedRelationKey = null;
 let editorChangeLog = [];
 const EDITOR_STORAGE_KEY = "startup-boardgame-relationship-editor-v3";
 const STARTUP_CARD_ORDER = ["user", "promotion", "need", "product"];
-const STARTUP_PAIR_TYPES = [
-  ["user", "promotion"],
-  ["user", "need"],
-  ["promotion", "product"],
-  ["need", "product"],
-];
 const CARD_EDGE_CONFIG = {
   user: [
     { neighborType: "promotion", side: "right", mode: "receive" },
@@ -64,8 +58,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     renderRelationshipNetwork();
     bindNetworkDownload();
     bindRelationshipEditor();
-    bindStartupLab();
-    renderStartup(getSafeStartupIds());
   } catch (error) {
     console.error(error);
     document.querySelector("#card-library").innerHTML =
@@ -297,7 +289,7 @@ function renderSiteMetrics() {
     "category-count": categoryCount,
     "relation-type-count": relationTypeCount,
     "relation-count": relationCount,
-    "player-range": gameData.meta.playerRange || "4–6",
+    "player-range": gameData.meta.playerRange || "3–7",
   };
   document.querySelectorAll("[data-metric]").forEach((element) => {
     const value = metrics[element.dataset.metric];
@@ -369,10 +361,6 @@ function renderRelationFilters() {
       updateRelationVisibility();
     });
   });
-}
-
-function networkCards(type) {
-  return gameData.cards[type].filter((card) => card.network);
 }
 
 function relationshipMapCards(type) {
@@ -1060,13 +1048,7 @@ function refreshAfterEditorMutation() {
   renderCardLibrary(activeCardFilter);
   renderRelationFilters();
   renderRelationshipNetwork();
-  const startupIds = getSafeStartupIds();
-  renderHeroCards(startupIds);
-  if (startupIds.length === 4) {
-    renderStartup(startupIds);
-  } else {
-    document.querySelector("#startup-result").innerHTML = '<p class="load-error">四类卡牌必须各保留至少一张，才能使用 STARTUP LAB。</p>';
-  }
+  renderHeroCards(getSafeStartupIds());
   renderChangeLogPreview();
 }
 
@@ -1162,133 +1144,4 @@ function downloadJson(value, filename) {
   anchor.download = filename;
   anchor.click();
   URL.revokeObjectURL(url);
-}
-
-function bindStartupLab() {
-  document.querySelector("#shuffle-startup").addEventListener("click", () => {
-    const picks = STARTUP_CARD_ORDER.map((type) => {
-      const cards = networkCards(type);
-      return cards[Math.floor(Math.random() * cards.length)].id;
-    });
-    renderStartup(picks);
-  });
-}
-
-function renderStartup(cardIds) {
-  const selected = cardIds
-    .map((id) => cardById.get(id))
-    .sort((a, b) => STARTUP_CARD_ORDER.indexOf(a.type) - STARTUP_CARD_ORDER.indexOf(b.type));
-  const orderedCardIds = selected.map((card) => card.id);
-  const selectedByType = new Map(selected.map((card) => [card.type, card]));
-  const pairs = STARTUP_PAIR_TYPES.map(([typeA, typeB]) => {
-    const a = selectedByType.get(typeA);
-    const b = selectedByType.get(typeB);
-    return { a, b, relation: relationByPair.get(pairKey(a.id, b.id)) };
-  });
-  const degree = new Map(orderedCardIds.map((id) => [id, 0]));
-
-  pairs.forEach(({ a, b, relation }) => {
-    if (!relation) return;
-    degree.set(a.id, degree.get(a.id) + 1);
-    degree.set(b.id, degree.get(b.id) + 1);
-  });
-
-  const edgeCount = pairs.filter((pair) => pair.relation).length;
-  const hasIsland = [...degree.values()].some((count) => count === 0);
-  const isConnected = projectIsConnected(orderedCardIds, pairs);
-  const status = evaluateStatus(edgeCount, isConnected, hasIsland);
-  const panel = document.querySelector("#startup-result");
-
-  panel.innerHTML = `
-    <div class="startup-panel">
-      <div class="startup-panel-header">
-        <span class="startup-status ${status.className}">${status.label}</span>
-        <span class="startup-score">${edgeCount}/4 条相邻关系 · 融资 ${status.funding}</span>
-      </div>
-      <div class="startup-cards">
-        ${selected
-          .map((card) => {
-            const meta = gameData.categoryMeta[card.type];
-            return `
-              <article
-                class="startup-mini-card ${card.type}"
-                style="--mini-accent:${meta.color};--mini-halo:${card.accent}"
-              >
-                ${renderStartupEdges(card, selectedByType)}
-                <small>${meta.label}</small>
-                <div class="startup-emoji" aria-hidden="true"><i></i><span>${card.emoji}</span></div>
-                <b>${card.name}</b>
-              </article>
-            `;
-          })
-          .join("")}
-      </div>
-      <p class="startup-story">
-        为 <strong>${selected[0].name}</strong> 解决“<strong>${selected[2].name}</strong>”，
-        发明 <strong>${selected[3].name}</strong>，再用 <strong>${selected[1].name}</strong> 让大家知道。
-      </p>
-      <div class="startup-links">
-        ${pairs
-          .map(
-            ({ a, b, relation }) => `
-              <div class="startup-link ${relation ? "" : "missing"}" title="${relation?.reason || "当前原型中没有已定义关系"}">
-                <b>${a.name} × ${b.name}</b>
-                <span>${relation ? "✓" : "×"}</span>
-              </div>
-            `,
-          )
-          .join("")}
-      </div>
-    </div>
-  `;
-}
-
-function renderStartupEdges(card, selectedByType) {
-  return CARD_EDGE_CONFIG[card.type]
-    .map(({ neighborType, side, mode }) => {
-      const neighbor = selectedByType.get(neighborType);
-      const relation = relationByPair.get(pairKey(card.id, neighbor.id));
-      if (!relation) return "";
-      const edgeColor = mode === "own" ? card.accent : neighbor.accent;
-      return `
-        <div
-          class="project-edge edge-${side} edge-${mode}"
-          style="--edge-color:${edgeColor}"
-          title="${relation.reason}"
-          aria-hidden="true"
-        ></div>
-      `;
-    })
-    .join("");
-}
-
-function projectIsConnected(cardIds, pairs) {
-  if (!cardIds.length) return false;
-  const adjacency = new Map(cardIds.map((id) => [id, new Set()]));
-  pairs.forEach(({ a, b, relation }) => {
-    if (!relation) return;
-    adjacency.get(a.id).add(b.id);
-    adjacency.get(b.id).add(a.id);
-  });
-  const visited = new Set();
-  const queue = [cardIds[0]];
-  while (queue.length) {
-    const id = queue.shift();
-    if (visited.has(id)) continue;
-    visited.add(id);
-    adjacency.get(id).forEach((neighbor) => {
-      if (!visited.has(neighbor)) queue.push(neighbor);
-    });
-  }
-  return visited.size === cardIds.length;
-}
-
-function evaluateStatus(edgeCount, isConnected, hasIsland) {
-  if (edgeCount === 4) {
-    return { label: "强强合作 · 四边连通", className: "great", funding: "200 万 / 人" };
-  }
-  if (edgeCount === 3 && isConnected && !hasIsland) {
-    return { label: "创业成立 · T 字连通", className: "partial", funding: "100 万 / 人" };
-  }
-  return { label: "创业失败 · 存在孤岛", className: "fail", funding: "0" };
 }

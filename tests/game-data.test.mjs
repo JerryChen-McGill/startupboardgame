@@ -23,7 +23,7 @@ test("the latest export supplies 34 confirmed cards across four categories", () 
     { user: 7, need: 10, product: 9, promotion: 8 },
   );
   assert.equal(data.meta.networkCardCount, 34);
-  assert.equal(data.meta.playerRange, "4–6");
+  assert.equal(data.meta.playerRange, "3–7");
   assert.ok(allCards.every((card) => card.confirmed === true));
   assert.ok(allCards.every((card) => card.emoji !== "✨"), "placeholder icons should be replaced");
   assert.ok(Object.values(data.cards).every((cards) => cards.length <= 10));

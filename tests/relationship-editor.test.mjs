@@ -87,6 +87,16 @@ test("the physical prototype section and its styles are removed", () => {
   assert.doesNotMatch(cssSource, /\.prototype(?:-|\s|\{)/);
 });
 
+test("the startup lab is removed and the rulebook uses the shared light panel", () => {
+  assert.doesNotMatch(htmlSource, /STARTUP LAB|id="lab"|id="startup-result"/);
+  assert.doesNotMatch(appSource, /bindStartupLab|renderStartup|STARTUP_PAIR_TYPES/);
+  assert.match(htmlSource, /class="rulebook-panel"/);
+  assert.match(htmlSource, /FUNDING · 融资结算/);
+  assert.match(htmlSource, /data-metric="player-range">3–7</);
+  assert.match(htmlSource, /href="#cards">看看卡牌</);
+  assert.doesNotMatch(htmlSource, /挑战合作能力/);
+});
+
 test("editor still supports local changes and separate exports", () => {
   [
     'id="card-editor-form"',
