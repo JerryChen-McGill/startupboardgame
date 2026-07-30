@@ -115,7 +115,7 @@ test("connector shapes are doubled and use the requested visual styles", () => {
 });
 
 test("the connector stylesheet URL is versioned to bypass stale browser caches", () => {
-  assert.match(htmlSource, /href="\.\/styles\.css\?v=20260731-8"/);
+  assert.match(htmlSource, /href="\.\/styles\.css\?v=20260731-9"/);
 });
 
 test("the application script URL is versioned to publish ordering changes immediately", () => {
@@ -153,8 +153,11 @@ test("the homepage demo randomizes current cards and evaluates all four adjacent
   assert.match(cssSource, /\.board-match\.is-miss \{ background: #d94b4b; \}/);
   assert.match(cssSource, /\.board-match-1 \{ top: 25%; left: 50%; \}/);
   assert.match(cssSource, /\.board-match-4 \{ top: 75%; left: 50%; \}/);
-  assert.match(cssSource, /translate\(-50%, -50%\) translate\(28px, -28px\)/);
-  assert.match(cssSource, /\.startup-card\.library-card/);
+  assert.match(cssSource, /translate\(-50%, -50%\) translate\(46px, -46px\)/);
+  assert.doesNotMatch(
+    cssSource,
+    /\.startup-card(?:\.library-card|\s+\.(?:card-topline|card-name|card-emoji|card-question|card-bottomline|edge-))/,
+  );
   assert.match(appSource, /visibleNote/);
   assert.match(appSource, /startup-prompt prompt-/);
   assert.match(appSource, /card\.note/);
