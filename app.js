@@ -107,6 +107,17 @@ function loadEditorWorkspace(sourceData) {
   } catch (error) {
     console.warn("无法读取关系编辑草稿，将使用原始数据。", error);
   }
+
+  const latestNotes = new Map(
+    Object.values(sourceData.cards)
+      .flat()
+      .map((card) => [card.id, card.note]),
+  );
+  Object.values(gameData.cards)
+    .flat()
+    .forEach((card) => {
+      if (latestNotes.has(card.id)) card.note = latestNotes.get(card.id);
+    });
 }
 
 function rebuildIndexes() {
@@ -201,10 +212,9 @@ function renderCardLibrary(filter = "all") {
           ${renderLibraryEdges(card)}
           <div class="card-topline">
             <span>${meta.label}卡</span>
-            <span>${meta.en} CARD</span>
           </div>
           <h3 class="card-name">${card.name}</h3>
-          <div class="card-emoji" aria-hidden="true"><i></i><span>${card.emoji}</span></div>
+          <div class="card-emoji" aria-hidden="true"><span>${card.emoji}</span></div>
           <p class="card-question">${visibleNote}</p>
         </article>
       `;

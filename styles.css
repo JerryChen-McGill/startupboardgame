@@ -741,7 +741,7 @@ button {
   display: flex;
   flex-direction: column;
   aspect-ratio: 3 / 4;
-  padding: 1rem 1.35rem 1.25rem;
+  padding: 1rem 1.35rem 2.35rem;
   overflow: visible;
   color: #111;
   background: #fff;
@@ -771,20 +771,13 @@ button {
   position: relative;
   z-index: 4;
   display: flex;
-  flex-direction: column;
-  gap: 0.1rem;
-  align-items: center;
+  justify-content: center;
   padding-bottom: 0.55rem;
   color: #111;
-  font-size: 0.58rem;
+  font-size: 0.8rem;
   font-weight: 850;
   letter-spacing: 0.08em;
   text-align: center;
-}
-
-.card-topline span:first-child {
-  color: #111;
-  font-size: 0.8rem;
 }
 
 .card-topline::after {
@@ -804,31 +797,12 @@ button {
   place-items: center;
 }
 
-.card-emoji i {
-  position: absolute;
-  width: 72%;
-  aspect-ratio: 1;
-  background: color-mix(in srgb, var(--card-halo) 13%, white);
-  border: 4px solid color-mix(in srgb, var(--card-halo) 88%, white 12%);
-  border-radius: 50%;
-  box-shadow:
-    0 0 0 7px color-mix(in srgb, var(--card-halo) 9%, transparent),
-    0 8px 24px color-mix(in srgb, var(--card-halo) 34%, transparent);
-}
-
 .card-emoji span {
   position: relative;
   z-index: 1;
   font-size: clamp(2.5rem, 4vw, 4.4rem);
   filter: grayscale(1) brightness(0.58) contrast(1.35);
   opacity: 0.96;
-}
-
-.library-card .card-emoji i {
-  width: 74%;
-  background: transparent;
-  border: 3px solid #111;
-  box-shadow: none;
 }
 
 .card-name {
@@ -845,12 +819,11 @@ button {
 .card-question {
   position: relative;
   z-index: 4;
-  margin: 0.45rem 0 0;
-  padding-top: 0.55rem;
-  border-top: 1px solid #111;
+  margin: 0 0 0.15rem;
   color: #111;
-  font-size: 0.75rem;
-  font-weight: 650;
+  font-size: 0.68rem;
+  font-weight: 600;
+  line-height: 1.5;
   text-align: center;
 }
 

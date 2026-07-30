@@ -24,6 +24,14 @@ test("card library and relationship map use descending relation rank", () => {
   assert.match(appSource, /cardDegreeById/);
 });
 
+test("card faces use Chinese type labels, unframed icons, and complete descriptions", () => {
+  const cards = Object.values(data.cards).flat();
+  assert.ok(cards.every((card) => card.note.trim().length > 20));
+  assert.doesNotMatch(appSource, /\$\{meta\.en\}\s*CARD/);
+  assert.doesNotMatch(appSource, /class="card-emoji"[^>]*><i>/);
+  assert.doesNotMatch(cssSource, /\.card-emoji i/);
+});
+
 test("ten same-bounds connector shapes are encoded and overlaid", () => {
   const shapeKeys = [
     "line",
