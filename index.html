@@ -20,7 +20,7 @@
     <link rel="canonical" href="https://jerrychen-mcgill.github.io/startupboardgame/" />
     <link rel="icon" href="./assets/favicon.svg" type="image/svg+xml" />
     <title>迷你创业桌游｜把离谱点子拼成自洽生意</title>
-    <link rel="stylesheet" href="./styles.css?v=20260731-1" />
+    <link rel="stylesheet" href="./styles.css?v=20260731-2" />
   </head>
   <body>
     <a class="skip-link" href="#main">跳到主要内容</a>
@@ -60,67 +60,23 @@
           </dl>
         </div>
 
-        <div class="hero-visual" aria-label="四张三比四长方形卡牌以二乘二方式拼成创业项目">
+        <div class="hero-visual" aria-label="从当前卡牌库随机抽取四张卡，组合成创业项目">
           <div class="orbit orbit-one"></div>
           <div class="orbit orbit-two"></div>
-          <svg class="hero-board" viewBox="0 0 620 820" role="img" aria-labelledby="hero-board-title">
-            <title id="hero-board-title">用户、传播、需求、产品四张三比四长方形卡组成二乘二大长方形</title>
-            <defs>
-              <filter id="hero-shadow" x="-30%" y="-30%" width="160%" height="160%">
-                <feDropShadow dx="0" dy="18" stdDeviation="16" flood-color="#09081a" flood-opacity=".25" />
-              </filter>
-              <linearGradient id="hero-user" x1="0" y1="0" x2="1" y2="1">
-                <stop offset="0" stop-color="#a6d7aa" />
-                <stop offset="1" stop-color="#73b97c" />
-              </linearGradient>
-              <linearGradient id="hero-need" x1="0" y1="0" x2="1" y2="1">
-                <stop offset="0" stop-color="#ffae7a" />
-                <stop offset="1" stop-color="#ff5f68" />
-              </linearGradient>
-              <linearGradient id="hero-product" x1="0" y1="0" x2="1" y2="1">
-                <stop offset="0" stop-color="#9ed0ee" />
-                <stop offset="1" stop-color="#67a5d1" />
-              </linearGradient>
-              <linearGradient id="hero-promo" x1="0" y1="0" x2="1" y2="1">
-                <stop offset="0" stop-color="#d7a0ff" />
-                <stop offset="1" stop-color="#7a63ff" />
-              </linearGradient>
-              <clipPath id="hero-board-clip">
-                <rect x="26" y="31" width="568" height="758" rx="28" />
-              </clipPath>
-            </defs>
-            <g filter="url(#hero-shadow)" clip-path="url(#hero-board-clip)">
-              <rect x="26" y="31" width="284" height="379" fill="url(#hero-user)" />
-              <rect x="310" y="31" width="284" height="379" fill="url(#hero-promo)" />
-              <rect x="26" y="410" width="284" height="379" fill="url(#hero-need)" />
-              <rect x="310" y="410" width="284" height="379" fill="url(#hero-product)" />
-            </g>
-            <rect x="26" y="31" width="568" height="758" rx="28" fill="none" stroke="#fff" stroke-opacity=".72" stroke-width="4" />
-            <path d="M310 31v758M26 410h568" fill="none" stroke="#fff" stroke-opacity=".78" stroke-width="4" />
-            <g fill="#17152f" text-anchor="middle">
-              <text x="168" y="155" class="hero-card-emoji" data-hero-card-type="user" data-hero-field="emoji">🐌</text>
-              <text x="168" y="213" class="hero-card-name" data-hero-card-type="user" data-hero-field="name">蜗牛</text>
-              <text x="168" y="249" class="hero-card-type" data-hero-card-type="user" data-hero-field="type">用户 · 谁？</text>
-
-              <text x="452" y="155" class="hero-card-emoji" data-hero-card-type="promotion" data-hero-field="emoji">🌈</text>
-              <text x="452" y="213" class="hero-card-name hero-card-name-small" data-hero-card-type="promotion" data-hero-field="name">彩虹上打广告</text>
-              <text x="452" y="249" class="hero-card-type" data-hero-card-type="promotion" data-hero-field="type">传播 · 怎么让人知道？</text>
-
-              <text x="168" y="534" class="hero-card-emoji" data-hero-card-type="need" data-hero-field="emoji">✈️</text>
-              <text x="168" y="592" class="hero-card-name hero-card-name-small" data-hero-card-type="need" data-hero-field="name">好想旅游啊</text>
-              <text x="168" y="628" class="hero-card-type" data-hero-card-type="need" data-hero-field="type">需求 · 怎么了？</text>
-
-              <text x="452" y="534" class="hero-card-emoji" data-hero-card-type="product" data-hero-field="emoji">📱</text>
-              <text x="452" y="592" class="hero-card-name hero-card-name-small" data-hero-card-type="product" data-hero-field="name">超智能手机</text>
-              <text x="452" y="628" class="hero-card-type" data-hero-card-type="product" data-hero-field="type">产品 · 怎么办？</text>
-            </g>
-            <g class="match-marks" fill="none" stroke="#fff" stroke-linecap="round">
-              <path d="M310 164v54M310 598v54" />
-              <path d="M142 410h54M424 410h54" />
-            </g>
-          </svg>
-          <div class="hero-note note-one"><span>01</span> 四张卡，缺一不可</div>
-          <div class="hero-note note-two"><span>02</span> 四种相邻关系</div>
+          <div class="startup-demo">
+            <div class="startup-board" id="startup-board" aria-live="polite"></div>
+            <button class="button shuffle-button" id="shuffle-startup" type="button">
+              <span aria-hidden="true">↻</span> 重新组合
+            </button>
+            <section class="startup-result" id="startup-result" aria-live="polite">
+              <div class="startup-result-heading">
+                <p class="kicker">MATCH CHECK · 配对检查</p>
+                <strong id="startup-verdict">正在组合生意…</strong>
+              </div>
+              <div class="startup-match-list" id="startup-match-list"></div>
+              <div class="startup-funding" id="startup-funding"></div>
+            </section>
+          </div>
         </div>
       </section>
 
@@ -139,75 +95,98 @@
       </section>
 
       <section class="how section-shell" id="how">
-        <div class="rulebook-panel">
-          <div class="section-heading">
-            <div>
-              <p class="kicker">RULEBOOK · 游戏说明书</p>
-              <h2>一张面板，<br />读懂一整局。</h2>
+        <div class="rulebook-heading">
+          <p class="kicker">RULEBOOK · 游戏说明书</p>
+          <p>翻开两页，从组队到融资，一次读懂。</p>
+        </div>
+
+        <div class="rulebook-book" aria-label="迷你创业桌游两页游戏说明书">
+          <article class="rulebook-page rulebook-page-left">
+            <header class="manual-title">
+              <p>合作创业桌游</p>
+              <h2>迷你创业桌游</h2>
+              <strong>把离谱点子，拼成自洽生意。</strong>
+            </header>
+
+            <div class="manual-facts" aria-label="基本信息">
+              <p><b>人数</b><span data-metric="player-range">3–7</span> 人</p>
+              <p><b>核心</b>合作、表达与应变</p>
+              <p><b>胜利</b>累计融资最多</p>
             </div>
-            <p class="section-intro">
-              游戏适合 3–7 人。四个创业岗位始终存在；3 人局由一人兼任两个岗位，
-              4 人以上由四人组成创业团队，其余玩家作为外部竞争对手。
-            </p>
-          </div>
 
-          <div class="rulebook-summary">
-            <article><span>人数</span><strong><span data-metric="player-range">3–7</span> 人</strong><p>四个创业岗位必须全部有人负责；3 人局允许一人兼任两个岗位。</p></article>
-            <article><span>一回合</span><strong>组队、选卡、拼接、结算</strong><p>团队完成一个 2×2 创业项目，并说明四条相邻关系。</p></article>
-            <article><span>胜利判据</span><strong>累计融资最多</strong><p>完成约定回合后，个人累计融资最高者获胜。</p></article>
-          </div>
-
-          <div class="rulebook-section-label">游戏步骤</div>
-          <ol class="rule-steps">
-            <li class="rule-step">
-              <div class="rule-number">01</div>
-              <div class="rule-icon" aria-hidden="true">人</div>
-              <div>
-                <h3>分配岗位</h3>
-                <p>分配用户、传播、需求、产品四个岗位。超过四人的玩家成为外部竞争对手，每回合轮换。</p>
-              </div>
-            </li>
-            <li class="rule-step">
-              <div class="rule-number">02</div>
-              <div class="rule-icon" aria-hidden="true">▦</div>
-              <div>
-                <h3>限时选卡与拼接</h3>
-                <p>四类卡各选一张，按照用户、传播、需求、产品组成 2×2 面板。</p>
-              </div>
-            </li>
-            <li class="rule-step">
-              <div class="rule-number">03</div>
-              <div class="rule-icon" aria-hidden="true">↔</div>
-              <div>
-                <h3>核对接口并解释</h3>
-                <p>检查四条相邻边的几何接口是否匹配，并说明每一条关系为什么成立。</p>
-              </div>
-            </li>
-            <li class="rule-step">
-              <div class="rule-number">04</div>
-              <div class="rule-icon" aria-hidden="true">$</div>
-              <div>
-                <h3>应变与结算</h3>
-                <p>处理外部变化后锁定方案，根据有效相邻关系数量结算本轮融资。</p>
-              </div>
-            </li>
-          </ol>
-
-          <div class="connection-rule">
-            <div class="connection-copy">
-              <p class="kicker">FUNDING · 融资结算</p>
-              <h3>只计算四条相邻关系。</h3>
+            <section class="manual-section">
+              <h3><span>01</span> 游戏目标</h3>
               <p>
-                有效关系为用户–传播、用户–需求、传播–产品、需求–产品。
-                用户–产品与需求–传播是对角组合，不参与判定。
+                每回合，创业团队要从四类卡牌中各选一张，组成一个完整项目。
+                你们必须证明相邻卡牌之间的关系成立，并尽可能让四条相邻边全部连通，以获得更多融资。
               </p>
-            </div>
-            <div class="score-ladder" aria-label="融资结算表">
-              <div class="score-row perfect"><span>4</span><b>四处全部连通</b><i>200 万融资 / 人</i></div>
-              <div class="score-row"><span>3</span><b>T 字形连通</b><i>100 万融资 / 人</i></div>
-              <div class="score-row danger"><span>0–2</span><b>至少一张卡孤立</b><i>创业失败，融资为 0</i></div>
-            </div>
-          </div>
+            </section>
+
+            <section class="manual-section">
+              <h3><span>02</span> 开始之前</h3>
+              <p>
+                将用户、传播、需求、产品四类卡牌分别放好。所有玩家先约定本局回合数与轮换顺序，
+                再准备纸笔记录每名玩家获得的融资。
+              </p>
+              <p>
+                每回合必须有人负责四个创业岗位。3 人局由一人兼任两个岗位；4 人以上由四人组成创业团队，
+                其余玩家担任外部竞争对手。
+              </p>
+            </section>
+
+            <section class="manual-section">
+              <h3><span>03</span> 项目面板</h3>
+              <p>四张卡必须按下图固定摆放。只有上下或左右相邻的卡牌才参与判定。</p>
+              <div class="manual-board" aria-label="项目面板：左上用户，右上传播，左下需求，右下产品">
+                <div><b>用户</b><small>为谁？</small></div>
+                <div><b>传播</b><small>怎么让人知道？</small></div>
+                <div><b>需求</b><small>怎么了？</small></div>
+                <div><b>产品</b><small>怎么办？</small></div>
+              </div>
+            </section>
+
+            <footer class="manual-page-number"><span>迷你创业桌游 · 游戏说明书</span><b>01</b></footer>
+          </article>
+
+          <article class="rulebook-page rulebook-page-right">
+            <section class="manual-section manual-section-first">
+              <h3><span>04</span> 每回合怎么玩</h3>
+              <ol class="manual-steps">
+                <li><b>分配岗位。</b>确定本回合的用户、传播、需求、产品负责人，以及外部竞争对手。</li>
+                <li><b>选择卡牌。</b>四名负责人查看自己类别的卡牌，团队讨论后各选一张。</li>
+                <li><b>拼成项目。</b>按固定位置放下四张卡，组成 2×2 项目面板。</li>
+                <li><b>核对关系。</b>检查四条相邻边的接口是否匹配；每成立一条，团队必须用一句话解释具体场景或作用机制。</li>
+                <li><b>处理变化。</b>如本局使用测试中的事件卡，由竞争对手在结算前制造外部变化，团队按本局约定调整方案。</li>
+                <li><b>结算并轮换。</b>统计成立关系，记录每名创业成员获得的融资，然后进入下一回合并轮换身份。</li>
+              </ol>
+            </section>
+
+            <section class="manual-section">
+              <h3><span>05</span> 关系怎么判定</h3>
+              <p>
+                只检查四条相邻关系：<b>用户—传播、用户—需求、传播—产品、需求—产品</b>。
+                用户—产品与需求—传播位于对角线，不检查，也不计分。
+              </p>
+              <p class="manual-note">
+                接口匹配只是关系成立的提示。团队仍要把理由说清楚；不能只用颜色、位置或模糊联想解释。
+              </p>
+            </section>
+
+            <section class="manual-section">
+              <h3><span>06</span> 融资与胜利</h3>
+              <div class="manual-score" aria-label="融资结算">
+                <div><b>4 条</b><span>四处全部连通</span><strong>200 万 / 人</strong></div>
+                <div><b>3 条</b><span>T 字形连通</span><strong>100 万 / 人</strong></div>
+                <div><b>0–2 条</b><span>至少一张卡孤立，创业失败</span><strong>0</strong></div>
+              </div>
+              <p>
+                完成开局时约定的全部回合后，计算每名玩家的累计融资。融资最高者获胜。
+                若出现平局，平局玩家共享胜利，或在开局前另行约定加赛方式。
+              </p>
+            </section>
+
+            <footer class="manual-page-number"><span>强强合作，把点子讲通</span><b>02</b></footer>
+          </article>
         </div>
       </section>
 
@@ -227,9 +206,9 @@
           <div class="card-filters" role="group" aria-label="筛选卡牌类型">
             <button class="filter-chip active" type="button" data-card-filter="all" data-card-filter-count="all">全部 34</button>
             <button class="filter-chip" type="button" data-card-filter="user" data-card-filter-count="user">用户 7</button>
-            <button class="filter-chip" type="button" data-card-filter="promotion" data-card-filter-count="promotion">传播 8</button>
             <button class="filter-chip" type="button" data-card-filter="need" data-card-filter-count="need">需求 10</button>
             <button class="filter-chip" type="button" data-card-filter="product" data-card-filter-count="product">产品 9</button>
+            <button class="filter-chip" type="button" data-card-filter="promotion" data-card-filter-count="promotion">传播 8</button>
           </div>
           <div class="connector-legend" aria-label="几何接口匹配说明">
             <div class="connector-demo" aria-hidden="true">
@@ -384,6 +363,6 @@
       <a href="https://github.com/JerryChen-McGill/startupboardgame">GitHub ↗</a>
     </footer>
 
-    <script src="./app.js" defer></script>
+    <script src="./app.js?v=20260731-1" defer></script>
   </body>
 </html>

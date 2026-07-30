@@ -11,6 +11,8 @@ let selectedRelationKey = null;
 let editorChangeLog = [];
 const EDITOR_STORAGE_KEY = "startup-boardgame-relationship-editor-v3";
 const STARTUP_CARD_ORDER = ["user", "promotion", "need", "product"];
+const CARD_LIBRARY_ORDER = ["user", "need", "product", "promotion"];
+const RELATION_FILTER_ORDER = ["user-need", "need-product", "product-promotion", "user-promotion"];
 const CARD_TYPE_LABELS = {
   user: "用户卡",
   promotion: "传播卡",
@@ -56,7 +58,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     loadEditorWorkspace(sourceData);
     rebuildIndexes();
     renderSiteMetrics();
-    renderHeroCards(getSafeStartupIds());
+    bindStartupDemo();
 
     renderCardLibrary();
     bindCardFilters();
@@ -175,31 +177,9 @@ function persistEditorWorkspace() {
   }
 }
 
-function getSafeStartupIds() {
-  const featured = gameData.featuredCombos?.success || [];
-  if (featured.length === 4 && featured.every((id) => cardById.has(id))) return featured;
-  for (const user of rankedCards("user")) {
-    for (const promotion of rankedCards("promotion")) {
-      if (!relationByPair.has(pairKey(user.id, promotion.id))) continue;
-      for (const product of rankedCards("product")) {
-        if (!relationByPair.has(pairKey(promotion.id, product.id))) continue;
-        for (const need of rankedCards("need")) {
-          if (
-            relationByPair.has(pairKey(product.id, need.id)) &&
-            relationByPair.has(pairKey(need.id, user.id))
-          ) {
-            return [user.id, promotion.id, need.id, product.id];
-          }
-        }
-      }
-    }
-  }
-  return STARTUP_CARD_ORDER.map((type) => rankedCards(type)[0]?.id).filter(Boolean);
-}
-
 function renderCardLibrary(filter = "all") {
   const library = document.querySelector("#card-library");
-  const cards = STARTUP_CARD_ORDER.flatMap((type) =>
+  const cards = CARD_LIBRARY_ORDER.flatMap((type) =>
     rankedCards(type).map((card) => ({ ...card, type })),
   ).filter((card) => filter === "all" || card.type === filter);
 
@@ -324,27 +304,96 @@ function renderSiteMetrics() {
   });
 }
 
-function renderHeroCards(cardIds) {
-  const byType = new Map(
-    cardIds
-      .map((id) => cardById.get(id))
-      .filter(Boolean)
-      .map((card) => [card.type, card]),
-  );
-  document.querySelectorAll("[data-hero-card-type]").forEach((element) => {
-    const type = element.dataset.heroCardType;
-    const card = byType.get(type);
-    if (!card) return;
-    if (element.dataset.heroField === "emoji") element.textContent = card.emoji;
-    if (element.dataset.heroField === "name") {
-      element.textContent = card.name;
-      element.classList.toggle("hero-card-name-small", card.name.length > 5);
-    }
-    if (element.dataset.heroField === "type") {
-      const meta = gameData.categoryMeta[type];
-      element.textContent = `${meta.label} · ${meta.question}`;
-    }
+function randomStartupCards() {
+  return STARTUP_CARD_ORDER.map((type) => {
+    const cards = gameData.cards[type];
+    return { ...cards[Math.floor(Math.random() * cards.length)], type };
   });
+}
+
+function renderStartupCard(card) {
+  const typeAtBottom = card.type === "need" || card.type === "product";
+  const typeLabel = `
+    <div class="card-topline${typeAtBottom ? " card-bottomline" : ""}">
+      <span>${CARD_TYPE_LABELS[card.type]}</span>
+    </div>
+  `;
+  return `
+    <article class="library-card startup-card${typeAtBottom ? " type-label-bottom" : ""}" data-type="${card.type}">
+      ${renderLibraryEdges(card)}
+      ${typeAtBottom ? "" : typeLabel}
+      <h3 class="card-name">${card.name}</h3>
+      <div class="card-emoji" aria-hidden="true"><span>${card.emoji}</span></div>
+      <p class="card-question">${gameData.categoryMeta[card.type].question}</p>
+      ${typeAtBottom ? typeLabel : ""}
+    </article>
+  `;
+}
+
+function evaluateStartup(cards) {
+  const byType = new Map(cards.map((card) => [card.type, card]));
+  const pairs = [
+    ["user", "promotion"],
+    ["user", "need"],
+    ["promotion", "product"],
+    ["need", "product"],
+  ].map(([sourceType, targetType]) => {
+    const source = byType.get(sourceType);
+    const target = byType.get(targetType);
+    return {
+      source,
+      target,
+      matched: relationByPair.has(pairKey(source.id, target.id)),
+    };
+  });
+  return { pairs, matchCount: pairs.filter((pair) => pair.matched).length };
+}
+
+function renderStartupDemo(cards) {
+  const board = document.querySelector("#startup-board");
+  const matchList = document.querySelector("#startup-match-list");
+  const verdict = document.querySelector("#startup-verdict");
+  const funding = document.querySelector("#startup-funding");
+  const result = evaluateStartup(cards);
+
+  board.innerHTML = cards.map(renderStartupCard).join("");
+  matchList.innerHTML = result.pairs
+    .map(
+      ({ source, target, matched }) => `
+        <div class="startup-match ${matched ? "is-match" : "is-miss"}">
+          <span class="match-icon" aria-hidden="true">${matched ? "✓" : "×"}</span>
+          <span>${gameData.categoryMeta[source.type].label} × ${gameData.categoryMeta[target.type].label}</span>
+          <b>${matched ? "匹配" : "不匹配"}</b>
+        </div>
+      `,
+    )
+    .join("");
+
+  if (result.matchCount === 4) {
+    verdict.textContent = "最佳生意，四条关系全部成立！";
+    funding.innerHTML = "<span>融资</span><strong>200 万</strong><em>最佳</em>";
+    funding.className = "startup-funding is-perfect";
+  } else if (result.matchCount === 3) {
+    verdict.textContent = "生意能成，三条关系成立。";
+    funding.innerHTML = "<span>融资</span><strong>100 万</strong>";
+    funding.className = "startup-funding is-funded";
+  } else {
+    verdict.textContent = `生意没成，只有 ${result.matchCount} 条关系成立。`;
+    funding.innerHTML = "<span>融资</span><strong>0</strong>";
+    funding.className = "startup-funding is-failed";
+  }
+}
+
+function bindStartupDemo() {
+  const shuffleButton = document.querySelector("#shuffle-startup");
+  const shuffle = () => {
+    shuffleButton.classList.remove("is-spinning");
+    void shuffleButton.offsetWidth;
+    shuffleButton.classList.add("is-spinning");
+    renderStartupDemo(randomStartupCards());
+  };
+  shuffleButton.addEventListener("click", shuffle);
+  renderStartupDemo(randomStartupCards());
 }
 
 function bindCardFilters() {
@@ -365,11 +414,11 @@ function renderRelationFilters() {
   }, {});
   const buttons = [
     `<button class="relation-chip${activeRelationType === "all" ? " active" : ""}" type="button" data-relation-filter="all">全部关系</button>`,
-    ...Object.entries(gameData.relationMeta)
-      .filter(([key]) => relationCounts[key])
+    ...RELATION_FILTER_ORDER
+      .filter((key) => relationCounts[key] && gameData.relationMeta[key])
       .map(
-      ([key, meta]) =>
-        `<button class="relation-chip${activeRelationType === key ? " active" : ""}" type="button" data-relation-filter="${key}" style="--chip-color:${meta.color}">${meta.label} · ${relationCounts[key]}</button>`,
+      (key) =>
+        `<button class="relation-chip${activeRelationType === key ? " active" : ""}" type="button" data-relation-filter="${key}" style="--chip-color:${gameData.relationMeta[key].color}">${gameData.relationMeta[key].label} · ${relationCounts[key]}</button>`,
     ),
   ];
   container.innerHTML = buttons.join("");
@@ -1130,7 +1179,7 @@ function refreshAfterEditorMutation() {
   renderCardLibrary(activeCardFilter);
   renderRelationFilters();
   renderRelationshipNetwork();
-  renderHeroCards(getSafeStartupIds());
+  renderStartupDemo(randomStartupCards());
   renderChangeLogPreview();
 }
 
