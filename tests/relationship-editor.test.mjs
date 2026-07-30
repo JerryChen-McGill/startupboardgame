@@ -61,7 +61,7 @@ test("connector shapes are doubled and use the requested visual styles", () => {
   assert.match(cssSource, /\.edge-right,[\s\S]*width:\s*40px;[\s\S]*height:\s*80px/);
   assert.match(cssSource, /\.edge-top,[\s\S]*width:\s*80px;[\s\S]*height:\s*40px/);
 
-  ["line", "square", "circle"].forEach((key) => {
+  ["line", "square", "circle", "diamond", "triangle"].forEach((key) => {
     assert.match(
       cssSource,
       new RegExp(
@@ -70,7 +70,16 @@ test("connector shapes are doubled and use the requested visual styles", () => {
     );
   });
 
-  ["diamond", "triangle", "hexagon", "pentagon", "star"].forEach((key) => {
+  ["diamond", "triangle"].forEach((key) => {
+    assert.match(
+      cssSource,
+      new RegExp(
+        `\\.connector-shape\\[data-shape="${key}"\\][\\s\\S]*?stroke-width:\\s*1\\.3;`,
+      ),
+    );
+  });
+
+  ["hexagon", "pentagon", "star"].forEach((key) => {
     assert.match(
       cssSource,
       new RegExp(
@@ -83,7 +92,7 @@ test("connector shapes are doubled and use the requested visual styles", () => {
     assert.match(
       cssSource,
       new RegExp(
-        `\\.connector-shape\\[data-shape="${key}"\\][\\s\\S]*?fill:\\s*none;[\\s\\S]*?stroke:\\s*#111;[\\s\\S]*?stroke-dasharray:\\s*none;`,
+        `\\.connector-shape\\[data-shape="${key}"\\][\\s\\S]*?fill:\\s*none;[\\s\\S]*?stroke:\\s*#888;[\\s\\S]*?stroke-dasharray:\\s*none;`,
       ),
     );
   });

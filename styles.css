@@ -877,7 +877,13 @@ button {
 }
 
 .connector-shape[data-shape="diamond"],
-.connector-shape[data-shape="triangle"],
+.connector-shape[data-shape="triangle"] {
+  fill: none;
+  stroke: #111;
+  stroke-dasharray: none;
+  stroke-width: 1.3;
+}
+
 .connector-shape[data-shape="hexagon"],
 .connector-shape[data-shape="pentagon"],
 .connector-shape[data-shape="star"] {
@@ -890,7 +896,7 @@ button {
 .connector-shape[data-shape="ellipse-horizontal"],
 .connector-shape[data-shape="ellipse-vertical"] {
   fill: none;
-  stroke: #111;
+  stroke: #888;
   stroke-dasharray: none;
 }
 
