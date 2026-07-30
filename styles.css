@@ -732,6 +732,10 @@ button {
   gap: 1.4rem;
 }
 
+.library-card.category-start {
+  grid-column-start: 1;
+}
+
 .library-card {
   position: relative;
   display: flex;

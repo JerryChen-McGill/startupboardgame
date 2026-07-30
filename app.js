@@ -190,9 +190,10 @@ function renderCardLibrary(filter = "all") {
     .map((card, index) => {
       const meta = gameData.categoryMeta[card.type];
       const visibleNote = /[\p{L}\p{N}]/u.test(card.note || "") ? card.note : "&nbsp;";
+      const startsCategory = index === 0 || cards[index - 1].type !== card.type;
       return `
         <article
-          class="library-card"
+          class="library-card${startsCategory ? " category-start" : ""}"
           data-type="${card.type}"
           data-card-id="${card.id}"
           style="animation-delay:${index * 20}ms"
