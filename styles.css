@@ -446,7 +446,7 @@ button {
   font-size: 1.05rem;
   font-weight: 950;
   place-items: center;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%) translate(10px, -10px);
 }
 
 .board-match.is-match { background: #2f9a62; }
@@ -834,6 +834,10 @@ button {
 
 .section-heading.compact {
   grid-template-columns: 1.1fr 0.55fr;
+}
+
+.cards-section .section-heading.compact {
+  grid-template-columns: 1fr;
 }
 
 .section-heading h2 {
@@ -1288,6 +1292,14 @@ button {
   border: 2px solid #111;
   border-radius: 14px;
   box-shadow: 5px 5px 0 #111;
+}
+
+.manual-section .connector-legend {
+  margin: 0.8rem 0 1rem;
+  padding: 0.7rem 0.8rem;
+  border-width: 1px;
+  border-radius: 8px;
+  box-shadow: 3px 3px 0 #111;
 }
 
 .connector-legend p {

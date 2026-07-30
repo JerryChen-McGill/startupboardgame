@@ -20,7 +20,7 @@
     <link rel="canonical" href="https://jerrychen-mcgill.github.io/startupboardgame/" />
     <link rel="icon" href="./assets/favicon.svg" type="image/svg+xml" />
     <title>迷你创业桌游｜把离谱点子拼成自洽生意</title>
-    <link rel="stylesheet" href="./styles.css?v=20260731-4" />
+    <link rel="stylesheet" href="./styles.css?v=20260731-5" />
   </head>
   <body>
     <a class="skip-link" href="#main">跳到主要内容</a>
@@ -162,6 +162,18 @@
                 只检查四条相邻关系：<b>用户—传播、用户—需求、传播—产品、需求—产品</b>。
                 用户—产品与需求—传播位于对角线，不检查，也不计分。
               </p>
+              <div class="connector-legend" aria-label="几何接口匹配说明">
+                <div class="connector-demo" aria-hidden="true">
+                  <span class="demo-card demo-left"></span>
+                  <svg viewBox="0 0 40 40">
+                    <path d="M5 20h30" />
+                    <rect x="5" y="5" width="30" height="30" />
+                    <circle cx="20" cy="20" r="15" />
+                  </svg>
+                  <span class="demo-card demo-right"></span>
+                </div>
+                <p><b>叠合式几何接口</b><span>当两张卡的半图形沿连接轴拼成完整的对称图形时，即表示它们可以匹配；</span></p>
+              </div>
               <p class="manual-note">
                 接口匹配只是关系成立的提示。团队仍要把理由说清楚；不能只用颜色、位置或模糊联想解释。
               </p>
@@ -190,12 +202,8 @@
           <div class="section-heading compact">
             <div>
               <p class="kicker">CARD LIBRARY</p>
-              <h2><span data-metric="card-count">34</span> 张已有卡牌，<br /><span data-metric="category-count">4</span> 种不同的语言。</h2>
+              <h2><span data-metric="card-count">34</span> 张已有卡牌，<br /><span data-metric="category-count">4</span> 种创业要素。</h2>
             </div>
-            <p class="section-intro">
-              黑白卡面使用简洁图标呈现角色与情境。卡牌边缘预留半个正方形作为接口；
-              当两张卡的半图形沿连接轴拼成完整的对称图形时，即表示它们可以匹配。
-            </p>
           </div>
 
           <div class="card-filters" role="group" aria-label="筛选卡牌类型">
@@ -204,18 +212,6 @@
             <button class="filter-chip" type="button" data-card-filter="need" data-card-filter-count="need">需求 10</button>
             <button class="filter-chip" type="button" data-card-filter="product" data-card-filter-count="product">产品 9</button>
             <button class="filter-chip" type="button" data-card-filter="promotion" data-card-filter-count="promotion">传播 8</button>
-          </div>
-          <div class="connector-legend" aria-label="几何接口匹配说明">
-            <div class="connector-demo" aria-hidden="true">
-              <span class="demo-card demo-left"></span>
-              <svg viewBox="0 0 40 40">
-                <path d="M5 20h30" />
-                <rect x="5" y="5" width="30" height="30" />
-                <circle cx="20" cy="20" r="15" />
-              </svg>
-              <span class="demo-card demo-right"></span>
-            </div>
-            <p><b>叠合式几何接口</b><span>同一位置可重叠多个半图形；相邻边能沿轴线拼成同一个完整图形，即为匹配。</span></p>
           </div>
           <div class="card-library" id="card-library" aria-live="polite"></div>
         </div>
