@@ -772,11 +772,6 @@ button {
   font-family: var(--font-body);
 }
 
-.manual-note {
-  padding: 0.6rem 0 0.6rem 0.8rem;
-  border-left: 2px solid #716b61;
-}
-
 .manual-score {
   margin: 0.8rem 0;
   border-top: 1px solid #8f887d;
@@ -1295,11 +1290,29 @@ button {
 }
 
 .manual-section .connector-legend {
-  margin: 0.8rem 0 1rem;
-  padding: 0.7rem 0.8rem;
-  border-width: 1px;
-  border-radius: 8px;
-  box-shadow: 3px 3px 0 #111;
+  gap: 0.8rem;
+  margin: 0 0 0.62rem;
+  padding: 0;
+  color: inherit;
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.manual-section .connector-legend p {
+  display: block;
+  margin: 0;
+  color: #514d45;
+  font-family: "Noto Serif SC", "Songti SC", SimSun, serif;
+  font-size: 0.82rem;
+  line-height: 1.78;
+}
+
+.manual-section .connector-legend b {
+  display: block;
+  font-size: inherit;
+  letter-spacing: normal;
 }
 
 .connector-legend p {
