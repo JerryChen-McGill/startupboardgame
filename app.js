@@ -11,6 +11,12 @@ let selectedRelationKey = null;
 let editorChangeLog = [];
 const EDITOR_STORAGE_KEY = "startup-boardgame-relationship-editor-v3";
 const STARTUP_CARD_ORDER = ["user", "promotion", "need", "product"];
+const CARD_TYPE_LABELS = {
+  user: "用户卡",
+  promotion: "传播卡",
+  need: "需求卡",
+  product: "产品卡",
+};
 const CARD_EDGE_CONFIG = {
   user: [
     { neighborType: "promotion", side: "right", mode: "receive" },
@@ -199,7 +205,6 @@ function renderCardLibrary(filter = "all") {
 
   library.innerHTML = cards
     .map((card, index) => {
-      const meta = gameData.categoryMeta[card.type];
       const visibleNote = /[\p{L}\p{N}]/u.test(card.note || "") ? card.note : "&nbsp;";
       const startsCategory = index === 0 || cards[index - 1].type !== card.type;
       return `
@@ -211,7 +216,7 @@ function renderCardLibrary(filter = "all") {
         >
           ${renderLibraryEdges(card)}
           <div class="card-topline">
-            <span>${meta.label}卡</span>
+            <span>${CARD_TYPE_LABELS[card.type]}</span>
           </div>
           <h3 class="card-name">${card.name}</h3>
           <div class="card-emoji" aria-hidden="true"><span>${card.emoji}</span></div>

@@ -27,6 +27,10 @@ test("card library and relationship map use descending relation rank", () => {
 test("card faces use Chinese type labels, unframed icons, and complete descriptions", () => {
   const cards = Object.values(data.cards).flat();
   assert.ok(cards.every((card) => card.note.trim().length > 20));
+  ["用户卡", "传播卡", "需求卡", "产品卡"].forEach((label) => {
+    assert.ok(appSource.includes(`"${label}"`), `missing card type label ${label}`);
+  });
+  assert.match(appSource, /\$\{CARD_TYPE_LABELS\[card\.type\]\}/);
   assert.doesNotMatch(appSource, /\$\{meta\.en\}\s*CARD/);
   assert.doesNotMatch(appSource, /class="card-emoji"[^>]*><i>/);
   assert.doesNotMatch(cssSource, /\.card-emoji i/);
