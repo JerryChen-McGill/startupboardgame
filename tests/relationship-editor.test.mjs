@@ -11,35 +11,58 @@ const htmlSource = fs.readFileSync(path.join(rootDirectory, "index.html"), "utf8
 const cssSource = fs.readFileSync(path.join(rootDirectory, "styles.css"), "utf8");
 const data = JSON.parse(fs.readFileSync(path.join(rootDirectory, "data", "game-data.json"), "utf8"));
 
-test("relationship workbench exposes every card in the revised data set", () => {
-  const totalCards = Object.values(data.cards).flat().length;
-  assert.equal(totalCards, 39);
-  assert.match(appSource, /function relationshipMapCards\(type\)\s*{\s*return gameData\.cards\[type\];\s*}/);
-  assert.match(htmlSource, /id="network-card-count">39 张卡/);
+test("site metrics are rendered from data rather than fixed counts", () => {
+  assert.match(appSource, /function renderSiteMetrics\(/);
+  assert.match(htmlSource, /data-metric="card-count"/);
+  assert.match(htmlSource, /data-metric="relation-count"/);
+  assert.match(htmlSource, /data-card-filter-count="all"/);
 });
 
-test("unconfirmed and confirmed objects have distinct dashed and solid styles", () => {
-  assert.match(appSource, /card\.confirmed = Boolean\(card\.confirmed\)/);
-  assert.match(appSource, /relation\.confirmed = Boolean\(relation\.confirmed\)/);
-  assert.match(cssSource, /\.network-node rect[\s\S]*stroke-dasharray:\s*7 5/);
-  assert.match(cssSource, /\.network-node\.is-confirmed rect[\s\S]*stroke-dasharray:\s*none/);
-  assert.match(cssSource, /\.relation-path[\s\S]*stroke-dasharray:\s*7 8/);
-  assert.match(cssSource, /\.relation-path\.is-confirmed[\s\S]*stroke-dasharray:\s*none/);
+test("card library and relationship map use descending relation rank", () => {
+  assert.match(appSource, /function rankedCards\(type\)/);
+  assert.match(appSource, /function relationshipMapCards\(type\)\s*{\s*return rankedCards\(type\);/);
+  assert.match(appSource, /cardDegreeById/);
 });
 
-test("editor supports both entities, local drafts, audit history, and separate exports", () => {
+test("ten same-bounds connector shapes are encoded and overlaid", () => {
+  const shapeKeys = [
+    "line",
+    "square",
+    "circle",
+    "diamond",
+    "triangle",
+    "hexagon",
+    "pentagon",
+    "star",
+    "ellipse-horizontal",
+    "ellipse-vertical",
+  ];
+  shapeKeys.forEach((key) => assert.ok(appSource.includes(`key: "${key}"`), `missing ${key}`));
+  assert.match(cssSource, /\.connector-shape\s*{[\s\S]*position:\s*absolute/);
+  assert.match(cssSource, /\.connector-shape\s*{[\s\S]*inset:\s*0/);
+  assert.match(cssSource, /\.card-edge\s*{[\s\S]*overflow:\s*hidden/);
+});
+
+test("the imported workspace starts fully confirmed and without unconfirmed relations", () => {
+  const cards = Object.values(data.cards).flat();
+  assert.ok(cards.every((card) => card.confirmed));
+  assert.ok(data.relations.every((relation) => relation.confirmed));
+  assert.match(appSource, /startup-boardgame-relationship-editor-v3/);
+});
+
+test("the physical prototype section and its styles are removed", () => {
+  assert.doesNotMatch(htmlSource, /PHYSICAL PROTOTYPE|id="prototype"/);
+  assert.doesNotMatch(cssSource, /\.prototype(?:-|\s|\{)/);
+});
+
+test("editor still supports local changes and separate exports", () => {
   [
     'id="card-editor-form"',
     'id="relation-editor-form"',
-    'id="toggle-card-confirmation"',
-    'id="toggle-relation-confirmation"',
     'id="export-game-json"',
     'id="export-change-log"',
     'id="change-log-preview"',
   ].forEach((marker) => assert.ok(htmlSource.includes(marker), `missing ${marker}`));
-  assert.match(appSource, /const EDITOR_STORAGE_KEY = "startup-boardgame-relationship-editor-v2"/);
   assert.match(appSource, /function recordEditorChange\(/);
   assert.match(appSource, /function exportEditedGameData\(/);
-  assert.match(appSource, /function exportEditorChangeLog\(/);
-  assert.match(appSource, /JSON\.stringify\(value, null, 2\)/);
 });

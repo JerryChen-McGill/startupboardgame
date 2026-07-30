@@ -3,11 +3,13 @@ const SVG_NS = "http://www.w3.org/2000/svg";
 let gameData;
 let cardById;
 let relationByPair;
+let cardDegreeById;
+let cardConnectorById;
 let activeRelationType = "all";
 let selectedNodeId = null;
 let selectedRelationKey = null;
 let editorChangeLog = [];
-const EDITOR_STORAGE_KEY = "startup-boardgame-relationship-editor-v2";
+const EDITOR_STORAGE_KEY = "startup-boardgame-relationship-editor-v3";
 const STARTUP_CARD_ORDER = ["user", "promotion", "need", "product"];
 const STARTUP_PAIR_TYPES = [
   ["user", "promotion"],
@@ -33,18 +35,18 @@ const CARD_EDGE_CONFIG = {
     { neighborType: "need", side: "left", mode: "receive" },
   ],
 };
-const CONNECTOR_SHAPES = {
-  red: { name: "圆", markup: '<circle cx="20" cy="20" r="13" />' },
-  orange: { name: "正方形", markup: '<rect x="7" y="7" width="26" height="26" />' },
-  yellow: { name: "菱形", markup: '<path d="M20 4 36 20 20 36 4 20Z" />' },
-  green: { name: "等边三角形", markup: '<path d="M20 4 36 34 4 34Z" />' },
-  cyan: { name: "六边形", markup: '<path d="M11 4h18l9 16-9 16H11L2 20Z" />' },
-  blue: { name: "长方形", markup: '<rect x="4" y="11" width="32" height="18" rx="2" />' },
-  purple: { name: "八边形", markup: '<path d="M12 3h16l9 9v16l-9 9H12l-9-9V12Z" />' },
-  white: { name: "线段", markup: '<path d="M4 20h32" fill="none" />' },
-  black: { name: "十字", markup: '<path d="M15 4h10v11h11v10H25v11H15V25H4V15h11Z" />' },
-  brown: { name: "椭圆", markup: '<ellipse cx="20" cy="20" rx="16" ry="10" />' },
-};
+const CONNECTOR_SHAPES = [
+  { key: "line", name: "直线", markup: '<path d="M5 20h30" fill="none" />' },
+  { key: "square", name: "正方形", markup: '<rect x="5" y="5" width="30" height="30" />' },
+  { key: "circle", name: "圆", markup: '<circle cx="20" cy="20" r="15" />' },
+  { key: "diamond", name: "菱形", markup: '<path d="M20 5 35 20 20 35 5 20Z" />' },
+  { key: "triangle", name: "等边三角形", markup: '<path d="M20 5 34 31 6 31Z" />' },
+  { key: "hexagon", name: "六边形", markup: '<path d="M20 5 33 12.5 33 27.5 20 35 7 27.5 7 12.5Z" />' },
+  { key: "pentagon", name: "五边形", markup: '<path d="M20 5 34.3 15.4 28.8 32.2 11.2 32.2 5.7 15.4Z" />' },
+  { key: "star", name: "五角星", markup: '<path d="M20 4.5 24.6 14.8 35.7 16 27.4 23.5 29.7 34.5 20 28.9 10.3 34.5 12.6 23.5 4.3 16 15.4 14.8Z" />' },
+  { key: "ellipse-horizontal", name: "横椭圆", markup: '<ellipse cx="20" cy="20" rx="15" ry="10" />' },
+  { key: "ellipse-vertical", name: "竖椭圆", markup: '<ellipse cx="20" cy="20" rx="10" ry="15" />' },
+];
 
 document.addEventListener("DOMContentLoaded", async () => {
   try {
@@ -53,6 +55,8 @@ document.addEventListener("DOMContentLoaded", async () => {
     const sourceData = await response.json();
     loadEditorWorkspace(sourceData);
     rebuildIndexes();
+    renderSiteMetrics();
+    renderHeroCards(getSafeStartupIds());
 
     renderCardLibrary();
     bindCardFilters();
@@ -116,8 +120,33 @@ function loadEditorWorkspace(sourceData) {
 function rebuildIndexes() {
   cardById = buildCardIndex(gameData.cards);
   relationByPair = buildRelationIndex(gameData.relations);
+  cardDegreeById = new Map([...cardById.keys()].map((id) => [id, 0]));
+  gameData.relations.forEach((relation) => {
+    cardDegreeById.set(relation.source, (cardDegreeById.get(relation.source) || 0) + 1);
+    cardDegreeById.set(relation.target, (cardDegreeById.get(relation.target) || 0) + 1);
+  });
+  cardConnectorById = new Map();
+  STARTUP_CARD_ORDER.forEach((type) => {
+    rankedCards(type).forEach((card, index) => {
+      cardConnectorById.set(card.id, {
+        ...CONNECTOR_SHAPES[index % CONNECTOR_SHAPES.length],
+        order: index,
+      });
+    });
+  });
   gameData.meta.networkCardCount = cardById.size;
   gameData.meta.relationCount = gameData.relations.length;
+}
+
+function rankedCards(type) {
+  return gameData.cards[type]
+    .map((card, sourceIndex) => ({ card, sourceIndex }))
+    .sort(
+      (a, b) =>
+        (cardDegreeById?.get(b.card.id) || 0) - (cardDegreeById?.get(a.card.id) || 0) ||
+        a.sourceIndex - b.sourceIndex,
+    )
+    .map(({ card }) => card);
 }
 
 function persistEditorWorkspace() {
@@ -140,19 +169,35 @@ function persistEditorWorkspace() {
 function getSafeStartupIds() {
   const featured = gameData.featuredCombos?.success || [];
   if (featured.length === 4 && featured.every((id) => cardById.has(id))) return featured;
-  return STARTUP_CARD_ORDER.map((type) => gameData.cards[type][0]?.id).filter(Boolean);
+  for (const user of rankedCards("user")) {
+    for (const promotion of rankedCards("promotion")) {
+      if (!relationByPair.has(pairKey(user.id, promotion.id))) continue;
+      for (const product of rankedCards("product")) {
+        if (!relationByPair.has(pairKey(promotion.id, product.id))) continue;
+        for (const need of rankedCards("need")) {
+          if (
+            relationByPair.has(pairKey(product.id, need.id)) &&
+            relationByPair.has(pairKey(need.id, user.id))
+          ) {
+            return [user.id, promotion.id, need.id, product.id];
+          }
+        }
+      }
+    }
+  }
+  return STARTUP_CARD_ORDER.map((type) => rankedCards(type)[0]?.id).filter(Boolean);
 }
 
 function renderCardLibrary(filter = "all") {
   const library = document.querySelector("#card-library");
-  const cards = Object.entries(gameData.cards)
-    .flatMap(([type, entries]) => entries.map((card) => ({ ...card, type })))
-    .filter((card) => filter === "all" || card.type === filter)
-    .sort((a, b) => STARTUP_CARD_ORDER.indexOf(a.type) - STARTUP_CARD_ORDER.indexOf(b.type));
+  const cards = STARTUP_CARD_ORDER.flatMap((type) =>
+    rankedCards(type).map((card) => ({ ...card, type })),
+  ).filter((card) => filter === "all" || card.type === filter);
 
   library.innerHTML = cards
     .map((card, index) => {
       const meta = gameData.categoryMeta[card.type];
+      const visibleNote = /[\p{L}\p{N}]/u.test(card.note || "") ? card.note : "&nbsp;";
       return `
         <article
           class="library-card"
@@ -167,7 +212,7 @@ function renderCardLibrary(filter = "all") {
           </div>
           <h3 class="card-name">${card.name}</h3>
           <div class="card-emoji" aria-hidden="true"><i></i><span>${card.emoji}</span></div>
-          <p class="card-question">${card.note}</p>
+          <p class="card-question">${visibleNote}</p>
         </article>
       `;
     })
@@ -178,14 +223,14 @@ function renderLibraryEdges(card) {
   return CARD_EDGE_CONFIG[card.type]
     .map(({ neighborType, side, mode }) => {
       if (mode === "own") {
-        const shape = CONNECTOR_SHAPES[card.accentKey] || CONNECTOR_SHAPES.black;
+        const shape = cardConnectorById.get(card.id) || CONNECTOR_SHAPES[0];
         return `
           <div
             class="card-edge edge-${side} edge-own"
             title="本卡接口：${shape.name}"
             aria-hidden="true"
           >
-            ${renderConnectorShape(card.accentKey, side)}
+            ${renderConnectorShape(shape, side)}
           </div>
         `;
       }
@@ -196,7 +241,12 @@ function renderLibraryEdges(card) {
           const otherId = relation.source === card.id ? relation.target : relation.source;
           return cardById.get(otherId);
         })
-        .filter((otherCard) => otherCard?.type === neighborType);
+        .filter((otherCard) => otherCard?.type === neighborType)
+        .sort(
+          (a, b) =>
+            (cardConnectorById.get(a.id)?.order ?? 99) -
+            (cardConnectorById.get(b.id)?.order ?? 99),
+        );
       if (!matches.length) return "";
       const names = matches.map((match) => match.name).join("、");
       return `
@@ -205,19 +255,18 @@ function renderLibraryEdges(card) {
           title="可匹配：${names}"
           aria-hidden="true"
         >
-          ${matches.map((match) => renderConnectorShape(match.accentKey, side)).join("")}
+          ${matches
+            .map((match) => renderConnectorShape(cardConnectorById.get(match.id) || CONNECTOR_SHAPES[0], side))
+            .join("")}
         </div>
       `;
     })
     .join("");
 }
 
-function renderConnectorShape(shapeKey, side) {
-  const shape = CONNECTOR_SHAPES[shapeKey] || CONNECTOR_SHAPES.black;
+function renderConnectorShape(shape, side) {
   const shapeTransform =
-    (shapeKey === "green" || shapeKey === "white") && (side === "top" || side === "bottom")
-      ? ' transform="rotate(90 20 20)"'
-      : "";
+    side === "top" || side === "bottom" ? ' transform="rotate(90 20 20)"' : "";
   const viewBoxes = {
     right: "0 0 20 40",
     left: "20 0 20 40",
@@ -227,14 +276,62 @@ function renderConnectorShape(shapeKey, side) {
   return `
     <svg
       class="connector-shape"
+      data-shape="${shape.key}"
       viewBox="${viewBoxes[side]}"
-      preserveAspectRatio="none"
+      preserveAspectRatio="xMidYMid meet"
       role="img"
       aria-label="${shape.name}的一半"
     >
       <g${shapeTransform}>${shape.markup}</g>
     </svg>
   `;
+}
+
+function renderSiteMetrics() {
+  const cardCount = cardById.size;
+  const relationCount = gameData.relations.length;
+  const categoryCount = Object.keys(gameData.cards).length;
+  const relationTypeCount = new Set(gameData.relations.map((relation) => relation.type)).size;
+  const metrics = {
+    "card-count": cardCount,
+    "category-count": categoryCount,
+    "relation-type-count": relationTypeCount,
+    "relation-count": relationCount,
+    "player-range": gameData.meta.playerRange || "4–6",
+  };
+  document.querySelectorAll("[data-metric]").forEach((element) => {
+    const value = metrics[element.dataset.metric];
+    if (value !== undefined) element.textContent = value;
+  });
+  document.querySelectorAll("[data-card-filter-count]").forEach((button) => {
+    const type = button.dataset.cardFilterCount;
+    const count = type === "all" ? cardCount : gameData.cards[type]?.length || 0;
+    const label = type === "all" ? "全部" : gameData.categoryMeta[type]?.label || type;
+    button.textContent = `${label} ${count}`;
+  });
+}
+
+function renderHeroCards(cardIds) {
+  const byType = new Map(
+    cardIds
+      .map((id) => cardById.get(id))
+      .filter(Boolean)
+      .map((card) => [card.type, card]),
+  );
+  document.querySelectorAll("[data-hero-card-type]").forEach((element) => {
+    const type = element.dataset.heroCardType;
+    const card = byType.get(type);
+    if (!card) return;
+    if (element.dataset.heroField === "emoji") element.textContent = card.emoji;
+    if (element.dataset.heroField === "name") {
+      element.textContent = card.name;
+      element.classList.toggle("hero-card-name-small", card.name.length > 5);
+    }
+    if (element.dataset.heroField === "type") {
+      const meta = gameData.categoryMeta[type];
+      element.textContent = `${meta.label} · ${meta.question}`;
+    }
+  });
 }
 
 function bindCardFilters() {
@@ -279,7 +376,7 @@ function networkCards(type) {
 }
 
 function relationshipMapCards(type) {
-  return gameData.cards[type];
+  return rankedCards(type);
 }
 
 function networkPositions() {
@@ -309,7 +406,7 @@ function renderRelationshipNetwork() {
   const svg = document.querySelector("#relationship-network");
   const positions = networkPositions();
   svg.replaceChildren(svgElement("title", { id: "network-title" }));
-  svg.firstChild.textContent = "用户、传播、需求、产品卡牌之间的多对多关系网络";
+  svg.firstChild.textContent = `${cardById.size} 张用户、传播、需求、产品卡牌之间的多对多关系网络`;
 
   const border = svgElement("rect", {
     x: 72,
@@ -958,11 +1055,13 @@ function recordEditorChange(action, entityType, entityId, before, after, note = 
 function refreshAfterEditorMutation() {
   rebuildIndexes();
   persistEditorWorkspace();
+  renderSiteMetrics();
   const activeCardFilter = document.querySelector("[data-card-filter].active")?.dataset.cardFilter || "all";
   renderCardLibrary(activeCardFilter);
   renderRelationFilters();
   renderRelationshipNetwork();
   const startupIds = getSafeStartupIds();
+  renderHeroCards(startupIds);
   if (startupIds.length === 4) {
     renderStartup(startupIds);
   } else {

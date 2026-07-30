@@ -577,7 +577,6 @@ button {
 
 .rule-step h3,
 .connection-rule h3,
-.prototype-stage h3,
 .principle-grid h3 {
   margin: 0 0 0.75rem;
   font-size: 1.2rem;
@@ -718,7 +717,7 @@ button {
   background: #fff;
   border: 3px solid #111;
   border-radius: 18px;
-  box-shadow: 0 8px 0 #111;
+  box-shadow: 0 10px 24px rgba(17, 17, 17, 0.08);
   transition: transform 180ms ease, box-shadow 180ms ease;
 }
 
@@ -744,7 +743,7 @@ button {
 
 .library-card:hover {
   z-index: 2;
-  box-shadow: 0 13px 0 #111;
+  box-shadow: 0 16px 30px rgba(17, 17, 17, 0.14);
   transform: translateY(-5px);
 }
 
@@ -802,7 +801,8 @@ button {
   position: relative;
   z-index: 1;
   font-size: clamp(2.5rem, 4vw, 4.4rem);
-  filter: grayscale(1) contrast(1.8);
+  filter: grayscale(1) brightness(0.58) contrast(1.35);
+  opacity: 0.96;
 }
 
 .library-card .card-emoji i {
@@ -838,16 +838,19 @@ button {
 .card-edge {
   position: absolute;
   z-index: 6;
-  display: flex;
-  justify-content: space-evenly;
-  overflow: visible;
+  display: block;
+  overflow: hidden;
   background: #fff;
 }
 
 .connector-shape {
+  position: absolute;
+  inset: 0;
   display: block;
+  width: 100%;
+  height: 100%;
   overflow: hidden;
-  fill: #fff;
+  fill: none;
   stroke: #111;
   stroke-linecap: round;
   stroke-linejoin: round;
@@ -856,10 +859,10 @@ button {
 
 .edge-right,
 .edge-left {
-  top: 18%;
-  bottom: 18%;
-  width: 18px;
-  flex-direction: column;
+  top: 50%;
+  width: 20px;
+  height: 40px;
+  transform: translateY(-50%);
 }
 
 .edge-right { right: -3px; }
@@ -867,29 +870,14 @@ button {
 
 .edge-top,
 .edge-bottom {
-  right: 18%;
-  left: 18%;
-  height: 18px;
+  left: 50%;
+  width: 40px;
+  height: 20px;
+  transform: translateX(-50%);
 }
 
 .edge-top { top: -3px; }
 .edge-bottom { bottom: -3px; }
-
-.edge-right .connector-shape,
-.edge-left .connector-shape {
-  width: 18px;
-  height: 36px;
-}
-
-.edge-top .connector-shape,
-.edge-bottom .connector-shape {
-  width: 36px;
-  height: 18px;
-}
-
-.card-edge.edge-own {
-  justify-content: center;
-}
 
 .connector-legend {
   display: flex;
@@ -946,137 +934,10 @@ button {
   left: 18px;
   width: 40px;
   height: 40px;
-  fill: #fff;
+  fill: none;
   stroke: #111;
   stroke-linejoin: round;
   stroke-width: 2.6;
-}
-
-.prototype {
-  padding-top: 8rem;
-  padding-bottom: 8rem;
-}
-
-.prototype-grid {
-  display: grid;
-  grid-template-columns: 1fr 0.75fr;
-  gap: 1.2rem;
-}
-
-.prototype-stage,
-.materials-list {
-  position: relative;
-  min-height: 660px;
-  padding: 1.4rem;
-  background: var(--paper-light);
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-}
-
-.dark-stage {
-  color: white;
-  background: var(--ink);
-}
-
-.stage-label {
-  display: flex;
-  justify-content: space-between;
-  color: var(--ink-soft);
-  font-size: 0.72rem;
-  font-weight: 850;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-
-.dark-stage .stage-label {
-  color: rgba(255, 255, 255, 0.62);
-}
-
-.stage-label span {
-  color: var(--coral);
-}
-
-.single-card-wrap {
-  display: grid;
-  min-height: 520px;
-  place-items: center;
-}
-
-.single-card {
-  width: min(80%, 360px);
-  transform: rotate(-2deg);
-}
-
-.prototype-stage > p {
-  max-width: 520px;
-  margin: 0 auto;
-  color: var(--ink-soft);
-  font-size: 0.82rem;
-  text-align: center;
-}
-
-.dark-stage > p {
-  color: rgba(255, 255, 255, 0.62);
-}
-
-.assembly-board {
-  display: block;
-  width: min(88%, 430px);
-  margin: 1.5rem auto 0.6rem;
-  overflow: visible;
-  filter: drop-shadow(0 20px 18px rgba(0, 0, 0, 0.24));
-}
-
-.materials-list {
-  padding: 1.4rem 1.4rem 2rem;
-}
-
-.materials-list ul {
-  display: grid;
-  gap: 0;
-  margin: 3rem 0 0;
-  padding: 0;
-  list-style: none;
-}
-
-.materials-list li {
-  display: grid;
-  grid-template-columns: 52px 1fr;
-  gap: 1rem;
-  align-items: center;
-  padding: 1.25rem 0;
-  border-bottom: 1px solid var(--line);
-}
-
-.material-icon {
-  display: grid;
-  width: 48px;
-  height: 48px;
-  place-items: center;
-  color: white;
-  background: var(--ink);
-  border-radius: 50%;
-  font-size: 1.1rem;
-}
-
-.materials-list b {
-  display: block;
-  font-size: 0.9rem;
-}
-
-.materials-list small {
-  display: block;
-  color: var(--ink-soft);
-  font-size: 0.72rem;
-}
-
-.prototype-note {
-  margin: 2.2rem 0 0;
-  padding: 1rem;
-  color: var(--ink-soft);
-  background: var(--paper);
-  border-radius: 12px;
-  font-size: 0.74rem;
 }
 
 .network-section {
@@ -1847,20 +1708,6 @@ button {
     grid-template-columns: repeat(4, 1fr);
   }
 
-  .prototype-grid {
-    grid-template-columns: 1fr 1fr;
-  }
-
-  .materials-list {
-    grid-column: 1 / -1;
-    min-height: auto;
-  }
-
-  .materials-list ul {
-    grid-template-columns: repeat(2, 1fr);
-    column-gap: 2rem;
-  }
-
   .network-workbench {
     grid-template-columns: 1fr;
   }
@@ -2011,7 +1858,6 @@ button {
   }
 
   .cards-section,
-  .prototype,
   .network-section,
   .lab {
     padding-top: 5rem;
@@ -2020,19 +1866,6 @@ button {
 
   .card-library {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .prototype-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .prototype-stage,
-  .materials-list {
-    grid-column: auto;
-  }
-
-  .materials-list ul {
-    grid-template-columns: 1fr;
   }
 
   .network-toolbar {

@@ -84,7 +84,7 @@ const nodeMarkup = [...positions.entries()]
 const svg = `<?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" width="1400" height="980" viewBox="0 0 1400 980" role="img">
   <title>迷你创业桌游：四元素关系网</title>
-  <desc>${cardIndex.size} 张卡分布于矩形四边，中间以 ${data.relations.length} 条带解释的关系连接；未确认对象为虚线。</desc>
+  <desc>${cardIndex.size} 张已确认卡牌按关系数量排列于矩形四边，中间以 ${data.relations.length} 条已确认关系连接。</desc>
   <rect width="1400" height="980" fill="#111025"/>
   <defs>
     <pattern id="grid" width="30" height="30" patternUnits="userSpaceOnUse">
