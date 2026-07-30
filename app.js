@@ -52,7 +52,7 @@ const CONNECTOR_SHAPES = [
 
 document.addEventListener("DOMContentLoaded", async () => {
   try {
-    const response = await fetch("./data/game-data.json");
+    const response = await fetch("./data/game-data.json?v=20260731-1");
     if (!response.ok) throw new Error(`数据加载失败：${response.status}`);
     const sourceData = await response.json();
     loadEditorWorkspace(sourceData);
@@ -313,6 +313,8 @@ function randomStartupCards() {
 
 function renderStartupCard(card) {
   const typeAtBottom = card.type === "need" || card.type === "product";
+  const promptSide = card.type === "user" || card.type === "need" ? "left" : "right";
+  const visibleNote = /[\p{L}\p{N}]/u.test(card.note || "") ? card.note : "&nbsp;";
   const typeLabel = `
     <div class="card-topline${typeAtBottom ? " card-bottomline" : ""}">
       <span>${CARD_TYPE_LABELS[card.type]}</span>
@@ -321,10 +323,11 @@ function renderStartupCard(card) {
   return `
     <article class="library-card startup-card${typeAtBottom ? " type-label-bottom" : ""}" data-type="${card.type}">
       ${renderLibraryEdges(card)}
+      <span class="startup-prompt prompt-${promptSide}">${gameData.categoryMeta[card.type].question}</span>
       ${typeAtBottom ? "" : typeLabel}
       <h3 class="card-name">${card.name}</h3>
       <div class="card-emoji" aria-hidden="true"><span>${card.emoji}</span></div>
-      <p class="card-question">${gameData.categoryMeta[card.type].question}</p>
+      <p class="card-question">${visibleNote}</p>
       ${typeAtBottom ? typeLabel : ""}
     </article>
   `;

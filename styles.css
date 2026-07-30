@@ -365,10 +365,6 @@ button {
   font-size: clamp(2.15rem, 4.1vw, 3.45rem);
 }
 
-.startup-card .card-question {
-  font-size: 0.58rem;
-}
-
 .startup-card .card-bottomline {
   margin-top: 0.55rem;
   padding-top: 0.38rem;
@@ -384,6 +380,33 @@ button {
 .startup-card .edge-bottom {
   width: 60px;
   height: 30px;
+}
+
+.startup-prompt {
+  position: absolute;
+  top: 50%;
+  z-index: 8;
+  width: max-content;
+  max-width: 110px;
+  padding: 0.38rem 0.55rem;
+  color: var(--ink);
+  background: rgba(255, 253, 248, 0.96);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  box-shadow: 0 6px 16px rgba(23, 21, 47, 0.1);
+  font-size: 0.9rem;
+  font-weight: 900;
+  line-height: 1.25;
+  text-align: center;
+  transform: translateY(-50%);
+}
+
+.startup-prompt.prompt-left {
+  right: calc(100% + 18px);
+}
+
+.startup-prompt.prompt-right {
+  left: calc(100% + 18px);
 }
 
 .shuffle-button {
@@ -1974,13 +1997,61 @@ button {
   }
 
   .startup-board {
-    width: min(94%, 400px);
+    width: min(calc(100% - 52px), 400px);
+  }
+
+  .startup-card.library-card {
+    padding: 0.58rem 0.72rem 1rem;
+  }
+
+  .startup-card .card-topline {
+    font-size: 0.56rem;
+  }
+
+  .startup-card .card-name {
+    margin-top: 0.72rem;
+    font-size: 0.82rem;
+  }
+
+  .startup-card.type-label-bottom .card-name {
+    margin-top: 1.55rem;
+  }
+
+  .startup-card .card-emoji {
+    min-height: 38px;
+  }
+
+  .startup-card .card-emoji span {
+    font-size: 2rem;
+  }
+
+  .startup-card .card-question {
+    font-size: 0.52rem;
+    line-height: 1.34;
   }
 
   .board-match {
     width: 28px;
     height: 28px;
     font-size: 0.92rem;
+  }
+
+  .startup-prompt {
+    max-width: none;
+    padding: 0.34rem 0.25rem;
+    border-radius: 8px;
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    line-height: 1.15;
+    writing-mode: vertical-rl;
+  }
+
+  .startup-prompt.prompt-left {
+    right: calc(100% + 5px);
+  }
+
+  .startup-prompt.prompt-right {
+    left: calc(100% + 5px);
   }
 
   .orbit-one {

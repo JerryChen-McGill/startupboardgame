@@ -115,11 +115,11 @@ test("connector shapes are doubled and use the requested visual styles", () => {
 });
 
 test("the connector stylesheet URL is versioned to bypass stale browser caches", () => {
-  assert.match(htmlSource, /href="\.\/styles\.css\?v=20260731-6"/);
+  assert.match(htmlSource, /href="\.\/styles\.css\?v=20260731-7"/);
 });
 
 test("the application script URL is versioned to publish ordering changes immediately", () => {
-  assert.match(htmlSource, /src="\.\/app\.js\?v=20260731-2"/);
+  assert.match(htmlSource, /src="\.\/app\.js\?v=20260731-3"/);
 });
 
 test("the imported workspace starts fully confirmed and without unconfirmed relations", () => {
@@ -155,6 +155,10 @@ test("the homepage demo randomizes current cards and evaluates all four adjacent
   assert.match(cssSource, /\.board-match-4 \{ top: 75%; left: 50%; \}/);
   assert.match(cssSource, /translate\(-50%, -50%\) translate\(28px, -28px\)/);
   assert.match(cssSource, /\.startup-card\.library-card/);
+  assert.match(appSource, /visibleNote/);
+  assert.match(appSource, /startup-prompt prompt-/);
+  assert.match(appSource, /card\.note/);
+  assert.match(data.categoryMeta.promotion.question, /怎么让他们知道？/);
   assert.match(htmlSource, /class="rulebook-book"/);
   assert.match(htmlSource, /rulebook-page rulebook-page-left/);
   assert.match(htmlSource, /rulebook-page rulebook-page-right/);
