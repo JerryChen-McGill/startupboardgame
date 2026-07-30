@@ -108,3 +108,18 @@ test("editor still supports local changes and separate exports", () => {
   assert.match(appSource, /function recordEditorChange\(/);
   assert.match(appSource, /function exportEditedGameData\(/);
 });
+
+test("the exported change log concisely lists locations and resulting values", () => {
+  assert.match(appSource, /function describeEditorChangeLocation\(/);
+  assert.match(appSource, /function describeEditorChangeResult\(/);
+  assert.match(appSource, /changes = editorChangeLog\.map\(normalizeEditorChange\)/);
+  assert.match(appSource, /changeCount: changes\.length/);
+  assert.match(appSource, /location:/);
+  assert.match(appSource, /changedTo:/);
+
+  const recordFunction = appSource.match(
+    /function recordEditorChange\([\s\S]*?\n}\n\nfunction describeEditorChangeLocation/,
+  )?.[0];
+  assert.ok(recordFunction, "missing recordEditorChange implementation");
+  assert.doesNotMatch(recordFunction, /timestamp|sequence|before:|after:|action:|note:/);
+});

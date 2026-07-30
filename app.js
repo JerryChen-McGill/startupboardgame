@@ -1029,15 +1029,76 @@ function updateConfirmationControls(entity, confirmed) {
 
 function recordEditorChange(action, entityType, entityId, before, after, note = "") {
   editorChangeLog.push({
-    sequence: editorChangeLog.length + 1,
-    timestamp: new Date().toISOString(),
-    action,
-    entityType,
-    entityId,
-    note,
-    before: before ? JSON.parse(JSON.stringify(before)) : null,
-    after: after ? JSON.parse(JSON.stringify(after)) : null,
+    location: describeEditorChangeLocation(entityType, entityId, before, after),
+    changedTo: describeEditorChangeResult(action, entityType, before, after),
   });
+}
+
+function describeEditorChangeLocation(entityType, entityId, before, after) {
+  const snapshot = after || before;
+  if (entityType === "card") {
+    return `卡牌：${snapshot?.name || cardById.get(entityId)?.name || entityId}`;
+  }
+  if (snapshot?.source && snapshot?.target) {
+    const sourceName = cardById.get(snapshot.source)?.name || snapshot.source;
+    const targetName = cardById.get(snapshot.target)?.name || snapshot.target;
+    return `关系：${sourceName} ↔ ${targetName}`;
+  }
+  return `关系：${entityId}`;
+}
+
+function describeEditorChangeResult(action, entityType, before, after) {
+  if (action === "create") return "新增";
+  if (action === "delete") return "已删除";
+  if (action === "confirm") return "确认状态 → 已确认";
+  if (action === "unconfirm") return "确认状态 → 待确认";
+
+  const fieldLabels = entityType === "card"
+    ? {
+        id: "ID",
+        name: "名称",
+        type: "类别",
+        emoji: "图标",
+        note: "说明",
+        network: "核心卡池",
+        accentName: "颜色名称",
+        accent: "颜色",
+        confirmed: "确认状态",
+      }
+    : {
+        source: "起点",
+        target: "终点",
+        type: "关系类型",
+        weight: "权重",
+        reason: "理由",
+        confirmed: "确认状态",
+      };
+
+  const changes = Object.entries(fieldLabels)
+    .filter(([field]) => before?.[field] !== after?.[field])
+    .map(([field, label]) => `${label} → ${formatEditorChangeValue(field, after?.[field])}`);
+  return changes.join("；") || "已修改";
+}
+
+function formatEditorChangeValue(field, value) {
+  if (field === "confirmed") return value ? "已确认" : "待确认";
+  if (field === "network") return value ? "纳入" : "不纳入";
+  if (field === "source" || field === "target") return cardById.get(value)?.name || value;
+  if (value === "") return "空";
+  return String(value);
+}
+
+function normalizeEditorChange(change) {
+  if (typeof change === "string") {
+    return { location: change, changedTo: "已修改" };
+  }
+  if (change.location) {
+    return { location: change.location, changedTo: change.changedTo || "已修改" };
+  }
+  return {
+    location: describeEditorChangeLocation(change.entityType, change.entityId, change.before, change.after),
+    changedTo: describeEditorChangeResult(change.action, change.entityType, change.before, change.after),
+  };
 }
 
 function refreshAfterEditorMutation() {
@@ -1085,23 +1146,17 @@ function updateNetworkCaption() {
 function renderChangeLogPreview() {
   const list = document.querySelector("#change-log-preview");
   if (!list) return;
-  const actionLabels = {
-    create: "新增",
-    update: "修改",
-    delete: "删除",
-    confirm: "确认",
-    unconfirm: "取消确认",
-  };
   list.replaceChildren();
   editorChangeLog
     .slice(-6)
     .reverse()
     .forEach((change) => {
+      const normalized = normalizeEditorChange(change);
       const item = document.createElement("li");
       const title = document.createElement("b");
-      title.textContent = `${actionLabels[change.action] || change.action} · ${change.entityType === "card" ? "卡牌" : "关系"}`;
+      title.textContent = normalized.location;
       const detail = document.createElement("span");
-      detail.textContent = `${change.entityId}${change.note ? ` · ${change.note}` : ""}`;
+      detail.textContent = normalized.changedTo;
       item.append(title, detail);
       list.appendChild(item);
     });
@@ -1124,12 +1179,11 @@ function exportEditedGameData() {
 }
 
 function exportEditorChangeLog() {
+  const changes = editorChangeLog.map(normalizeEditorChange);
   downloadJson(
     {
-      exportedAt: new Date().toISOString(),
-      baseVersion: gameData.meta.version,
-      changeCount: editorChangeLog.length,
-      changes: editorChangeLog,
+      changeCount: changes.length,
+      changes,
     },
     "迷你创业桌游-修改记录.json",
   );

@@ -1,0 +1,833 @@
+{
+  "exportedAt": "2026-07-29T14:13:34.577Z",
+  "baseVersion": "0.1",
+  "changeCount": 36,
+  "changes": [
+    {
+      "sequence": 1,
+      "timestamp": "2026-07-29T05:55:49.271Z",
+      "action": "update",
+      "entityType": "card",
+      "entityId": "m-firefly",
+      "note": "",
+      "before": {
+        "id": "m-firefly",
+        "name": "萤火巡游",
+        "emoji": "✨",
+        "note": "夜空限定发布会",
+        "network": false,
+        "accentKey": "green",
+        "accentName": "绿",
+        "accent": "#43A66B",
+        "confirmed": false,
+        "type": "promotion"
+      },
+      "after": {
+        "id": "m-firefly",
+        "name": "萤火乱飞",
+        "emoji": "✨",
+        "note": "夜空限定发布会",
+        "network": false,
+        "accentKey": "green",
+        "accentName": "绿",
+        "accent": "#43A66B",
+        "confirmed": false,
+        "type": "promotion"
+      }
+    },
+    {
+      "sequence": 2,
+      "timestamp": "2026-07-29T11:36:31.408Z",
+      "action": "update",
+      "entityType": "card",
+      "entityId": "u-snail",
+      "note": "",
+      "before": {
+        "id": "u-snail",
+        "name": "鼻涕虫",
+        "emoji": "🐌",
+        "note": "移动超慢",
+        "network": true,
+        "accentKey": "brown",
+        "accentName": "棕",
+        "accent": "#8A5B3D",
+        "confirmed": false,
+        "type": "user"
+      },
+      "after": {
+        "id": "u-snail",
+        "name": "蜗牛",
+        "emoji": "🐌",
+        "note": "移动超慢",
+        "network": true,
+        "accentKey": "brown",
+        "accentName": "棕",
+        "accent": "#8A5B3D",
+        "confirmed": false,
+        "type": "user"
+      }
+    },
+    {
+      "sequence": 3,
+      "timestamp": "2026-07-29T11:37:06.503Z",
+      "action": "delete",
+      "entityType": "card",
+      "entityId": "u-dragon",
+      "note": "",
+      "before": {
+        "id": "u-dragon",
+        "name": "小火龙",
+        "emoji": "🐉",
+        "note": "特别怕热",
+        "network": false,
+        "accentKey": "red",
+        "accentName": "红",
+        "accent": "#E5524A",
+        "confirmed": false,
+        "type": "user"
+      },
+      "after": null
+    },
+    {
+      "sequence": 4,
+      "timestamp": "2026-07-29T11:37:14.678Z",
+      "action": "update",
+      "entityType": "card",
+      "entityId": "u-mushroom",
+      "note": "",
+      "before": {
+        "id": "u-mushroom",
+        "name": "蘑菇人",
+        "emoji": "🍄",
+        "note": "下雨就开心",
+        "network": false,
+        "accentKey": "orange",
+        "accentName": "橙",
+        "accent": "#F08A3E",
+        "confirmed": false,
+        "type": "user"
+      },
+      "after": {
+        "id": "u-mushroom",
+        "name": "小蘑菇",
+        "emoji": "🍄",
+        "note": "下雨就开心",
+        "network": false,
+        "accentKey": "orange",
+        "accentName": "橙",
+        "accent": "#F08A3E",
+        "confirmed": false,
+        "type": "user"
+      }
+    },
+    {
+      "sequence": 5,
+      "timestamp": "2026-07-29T11:37:58.748Z",
+      "action": "delete",
+      "entityType": "relation",
+      "entityId": "n-eight::u-ghost",
+      "note": "随卡牌删除",
+      "before": {
+        "source": "u-ghost",
+        "target": "n-eight",
+        "type": "user-need",
+        "weight": 4,
+        "reason": "八点正好开始上班",
+        "confirmed": false
+      },
+      "after": null
+    },
+    {
+      "sequence": 6,
+      "timestamp": "2026-07-29T11:37:58.748Z",
+      "action": "delete",
+      "entityType": "relation",
+      "entityId": "n-daze::u-ghost",
+      "note": "随卡牌删除",
+      "before": {
+        "source": "u-ghost",
+        "target": "n-daze",
+        "type": "user-need",
+        "weight": 4,
+        "reason": "思绪经常飘出身体",
+        "confirmed": false
+      },
+      "after": null
+    },
+    {
+      "sequence": 7,
+      "timestamp": "2026-07-29T11:37:58.748Z",
+      "action": "delete",
+      "entityType": "relation",
+      "entityId": "n-hair::u-ghost",
+      "note": "随卡牌删除",
+      "before": {
+        "source": "u-ghost",
+        "target": "n-hair",
+        "type": "user-need",
+        "weight": 4,
+        "reason": "没有重力压住头发",
+        "confirmed": false
+      },
+      "after": null
+    },
+    {
+      "sequence": 8,
+      "timestamp": "2026-07-29T11:37:58.748Z",
+      "action": "delete",
+      "entityType": "relation",
+      "entityId": "n-sleepy::u-ghost",
+      "note": "随卡牌删除",
+      "before": {
+        "source": "u-ghost",
+        "target": "n-sleepy",
+        "type": "user-need",
+        "weight": 4,
+        "reason": "白天总想睡觉",
+        "confirmed": false
+      },
+      "after": null
+    },
+    {
+      "sequence": 9,
+      "timestamp": "2026-07-29T11:37:58.748Z",
+      "action": "delete",
+      "entityType": "relation",
+      "entityId": "m-dream::u-ghost",
+      "note": "随卡牌删除",
+      "before": {
+        "source": "m-dream",
+        "target": "u-ghost",
+        "type": "user-promotion",
+        "weight": 4,
+        "reason": "幽灵常在梦里活动",
+        "confirmed": false
+      },
+      "after": null
+    },
+    {
+      "sequence": 10,
+      "timestamp": "2026-07-29T11:37:58.748Z",
+      "action": "delete",
+      "entityType": "relation",
+      "entityId": "m-crow::u-ghost",
+      "note": "随卡牌删除",
+      "before": {
+        "source": "m-crow",
+        "target": "u-ghost",
+        "type": "user-promotion",
+        "weight": 4,
+        "reason": "夜间广播正好覆盖幽灵",
+        "confirmed": false
+      },
+      "after": null
+    },
+    {
+      "sequence": 11,
+      "timestamp": "2026-07-29T11:37:58.748Z",
+      "action": "delete",
+      "entityType": "relation",
+      "entityId": "m-bottle::u-ghost",
+      "note": "随卡牌删除",
+      "before": {
+        "source": "m-bottle",
+        "target": "u-ghost",
+        "type": "user-promotion",
+        "weight": 4,
+        "reason": "神秘瓶子容易吸引幽灵",
+        "confirmed": false
+      },
+      "after": null
+    },
+    {
+      "sequence": 12,
+      "timestamp": "2026-07-29T11:37:58.748Z",
+      "action": "delete",
+      "entityType": "relation",
+      "entityId": "m-meteor::u-ghost",
+      "note": "随卡牌删除",
+      "before": {
+        "source": "m-meteor",
+        "target": "u-ghost",
+        "type": "user-promotion",
+        "weight": 4,
+        "reason": "夜间收到的概率最高",
+        "confirmed": false
+      },
+      "after": null
+    },
+    {
+      "sequence": 13,
+      "timestamp": "2026-07-29T11:37:58.748Z",
+      "action": "delete",
+      "entityType": "card",
+      "entityId": "u-ghost",
+      "note": "",
+      "before": {
+        "id": "u-ghost",
+        "name": "小幽灵",
+        "emoji": "👻",
+        "note": "胆子很小",
+        "network": true,
+        "accentKey": "white",
+        "accentName": "白",
+        "accent": "#F8F5EC",
+        "confirmed": false,
+        "type": "user"
+      },
+      "after": null
+    },
+    {
+      "sequence": 14,
+      "timestamp": "2026-07-29T11:38:09.018Z",
+      "action": "update",
+      "entityType": "card",
+      "entityId": "u-tree",
+      "note": "",
+      "before": {
+        "id": "u-tree",
+        "name": "树精",
+        "emoji": "🌳",
+        "note": "天天掉树叶",
+        "network": true,
+        "accentKey": "green",
+        "accentName": "绿",
+        "accent": "#43A66B",
+        "confirmed": false,
+        "type": "user"
+      },
+      "after": {
+        "id": "u-tree",
+        "name": "树精灵",
+        "emoji": "🌳",
+        "note": "天天掉树叶",
+        "network": true,
+        "accentKey": "green",
+        "accentName": "绿",
+        "accent": "#43A66B",
+        "confirmed": false,
+        "type": "user"
+      }
+    },
+    {
+      "sequence": 15,
+      "timestamp": "2026-07-29T11:38:50.275Z",
+      "action": "delete",
+      "entityType": "relation",
+      "entityId": "n-hair::u-snail",
+      "note": "随卡牌删除",
+      "before": {
+        "source": "u-snail",
+        "target": "n-hair",
+        "type": "user-need",
+        "weight": 4,
+        "reason": "头顶总黏着奇怪东西",
+        "confirmed": false
+      },
+      "after": null
+    },
+    {
+      "sequence": 16,
+      "timestamp": "2026-07-29T11:38:50.275Z",
+      "action": "delete",
+      "entityType": "relation",
+      "entityId": "n-hair::u-stone",
+      "note": "随卡牌删除",
+      "before": {
+        "source": "u-stone",
+        "target": "n-hair",
+        "type": "user-need",
+        "weight": 4,
+        "reason": "唯一一撮刘海偏偏压不平",
+        "confirmed": false
+      },
+      "after": null
+    },
+    {
+      "sequence": 17,
+      "timestamp": "2026-07-29T11:38:50.275Z",
+      "action": "delete",
+      "entityType": "relation",
+      "entityId": "n-hair::u-cloud",
+      "note": "随卡牌删除",
+      "before": {
+        "source": "u-cloud",
+        "target": "n-hair",
+        "type": "user-need",
+        "weight": 4,
+        "reason": "头发总被风吹起来",
+        "confirmed": false
+      },
+      "after": null
+    },
+    {
+      "sequence": 18,
+      "timestamp": "2026-07-29T11:38:50.275Z",
+      "action": "delete",
+      "entityType": "relation",
+      "entityId": "n-hair::p-shadow",
+      "note": "随卡牌删除",
+      "before": {
+        "source": "n-hair",
+        "target": "p-shadow",
+        "type": "need-product",
+        "weight": 4,
+        "reason": "固定刘海的影子",
+        "confirmed": false
+      },
+      "after": null
+    },
+    {
+      "sequence": 19,
+      "timestamp": "2026-07-29T11:38:50.275Z",
+      "action": "delete",
+      "entityType": "relation",
+      "entityId": "n-hair::p-cloud",
+      "note": "随卡牌删除",
+      "before": {
+        "source": "n-hair",
+        "target": "p-cloud",
+        "type": "need-product",
+        "weight": 4,
+        "reason": "装一团云压住刘海",
+        "confirmed": false
+      },
+      "after": null
+    },
+    {
+      "sequence": 20,
+      "timestamp": "2026-07-29T11:38:50.275Z",
+      "action": "delete",
+      "entityType": "relation",
+      "entityId": "n-hair::p-bean",
+      "note": "随卡牌删除",
+      "before": {
+        "source": "n-hair",
+        "target": "p-bean",
+        "type": "need-product",
+        "weight": 4,
+        "reason": "长出一顶叶子帽",
+        "confirmed": false
+      },
+      "after": null
+    },
+    {
+      "sequence": 21,
+      "timestamp": "2026-07-29T11:38:50.275Z",
+      "action": "delete",
+      "entityType": "relation",
+      "entityId": "n-hair::p-hat",
+      "note": "随卡牌删除",
+      "before": {
+        "source": "n-hair",
+        "target": "p-hat",
+        "type": "need-product",
+        "weight": 4,
+        "reason": "直接把翘发藏起来",
+        "confirmed": false
+      },
+      "after": null
+    },
+    {
+      "sequence": 22,
+      "timestamp": "2026-07-29T11:38:50.275Z",
+      "action": "delete",
+      "entityType": "card",
+      "entityId": "n-hair",
+      "note": "",
+      "before": {
+        "id": "n-hair",
+        "name": "刘海总是翘着",
+        "emoji": "💇",
+        "note": "一句真实的吐槽",
+        "network": true,
+        "accentKey": "brown",
+        "accentName": "棕",
+        "accent": "#8A5B3D",
+        "confirmed": false,
+        "type": "need"
+      },
+      "after": null
+    },
+    {
+      "sequence": 23,
+      "timestamp": "2026-07-29T11:39:07.403Z",
+      "action": "update",
+      "entityType": "card",
+      "entityId": "n-eight",
+      "note": "",
+      "before": {
+        "id": "n-eight",
+        "name": "每天八点会焦虑",
+        "emoji": "🕗",
+        "note": "时间一到就紧张",
+        "network": true,
+        "accentKey": "red",
+        "accentName": "红",
+        "accent": "#E5524A",
+        "confirmed": false,
+        "type": "need"
+      },
+      "after": {
+        "id": "n-eight",
+        "name": "每晚八点会焦虑",
+        "emoji": "🕗",
+        "note": "时间一到就紧张",
+        "network": true,
+        "accentKey": "red",
+        "accentName": "红",
+        "accent": "#E5524A",
+        "confirmed": false,
+        "type": "need"
+      }
+    },
+    {
+      "sequence": 24,
+      "timestamp": "2026-07-29T11:39:41.835Z",
+      "action": "update",
+      "entityType": "card",
+      "entityId": "n-exam",
+      "note": "",
+      "before": {
+        "id": "n-exam",
+        "name": "一考试就忘光",
+        "emoji": "📝",
+        "note": "脑袋瞬间清空",
+        "network": false,
+        "accentKey": "green",
+        "accentName": "绿",
+        "accent": "#43A66B",
+        "confirmed": false,
+        "type": "need"
+      },
+      "after": {
+        "id": "n-exam",
+        "name": "记忆太短了只有七秒",
+        "emoji": "📝",
+        "note": "脑袋瞬间清空",
+        "network": false,
+        "accentKey": "green",
+        "accentName": "绿",
+        "accent": "#43A66B",
+        "confirmed": false,
+        "type": "need"
+      }
+    },
+    {
+      "sequence": 25,
+      "timestamp": "2026-07-29T11:40:12.926Z",
+      "action": "update",
+      "entityType": "card",
+      "entityId": "n-daze",
+      "note": "",
+      "before": {
+        "id": "n-daze",
+        "name": "发呆收不回思绪",
+        "emoji": "💭",
+        "note": "脑子飘远了",
+        "network": true,
+        "accentKey": "white",
+        "accentName": "白",
+        "accent": "#F8F5EC",
+        "confirmed": false,
+        "type": "need"
+      },
+      "after": {
+        "id": "n-daze",
+        "name": "一发起呆就不可收拾",
+        "emoji": "💭",
+        "note": "脑子飘远了",
+        "network": true,
+        "accentKey": "white",
+        "accentName": "白",
+        "accent": "#F8F5EC",
+        "confirmed": false,
+        "type": "need"
+      }
+    },
+    {
+      "sequence": 26,
+      "timestamp": "2026-07-29T11:40:23.034Z",
+      "action": "update",
+      "entityType": "card",
+      "entityId": "n-daze",
+      "note": "",
+      "before": {
+        "id": "n-daze",
+        "name": "一发起呆就不可收拾",
+        "emoji": "💭",
+        "note": "脑子飘远了",
+        "network": true,
+        "accentKey": "white",
+        "accentName": "白",
+        "accent": "#F8F5EC",
+        "confirmed": false,
+        "type": "need"
+      },
+      "after": {
+        "id": "n-daze",
+        "name": "一发起呆就停不下来",
+        "emoji": "💭",
+        "note": "脑子飘远了",
+        "network": true,
+        "accentKey": "white",
+        "accentName": "白",
+        "accent": "#F8F5EC",
+        "confirmed": false,
+        "type": "need"
+      }
+    },
+    {
+      "sequence": 27,
+      "timestamp": "2026-07-29T11:41:03.172Z",
+      "action": "update",
+      "entityType": "card",
+      "entityId": "n-lost",
+      "note": "",
+      "before": {
+        "id": "n-lost",
+        "name": "老是找不到东西",
+        "emoji": "🔎",
+        "note": "明明就在眼前",
+        "network": false,
+        "accentKey": "cyan",
+        "accentName": "青",
+        "accent": "#31B7B3",
+        "confirmed": false,
+        "type": "need"
+      },
+      "after": {
+        "id": "n-lost",
+        "name": "东西丢了老是找不着",
+        "emoji": "🔎",
+        "note": "明明就在眼前",
+        "network": false,
+        "accentKey": "cyan",
+        "accentName": "青",
+        "accent": "#31B7B3",
+        "confirmed": false,
+        "type": "need"
+      }
+    },
+    {
+      "sequence": 28,
+      "timestamp": "2026-07-29T11:43:26.194Z",
+      "action": "create",
+      "entityType": "card",
+      "entityId": "new-card-ms60m3pb",
+      "note": "",
+      "before": null,
+      "after": {
+        "id": "new-card-ms60m3pb",
+        "name": "忙碌的厨师",
+        "emoji": "🧑‍🍳",
+        "note": "他太忙了，没时间干任何事",
+        "network": false,
+        "accentKey": "custom-new-card-ms60m3pb",
+        "accentName": "自定义",
+        "accent": "#878787",
+        "confirmed": false,
+        "type": "user"
+      }
+    },
+    {
+      "sequence": 29,
+      "timestamp": "2026-07-29T11:43:46.076Z",
+      "action": "update",
+      "entityType": "card",
+      "entityId": "u-stone",
+      "note": "",
+      "before": {
+        "id": "u-stone",
+        "name": "石头",
+        "emoji": "🪨",
+        "note": "特别有主见",
+        "network": true,
+        "accentKey": "black",
+        "accentName": "黑",
+        "accent": "#25232D",
+        "confirmed": false,
+        "type": "user"
+      },
+      "after": {
+        "id": "u-stone",
+        "name": "无名的石头",
+        "emoji": "🪨",
+        "note": "特别有主见",
+        "network": true,
+        "accentKey": "black",
+        "accentName": "黑",
+        "accent": "#25232D",
+        "confirmed": false,
+        "type": "user"
+      }
+    },
+    {
+      "sequence": 30,
+      "timestamp": "2026-07-29T11:43:50.427Z",
+      "action": "update",
+      "entityType": "card",
+      "entityId": "u-stone",
+      "note": "",
+      "before": {
+        "id": "u-stone",
+        "name": "无名的石头",
+        "emoji": "🪨",
+        "note": "特别有主见",
+        "network": true,
+        "accentKey": "black",
+        "accentName": "黑",
+        "accent": "#25232D",
+        "confirmed": false,
+        "type": "user"
+      },
+      "after": {
+        "id": "u-stone",
+        "name": "无名石头",
+        "emoji": "🪨",
+        "note": "特别有主见",
+        "network": true,
+        "accentKey": "black",
+        "accentName": "黑",
+        "accent": "#25232D",
+        "confirmed": false,
+        "type": "user"
+      }
+    },
+    {
+      "sequence": 31,
+      "timestamp": "2026-07-29T11:45:37.292Z",
+      "action": "create",
+      "entityType": "card",
+      "entityId": "new-card-ms60pajb",
+      "note": "",
+      "before": null,
+      "after": {
+        "id": "new-card-ms60pajb",
+        "name": "老头",
+        "emoji": "👴",
+        "note": "他有点老",
+        "network": false,
+        "accentKey": "custom-new-card-ms60pajb",
+        "accentName": "自定义",
+        "accent": "#888888",
+        "confirmed": false,
+        "type": "user"
+      }
+    },
+    {
+      "sequence": 32,
+      "timestamp": "2026-07-29T11:52:03.948Z",
+      "action": "update",
+      "entityType": "card",
+      "entityId": "n-eight",
+      "note": "",
+      "before": {
+        "id": "n-eight",
+        "name": "每晚八点会焦虑",
+        "emoji": "🕗",
+        "note": "时间一到就紧张",
+        "network": true,
+        "accentKey": "red",
+        "accentName": "红",
+        "accent": "#E5524A",
+        "confirmed": false,
+        "type": "need"
+      },
+      "after": {
+        "id": "n-eight",
+        "name": "天黑就会焦虑",
+        "emoji": "🕗",
+        "note": "时间一到就紧张",
+        "network": true,
+        "accentKey": "red",
+        "accentName": "红",
+        "accent": "#E5524A",
+        "confirmed": false,
+        "type": "need"
+      }
+    },
+    {
+      "sequence": 33,
+      "timestamp": "2026-07-29T11:53:15.795Z",
+      "action": "create",
+      "entityType": "relation",
+      "entityId": "n-eight::u-firefly",
+      "note": "",
+      "before": null,
+      "after": {
+        "source": "u-firefly",
+        "target": "n-eight",
+        "type": "user-need",
+        "weight": 3,
+        "reason": "。",
+        "confirmed": false
+      }
+    },
+    {
+      "sequence": 34,
+      "timestamp": "2026-07-29T11:53:19.457Z",
+      "action": "confirm",
+      "entityType": "relation",
+      "entityId": "n-eight::u-firefly",
+      "note": "",
+      "before": {
+        "source": "u-firefly",
+        "target": "n-eight",
+        "type": "user-need",
+        "weight": 3,
+        "reason": "。",
+        "confirmed": false
+      },
+      "after": {
+        "source": "u-firefly",
+        "target": "n-eight",
+        "type": "user-need",
+        "weight": 3,
+        "reason": "。",
+        "confirmed": true
+      }
+    },
+    {
+      "sequence": 35,
+      "timestamp": "2026-07-29T12:47:37.975Z",
+      "action": "create",
+      "entityType": "relation",
+      "entityId": "n-slack::u-octopus",
+      "note": "",
+      "before": null,
+      "after": {
+        "source": "u-octopus",
+        "target": "n-slack",
+        "type": "user-need",
+        "weight": 3,
+        "reason": "。",
+        "confirmed": false
+      }
+    },
+    {
+      "sequence": 36,
+      "timestamp": "2026-07-29T12:47:40.163Z",
+      "action": "confirm",
+      "entityType": "relation",
+      "entityId": "n-slack::u-octopus",
+      "note": "",
+      "before": {
+        "source": "u-octopus",
+        "target": "n-slack",
+        "type": "user-need",
+        "weight": 3,
+        "reason": "。",
+        "confirmed": false
+      },
+      "after": {
+        "source": "u-octopus",
+        "target": "n-slack",
+        "type": "user-need",
+        "weight": 3,
+        "reason": "。",
+        "confirmed": true
+      }
+    }
+  ]
+}
