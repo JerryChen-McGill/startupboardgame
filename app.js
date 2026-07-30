@@ -351,36 +351,33 @@ function evaluateStartup(cards) {
 
 function renderStartupDemo(cards) {
   const board = document.querySelector("#startup-board");
-  const matchList = document.querySelector("#startup-match-list");
   const verdict = document.querySelector("#startup-verdict");
-  const funding = document.querySelector("#startup-funding");
   const result = evaluateStartup(cards);
 
-  board.innerHTML = cards.map(renderStartupCard).join("");
-  matchList.innerHTML = result.pairs
-    .map(
-      ({ source, target, matched }) => `
-        <div class="startup-match ${matched ? "is-match" : "is-miss"}">
-          <span class="match-icon" aria-hidden="true">${matched ? "✓" : "×"}</span>
-          <span>${gameData.categoryMeta[source.type].label} × ${gameData.categoryMeta[target.type].label}</span>
-          <b>${matched ? "匹配" : "不匹配"}</b>
-        </div>
-      `,
-    )
-    .join("");
+  board.innerHTML =
+    cards.map(renderStartupCard).join("") +
+    result.pairs
+      .map(
+        ({ source, target, matched }, index) => `
+          <span
+            class="board-match board-match-${index + 1} ${matched ? "is-match" : "is-miss"}"
+            role="img"
+            aria-label="${gameData.categoryMeta[source.type].label}与${gameData.categoryMeta[target.type].label}${matched ? "匹配" : "不匹配"}"
+            title="${gameData.categoryMeta[source.type].label} × ${gameData.categoryMeta[target.type].label}：${matched ? "匹配" : "不匹配"}"
+          >${matched ? "✓" : "×"}</span>
+        `,
+      )
+      .join("");
 
   if (result.matchCount === 4) {
-    verdict.textContent = "最佳生意，四条关系全部成立！";
-    funding.innerHTML = "<span>融资</span><strong>200 万</strong><em>最佳</em>";
-    funding.className = "startup-funding is-perfect";
+    verdict.innerHTML = "最佳生意：四条关系全部成立，融资 <b>200 万</b>。";
+    verdict.className = "is-perfect";
   } else if (result.matchCount === 3) {
-    verdict.textContent = "生意能成，三条关系成立。";
-    funding.innerHTML = "<span>融资</span><strong>100 万</strong>";
-    funding.className = "startup-funding is-funded";
+    verdict.innerHTML = "生意能成：U 字形连通，融资 <b>100 万</b>。";
+    verdict.className = "is-funded";
   } else {
-    verdict.textContent = `生意没成，只有 ${result.matchCount} 条关系成立。`;
-    funding.innerHTML = "<span>融资</span><strong>0</strong>";
-    funding.className = "startup-funding is-failed";
+    verdict.innerHTML = `未完全连通，创业失败：${result.matchCount} 条关系成立，融资 <b>0</b>。`;
+    verdict.className = "is-failed";
   }
 }
 

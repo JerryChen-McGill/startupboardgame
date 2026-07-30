@@ -115,11 +115,11 @@ test("connector shapes are doubled and use the requested visual styles", () => {
 });
 
 test("the connector stylesheet URL is versioned to bypass stale browser caches", () => {
-  assert.match(htmlSource, /href="\.\/styles\.css\?v=20260731-3"/);
+  assert.match(htmlSource, /href="\.\/styles\.css\?v=20260731-4"/);
 });
 
 test("the application script URL is versioned to publish ordering changes immediately", () => {
-  assert.match(htmlSource, /src="\.\/app\.js\?v=20260731-1"/);
+  assert.match(htmlSource, /src="\.\/app\.js\?v=20260731-2"/);
 });
 
 test("the imported workspace starts fully confirmed and without unconfirmed relations", () => {
@@ -147,13 +147,19 @@ test("the homepage demo randomizes current cards and evaluates all four adjacent
   assert.match(appSource, /200 万/);
   assert.match(appSource, /100 万/);
   assert.match(appSource, /"✓" : "×"/);
-  assert.match(cssSource, /\.is-match \.match-icon \{ background: #2f9a62; \}/);
-  assert.match(cssSource, /\.is-miss \.match-icon \{ background: #d94b4b; \}/);
+  assert.match(appSource, /U 字形连通/);
+  assert.match(appSource, /未完全连通，创业失败/);
+  assert.match(cssSource, /\.board-match\.is-match \{ background: #2f9a62; \}/);
+  assert.match(cssSource, /\.board-match\.is-miss \{ background: #d94b4b; \}/);
+  assert.match(cssSource, /\.board-match-1 \{ top: 25%; left: 50%; \}/);
+  assert.match(cssSource, /\.board-match-4 \{ top: 75%; left: 50%; \}/);
   assert.match(cssSource, /\.startup-card\.library-card/);
   assert.match(htmlSource, /class="rulebook-book"/);
   assert.match(htmlSource, /rulebook-page rulebook-page-left/);
   assert.match(htmlSource, /rulebook-page rulebook-page-right/);
   assert.match(htmlSource, /融资与胜利/);
+  assert.match(htmlSource, /<span>U 字形连通<\/span>/);
+  assert.match(htmlSource, /<span>未完全连通，创业失败<\/span>/);
 });
 
 test("editor still supports local changes and separate exports", () => {
