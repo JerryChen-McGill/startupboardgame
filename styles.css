@@ -872,14 +872,14 @@ button {
 .connector-shape[data-shape="square"],
 .connector-shape[data-shape="circle"] {
   fill: none;
-  stroke: #111;
+  stroke: #000;
   stroke-dasharray: none;
 }
 
 .connector-shape[data-shape="diamond"],
 .connector-shape[data-shape="triangle"] {
   fill: none;
-  stroke: #111;
+  stroke: #000;
   stroke-dasharray: none;
   stroke-width: 1.3;
 }

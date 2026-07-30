@@ -65,7 +65,7 @@ test("connector shapes are doubled and use the requested visual styles", () => {
     assert.match(
       cssSource,
       new RegExp(
-        `\\.connector-shape\\[data-shape="${key}"\\][\\s\\S]*?fill:\\s*none;[\\s\\S]*?stroke:\\s*#111;`,
+        `\\.connector-shape\\[data-shape="${key}"\\][\\s\\S]*?fill:\\s*none;[\\s\\S]*?stroke:\\s*#000;`,
       ),
     );
   });
@@ -96,6 +96,10 @@ test("connector shapes are doubled and use the requested visual styles", () => {
       ),
     );
   });
+});
+
+test("the connector stylesheet URL is versioned to bypass stale browser caches", () => {
+  assert.match(htmlSource, /href="\.\/styles\.css\?v=20260731-1"/);
 });
 
 test("the imported workspace starts fully confirmed and without unconfirmed relations", () => {
