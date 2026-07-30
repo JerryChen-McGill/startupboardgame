@@ -352,6 +352,44 @@ function evaluateStartup(cards) {
   return { pairs, matchCount: pairs.filter((pair) => pair.matched).length };
 }
 
+function calculateStartupStatistics() {
+  const counts = {
+    total: 0,
+    failure: 0,
+    basic: 0,
+    perfect: 0,
+  };
+  const [users, promotions, needs, products] = STARTUP_CARD_ORDER.map(
+    (type) => gameData.cards[type] || [],
+  );
+
+  users.forEach((user) => {
+    promotions.forEach((promotion) => {
+      needs.forEach((need) => {
+        products.forEach((product) => {
+          const matchCount = [
+            [user, promotion],
+            [user, need],
+            [promotion, product],
+            [need, product],
+          ].filter(([source, target]) => relationByPair.has(pairKey(source.id, target.id))).length;
+
+          counts.total += 1;
+          if (matchCount === 4) counts.perfect += 1;
+          else if (matchCount === 3) counts.basic += 1;
+          else counts.failure += 1;
+        });
+      });
+    });
+  });
+
+  return counts;
+}
+
+function formatPercentage(count, total) {
+  return `${(total ? (count / total) * 100 : 0).toFixed(2)}%`;
+}
+
 function renderStartupDemo(cards) {
   const board = document.querySelector("#startup-board");
   const verdict = document.querySelector("#startup-verdict");
@@ -1199,13 +1237,15 @@ function setEditorMessage(message, state = "") {
 function updateNetworkCaption() {
   const cardCount = cardById?.size || 0;
   const relationCount = gameData?.relations?.length || 0;
-  const confirmedCards = cardById ? [...cardById.values()].filter((card) => card.confirmed).length : 0;
-  const confirmedRelations = gameData?.relations?.filter((relation) => relation.confirmed).length || 0;
+  const statistics = calculateStartupStatistics();
+  const formatNumber = (value) => value.toLocaleString("zh-CN");
   const values = {
     "#network-card-count": `${cardCount} 张卡`,
-    "#network-relation-count": `${relationCount} 条关系`,
-    "#network-card-confirmed": `${confirmedCards} 张卡已确认`,
-    "#network-relation-confirmed": `${confirmedRelations} 条关系已确认`,
+    "#network-relation-count": `${relationCount} 对关系`,
+    "#network-combination-count": `${formatNumber(statistics.total)} 种组合可能`,
+    "#network-failure-count": `创业失败 ${formatNumber(statistics.failure)} 种 · ${formatPercentage(statistics.failure, statistics.total)}`,
+    "#network-basic-count": `基本成功 ${formatNumber(statistics.basic)} 种 · ${formatPercentage(statistics.basic, statistics.total)}`,
+    "#network-perfect-count": `完全成功 ${formatNumber(statistics.perfect)} 种 · ${formatPercentage(statistics.perfect, statistics.total)}`,
   };
   Object.entries(values).forEach(([selector, value]) => {
     const element = document.querySelector(selector);

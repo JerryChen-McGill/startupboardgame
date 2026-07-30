@@ -67,6 +67,32 @@ test("the relationship groups reflect the filtered export", () => {
   });
 });
 
+test("all four-card combinations split into the three startup outcomes", () => {
+  const outcomeCounts = { failure: 0, basic: 0, perfect: 0 };
+
+  for (const user of data.cards.user) {
+    for (const promotion of data.cards.promotion) {
+      for (const need of data.cards.need) {
+        for (const product of data.cards.product) {
+          const matchCount = [
+            [user, promotion],
+            [user, need],
+            [promotion, product],
+            [need, product],
+          ].filter(([source, target]) => relationIndex.has(pairKey(source.id, target.id))).length;
+
+          if (matchCount === 4) outcomeCounts.perfect += 1;
+          else if (matchCount === 3) outcomeCounts.basic += 1;
+          else outcomeCounts.failure += 1;
+        }
+      }
+    }
+  }
+
+  assert.deepEqual(outcomeCounts, { failure: 3625, basic: 1140, perfect: 275 });
+  assert.equal(Object.values(outcomeCounts).reduce((total, count) => total + count, 0), 5040);
+});
+
 test("cards are ordered by descending relationship count within every category", () => {
   const degree = new Map(allCards.map((card) => [card.id, 0]));
   data.relations.forEach((relation) => {

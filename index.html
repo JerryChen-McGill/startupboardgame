@@ -20,7 +20,7 @@
     <link rel="canonical" href="https://jerrychen-mcgill.github.io/startupboardgame/" />
     <link rel="icon" href="./assets/favicon.svg" type="image/svg+xml" />
     <title>迷你创业桌游｜把离谱点子拼成自洽生意</title>
-    <link rel="stylesheet" href="./styles.css?v=20260731-7" />
+    <link rel="stylesheet" href="./styles.css?v=20260731-8" />
   </head>
   <body>
     <a class="skip-link" href="#main">跳到主要内容</a>
@@ -240,11 +240,13 @@
                 </svg>
                 <div class="network-tooltip" id="network-tooltip" role="status"></div>
               </div>
-              <div class="network-caption" id="network-caption">
+              <div class="network-caption" id="network-caption" aria-label="关系图数据统计">
                 <span id="network-card-count">34 张卡</span>
-                <span id="network-relation-count">133 条关系</span>
-                <span id="network-card-confirmed">34 张卡已确认</span>
-                <span id="network-relation-confirmed">133 条关系已确认</span>
+                <span id="network-relation-count">133 对关系</span>
+                <span id="network-combination-count">5,040 种组合可能</span>
+                <span class="caption-result is-failed" id="network-failure-count">创业失败 3,625 种 · 71.92%</span>
+                <span class="caption-result is-funded" id="network-basic-count">基本成功 1,140 种 · 22.62%</span>
+                <span class="caption-result is-perfect" id="network-perfect-count">完全成功 275 种 · 5.46%</span>
               </div>
             </div>
 
@@ -345,6 +347,6 @@
       <a href="https://github.com/JerryChen-McGill/startupboardgame">GitHub ↗</a>
     </footer>
 
-    <script src="./app.js?v=20260731-3" defer></script>
+    <script src="./app.js?v=20260731-4" defer></script>
   </body>
 </html>

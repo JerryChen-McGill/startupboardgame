@@ -1487,6 +1487,23 @@ button {
   vertical-align: middle;
 }
 
+.network-caption .caption-result {
+  color: rgba(255, 255, 255, 0.72);
+  font-weight: 750;
+}
+
+.network-caption .caption-result.is-failed::before {
+  background: #e16767;
+}
+
+.network-caption .caption-result.is-funded::before {
+  background: #7ab6ff;
+}
+
+.network-caption .caption-result.is-perfect::before {
+  background: #6fd39b;
+}
+
 .network-editor {
   position: sticky;
   top: 88px;

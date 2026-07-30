@@ -115,11 +115,11 @@ test("connector shapes are doubled and use the requested visual styles", () => {
 });
 
 test("the connector stylesheet URL is versioned to bypass stale browser caches", () => {
-  assert.match(htmlSource, /href="\.\/styles\.css\?v=20260731-7"/);
+  assert.match(htmlSource, /href="\.\/styles\.css\?v=20260731-8"/);
 });
 
 test("the application script URL is versioned to publish ordering changes immediately", () => {
-  assert.match(htmlSource, /src="\.\/app\.js\?v=20260731-3"/);
+  assert.match(htmlSource, /src="\.\/app\.js\?v=20260731-4"/);
 });
 
 test("the imported workspace starts fully confirmed and without unconfirmed relations", () => {
@@ -165,6 +165,23 @@ test("the homepage demo randomizes current cards and evaluates all four adjacent
   assert.match(htmlSource, /融资与胜利/);
   assert.match(htmlSource, /<span>U 字形连通<\/span>/);
   assert.match(htmlSource, /<span>未完全连通，创业失败<\/span>/);
+});
+
+test("the relationship map lists dynamic combination and outcome statistics", () => {
+  [
+    'id="network-card-count"',
+    'id="network-relation-count"',
+    'id="network-combination-count"',
+    'id="network-failure-count"',
+    'id="network-basic-count"',
+    'id="network-perfect-count"',
+  ].forEach((marker) => assert.ok(htmlSource.includes(marker), `missing ${marker}`));
+  assert.match(appSource, /function calculateStartupStatistics\(/);
+  assert.match(appSource, /function formatPercentage\(/);
+  assert.match(appSource, /创业失败.*statistics\.failure/);
+  assert.match(appSource, /基本成功.*statistics\.basic/);
+  assert.match(appSource, /完全成功.*statistics\.perfect/);
+  assert.doesNotMatch(htmlSource, /张卡已确认|条关系已确认/);
 });
 
 test("editor still supports local changes and separate exports", () => {
