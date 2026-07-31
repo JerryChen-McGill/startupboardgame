@@ -1409,8 +1409,8 @@ button {
   transform: translateY(-50%);
 }
 
-.edge-right { right: -6px; }
-.edge-left { left: -6px; }
+.edge-right { right: -3px; }
+.edge-left { left: -3px; }
 
 .edge-top,
 .edge-bottom {
@@ -1420,8 +1420,8 @@ button {
   transform: translateX(-50%);
 }
 
-.edge-top { top: -6px; }
-.edge-bottom { bottom: -6px; }
+.edge-top { top: -3px; }
+.edge-bottom { bottom: -3px; }
 
 .network-section {
   padding: 8rem 0;

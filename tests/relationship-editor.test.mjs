@@ -114,8 +114,19 @@ test("connector shapes are doubled and use the requested visual styles", () => {
   });
 });
 
+test("connector halves share the card border as one exact symmetry axis", () => {
+  assert.match(cssSource, /\.edge-right\s*\{\s*right:\s*-3px;\s*\}/);
+  assert.match(cssSource, /\.edge-left\s*\{\s*left:\s*-3px;\s*\}/);
+  assert.match(cssSource, /\.edge-top\s*\{\s*top:\s*-3px;\s*\}/);
+  assert.match(cssSource, /\.edge-bottom\s*\{\s*bottom:\s*-3px;\s*\}/);
+  assert.match(appSource, /right:\s*"0 0 20 40"/);
+  assert.match(appSource, /left:\s*"20 0 20 40"/);
+  assert.match(appSource, /bottom:\s*"0 0 40 20"/);
+  assert.match(appSource, /top:\s*"0 20 40 20"/);
+});
+
 test("the connector stylesheet URL is versioned to bypass stale browser caches", () => {
-  assert.match(htmlSource, /href="\.\/styles\.css\?v=20260731-12"/);
+  assert.match(htmlSource, /href="\.\/styles\.css\?v=20260731-13"/);
 });
 
 test("the application script URL is versioned to publish ordering changes immediately", () => {
