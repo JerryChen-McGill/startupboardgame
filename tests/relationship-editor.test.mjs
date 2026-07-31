@@ -115,11 +115,11 @@ test("connector shapes are doubled and use the requested visual styles", () => {
 });
 
 test("the connector stylesheet URL is versioned to bypass stale browser caches", () => {
-  assert.match(htmlSource, /href="\.\/styles\.css\?v=20260731-9"/);
+  assert.match(htmlSource, /href="\.\/styles\.css\?v=20260731-10"/);
 });
 
 test("the application script URL is versioned to publish ordering changes immediately", () => {
-  assert.match(htmlSource, /src="\.\/app\.js\?v=20260731-4"/);
+  assert.match(htmlSource, /src="\.\/app\.js\?v=20260731-5"/);
 });
 
 test("the imported workspace starts fully confirmed and without unconfirmed relations", () => {
@@ -154,13 +154,14 @@ test("the homepage demo randomizes current cards and evaluates all four adjacent
   assert.match(cssSource, /\.board-match-1 \{ top: 25%; left: 50%; \}/);
   assert.match(cssSource, /\.board-match-4 \{ top: 75%; left: 50%; \}/);
   assert.match(cssSource, /translate\(-50%, -50%\) translate\(46px, -46px\)/);
-  assert.doesNotMatch(
-    cssSource,
-    /\.startup-card(?:\.library-card|\s+\.(?:card-topline|card-name|card-emoji|card-question|card-bottomline|edge-))/,
-  );
+  assert.match(cssSource, /\.startup-card\.library-card:hover[\s\S]*?transform:\s*none;/);
   assert.match(appSource, /visibleNote/);
-  assert.match(appSource, /startup-prompt prompt-/);
+  assert.match(appSource, /startup-picker prompt-/);
+  assert.match(appSource, /class="startup-prompt"/);
   assert.match(appSource, /card\.note/);
+  assert.match(appSource, /function renderStartupPicker\(/);
+  assert.match(appSource, /data-startup-card-id/);
+  assert.match(appSource, /currentStartupCards/);
   assert.match(data.categoryMeta.promotion.question, /怎么让他们知道？/);
   assert.match(htmlSource, /class="rulebook-book"/);
   assert.match(htmlSource, /rulebook-page rulebook-page-left/);

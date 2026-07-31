@@ -9,6 +9,7 @@ let activeRelationType = "all";
 let selectedNodeId = null;
 let selectedRelationKey = null;
 let editorChangeLog = [];
+let currentStartupCards = [];
 const EDITOR_STORAGE_KEY = "startup-boardgame-relationship-editor-v3";
 const STARTUP_CARD_ORDER = ["user", "promotion", "need", "product"];
 const CARD_LIBRARY_ORDER = ["user", "need", "product", "promotion"];
@@ -323,13 +324,51 @@ function renderStartupCard(card) {
   return `
     <article class="library-card startup-card${typeAtBottom ? " type-label-bottom" : ""}" data-type="${card.type}">
       ${renderLibraryEdges(card)}
-      <span class="startup-prompt prompt-${promptSide}">${gameData.categoryMeta[card.type].question}</span>
+      ${renderStartupPicker(card, promptSide)}
       ${typeAtBottom ? "" : typeLabel}
       <h3 class="card-name">${card.name}</h3>
       <div class="card-emoji" aria-hidden="true"><span>${card.emoji}</span></div>
       <p class="card-question">${visibleNote}</p>
       ${typeAtBottom ? typeLabel : ""}
     </article>
+  `;
+}
+
+function renderStartupPicker(card, promptSide) {
+  const menuId = `startup-picker-${card.type}`;
+  const options = rankedCards(card.type)
+    .map(
+      (option) => `
+        <button
+          class="startup-picker-option"
+          type="button"
+          role="option"
+          aria-selected="${option.id === card.id}"
+          data-startup-card-id="${option.id}"
+          data-startup-card-type="${card.type}"
+        >
+          <span aria-hidden="true">${option.emoji}</span>
+          <b>${option.name}</b>
+        </button>
+      `,
+    )
+    .join("");
+  return `
+    <div class="startup-picker prompt-${promptSide}">
+      <button
+        class="startup-prompt"
+        type="button"
+        data-startup-picker="${card.type}"
+        aria-expanded="false"
+        aria-controls="${menuId}"
+      >
+        <span>${gameData.categoryMeta[card.type].question}</span>
+        <span class="startup-prompt-arrow" aria-hidden="true">V</span>
+      </button>
+      <div class="startup-picker-menu" id="${menuId}" role="listbox" hidden>
+        ${options}
+      </div>
+    </div>
   `;
 }
 
@@ -394,6 +433,7 @@ function renderStartupDemo(cards) {
   const board = document.querySelector("#startup-board");
   const verdict = document.querySelector("#startup-verdict");
   const result = evaluateStartup(cards);
+  currentStartupCards = cards;
 
   board.innerHTML =
     cards.map(renderStartupCard).join("") +
@@ -423,13 +463,50 @@ function renderStartupDemo(cards) {
 }
 
 function bindStartupDemo() {
+  const board = document.querySelector("#startup-board");
   const shuffleButton = document.querySelector("#shuffle-startup");
+  const closePickers = (exceptType = "") => {
+    board.querySelectorAll("[data-startup-picker]").forEach((button) => {
+      if (button.dataset.startupPicker === exceptType) return;
+      button.setAttribute("aria-expanded", "false");
+      document.querySelector(`#startup-picker-${button.dataset.startupPicker}`)?.setAttribute("hidden", "");
+    });
+  };
   const shuffle = () => {
     shuffleButton.classList.remove("is-spinning");
     void shuffleButton.offsetWidth;
     shuffleButton.classList.add("is-spinning");
     renderStartupDemo(randomStartupCards());
   };
+
+  board.addEventListener("click", (event) => {
+    const option = event.target.closest("[data-startup-card-id]");
+    if (option) {
+      const selectedCard = cardById.get(option.dataset.startupCardId);
+      if (!selectedCard) return;
+      const nextCards = currentStartupCards.map((card) =>
+        card.type === option.dataset.startupCardType ? { ...selectedCard } : card,
+      );
+      renderStartupDemo(nextCards);
+      return;
+    }
+
+    const pickerButton = event.target.closest("[data-startup-picker]");
+    if (!pickerButton) return;
+    const type = pickerButton.dataset.startupPicker;
+    const menu = document.querySelector(`#startup-picker-${type}`);
+    const willOpen = pickerButton.getAttribute("aria-expanded") !== "true";
+    closePickers(type);
+    pickerButton.setAttribute("aria-expanded", String(willOpen));
+    menu.toggleAttribute("hidden", !willOpen);
+  });
+
+  board.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") closePickers();
+  });
+  document.addEventListener("click", (event) => {
+    if (!board.contains(event.target)) closePickers();
+  });
   shuffleButton.addEventListener("click", shuffle);
   renderStartupDemo(randomStartupCards());
 }
