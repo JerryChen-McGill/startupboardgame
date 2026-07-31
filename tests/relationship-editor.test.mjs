@@ -115,11 +115,11 @@ test("connector shapes are doubled and use the requested visual styles", () => {
 });
 
 test("the connector stylesheet URL is versioned to bypass stale browser caches", () => {
-  assert.match(htmlSource, /href="\.\/styles\.css\?v=20260731-11"/);
+  assert.match(htmlSource, /href="\.\/styles\.css\?v=20260731-12"/);
 });
 
 test("the application script URL is versioned to publish ordering changes immediately", () => {
-  assert.match(htmlSource, /src="\.\/app\.js\?v=20260731-6"/);
+  assert.match(htmlSource, /src="\.\/app\.js\?v=20260731-7"/);
 });
 
 test("the imported workspace starts fully confirmed and without unconfirmed relations", () => {

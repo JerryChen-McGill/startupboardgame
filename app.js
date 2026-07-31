@@ -354,7 +354,10 @@ function renderStartupPicker(card, promptSide) {
     )
     .join("");
   return `
-    <div class="startup-picker prompt-${promptSide}">
+    <div
+      class="startup-picker prompt-${promptSide}"
+      style="--prompt-accent:${gameData.categoryMeta[card.type].color}"
+    >
       <button
         class="startup-prompt"
         type="button"
@@ -362,8 +365,9 @@ function renderStartupPicker(card, promptSide) {
         aria-expanded="false"
         aria-controls="${menuId}"
       >
-        <span>${gameData.categoryMeta[card.type].question}</span>
-        <span class="startup-prompt-arrow" aria-hidden="true">V</span>
+        <span class="startup-prompt-dot" aria-hidden="true"></span>
+        <span class="startup-prompt-label">${gameData.categoryMeta[card.type].question}</span>
+        <span class="startup-prompt-icon" aria-hidden="true"></span>
       </button>
       <div class="startup-picker-menu" id="${menuId}" role="listbox" hidden>
         ${options}
