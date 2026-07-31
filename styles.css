@@ -321,10 +321,9 @@ button {
 .startup-board {
   position: relative;
   display: grid;
-  width: min(100%, 500px);
+  width: min(540px, calc(36.8vw - 2.24rem));
   grid-template-columns: repeat(2, minmax(0, 1fr));
   filter: drop-shadow(0 20px 28px rgba(23, 21, 47, 0.15));
-  transform: rotate(0.7deg);
 }
 
 .startup-card.library-card {
@@ -1871,6 +1870,10 @@ button {
     min-height: 760px;
   }
 
+  .startup-board {
+    width: min(540px, calc(46vw - 2.1rem));
+  }
+
   .why {
     grid-template-columns: 1fr;
     align-items: start;
@@ -1949,7 +1952,9 @@ button {
   }
 
   .hero-visual {
+    width: calc(100% + 2rem);
     min-height: 680px;
+    margin-left: -1rem;
   }
 
   .startup-demo {
@@ -1957,7 +1962,7 @@ button {
   }
 
   .startup-board {
-    width: min(calc(100% - 52px), 400px);
+    width: min(calc(100% - 3.4rem), 540px);
   }
 
   .board-match {

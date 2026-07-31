@@ -59,9 +59,9 @@ document.addEventListener("DOMContentLoaded", async () => {
     loadEditorWorkspace(sourceData);
     rebuildIndexes();
     renderSiteMetrics();
-    bindStartupDemo();
-
     renderCardLibrary();
+    bindStartupDemo();
+    bindStartupBoardSizing();
     bindCardFilters();
     renderRelationFilters();
     renderRelationshipNetwork();
@@ -370,6 +370,22 @@ function renderStartupPicker(card, promptSide) {
       </div>
     </div>
   `;
+}
+
+function syncStartupBoardSize() {
+  const libraryCard = document.querySelector("#card-library .library-card");
+  const board = document.querySelector("#startup-board");
+  if (!libraryCard || !board) return;
+  board.style.width = `${libraryCard.getBoundingClientRect().width * 2}px`;
+}
+
+function bindStartupBoardSizing() {
+  let resizeFrame;
+  syncStartupBoardSize();
+  window.addEventListener("resize", () => {
+    cancelAnimationFrame(resizeFrame);
+    resizeFrame = requestAnimationFrame(syncStartupBoardSize);
+  });
 }
 
 function evaluateStartup(cards) {
@@ -1295,6 +1311,7 @@ function refreshAfterEditorMutation() {
   renderRelationFilters();
   renderRelationshipNetwork();
   renderStartupDemo(randomStartupCards());
+  syncStartupBoardSize();
   renderChangeLogPreview();
 }
 
