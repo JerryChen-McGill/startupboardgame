@@ -126,7 +126,11 @@ test("connector halves share the card border as one exact symmetry axis", () => 
 });
 
 test("the connector stylesheet URL is versioned to bypass stale browser caches", () => {
-  assert.match(htmlSource, /href="\.\/styles\.css\?v=20260731-13"/);
+  assert.match(htmlSource, /href="\.\/styles\.css\?v=20260731-14"/);
+});
+
+test("homepage demo cards can stretch to equal row heights on mobile", () => {
+  assert.match(cssSource, /\.startup-card\.library-card\s*\{\s*aspect-ratio:\s*auto;\s*\}/);
 });
 
 test("the application script URL is versioned to publish ordering changes immediately", () => {

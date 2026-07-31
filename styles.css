@@ -2061,6 +2061,10 @@ button {
     width: min(calc(100% - 3.4rem), 540px);
   }
 
+  .startup-card.library-card {
+    aspect-ratio: auto;
+  }
+
   .board-match {
     width: 28px;
     height: 28px;
