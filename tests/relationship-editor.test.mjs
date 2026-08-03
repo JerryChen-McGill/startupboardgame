@@ -61,6 +61,7 @@ test("right-clicking a card downloads a tightly cropped PNG", () => {
   assert.match(appSource, /getBoundingClientRect\(\)/);
   assert.match(appSource, /canvas\.toBlob/);
   assert.match(appSource, /"image\/png"/);
+  assert.match(appSource, /clonedIcon\.style\.fontSize\s*=\s*getComputedStyle\(originalIcon\)\.fontSize/);
   assert.match(cssSource, /\.card-image-export\s*{[\s\S]*?box-shadow:\s*none\s*!important;/);
 });
 
@@ -136,7 +137,7 @@ test("connector halves share the card border as one exact symmetry axis", () => 
 });
 
 test("the connector stylesheet URL is versioned to bypass stale browser caches", () => {
-  assert.match(htmlSource, /href="\.\/styles\.css\?v=20260803-1"/);
+  assert.match(htmlSource, /href="\.\/styles\.css\?v=20260803-2"/);
 });
 
 test("homepage demo cards can stretch to equal row heights on mobile", () => {
@@ -144,8 +145,8 @@ test("homepage demo cards can stretch to equal row heights on mobile", () => {
 });
 
 test("application assets are versioned to publish interaction changes immediately", () => {
-  assert.match(htmlSource, /href="\.\/styles\.css\?v=20260803-1"/);
-  assert.match(htmlSource, /src="\.\/app\.js\?v=20260803-3"/);
+  assert.match(htmlSource, /href="\.\/styles\.css\?v=20260803-2"/);
+  assert.match(htmlSource, /src="\.\/app\.js\?v=20260803-4"/);
 });
 
 test("the imported workspace starts fully confirmed and without unconfirmed relations", () => {

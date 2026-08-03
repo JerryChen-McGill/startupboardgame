@@ -568,6 +568,12 @@ async function downloadCardImage(cardElement) {
   clone.style.height = `${height}px`;
   clone.style.animation = "none";
 
+  const originalIcon = cardElement.querySelector(".card-emoji span");
+  const clonedIcon = clone.querySelector(".card-emoji span");
+  if (originalIcon && clonedIcon) {
+    clonedIcon.style.fontSize = getComputedStyle(originalIcon).fontSize;
+  }
+
   const cssText = Array.from(document.styleSheets)
     .flatMap((sheet) => {
       try {
