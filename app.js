@@ -12,13 +12,14 @@ let editorChangeLog = [];
 let currentStartupCards = [];
 const EDITOR_STORAGE_KEY = "startup-boardgame-relationship-editor-v3";
 const STARTUP_CARD_ORDER = ["user", "promotion", "need", "product"];
-const CARD_LIBRARY_ORDER = ["user", "need", "product", "promotion"];
+const CARD_LIBRARY_ORDER = ["user", "need", "product", "promotion", "event"];
 const RELATION_FILTER_ORDER = ["user-need", "need-product", "product-promotion", "user-promotion"];
 const CARD_TYPE_LABELS = {
   user: "用户卡",
   promotion: "传播卡",
   need: "需求卡",
   product: "产品卡",
+  event: "事件卡",
 };
 const CARD_EDGE_CONFIG = {
   user: [
@@ -53,7 +54,7 @@ const CONNECTOR_SHAPES = [
 
 document.addEventListener("DOMContentLoaded", async () => {
   try {
-    const response = await fetch("./data/game-data.json?v=20260731-1");
+    const response = await fetch("./data/game-data.json?v=20260803-1");
     if (!response.ok) throw new Error(`数据加载失败：${response.status}`);
     const sourceData = await response.json();
     loadEditorWorkspace(sourceData);
@@ -93,6 +94,7 @@ function buildRelationIndex(relations) {
 
 function normalizeEditorData(sourceData) {
   const normalized = JSON.parse(JSON.stringify(sourceData));
+  normalized.cards.event ||= [];
   Object.values(normalized.cards).forEach((cards) => {
     cards.forEach((card) => {
       card.confirmed = Boolean(card.confirmed);
@@ -108,9 +110,13 @@ function normalizeEditorData(sourceData) {
 
 function loadEditorWorkspace(sourceData) {
   gameData = normalizeEditorData(sourceData);
+  let loadedSavedWorkspace = false;
+  let savedCardTypes = new Set();
   try {
     const saved = JSON.parse(localStorage.getItem(EDITOR_STORAGE_KEY));
     if (saved?.gameData?.cards && Array.isArray(saved.gameData.relations)) {
+      loadedSavedWorkspace = true;
+      savedCardTypes = new Set(Object.keys(saved.gameData.cards));
       gameData = normalizeEditorData(saved.gameData);
       editorChangeLog = Array.isArray(saved.changeLog) ? saved.changeLog : [];
     }
@@ -118,16 +124,15 @@ function loadEditorWorkspace(sourceData) {
     console.warn("无法读取关系编辑草稿，将使用原始数据。", error);
   }
 
-  const latestNotes = new Map(
-    Object.values(sourceData.cards)
-      .flat()
-      .map((card) => [card.id, card.note]),
-  );
-  Object.values(gameData.cards)
-    .flat()
-    .forEach((card) => {
-      if (latestNotes.has(card.id)) card.note = latestNotes.get(card.id);
-    });
+  gameData.categoryMeta = {
+    ...sourceData.categoryMeta,
+    ...gameData.categoryMeta,
+  };
+  Object.entries(sourceData.cards).forEach(([type, sourceCards]) => {
+    if (loadedSavedWorkspace && !savedCardTypes.has(type)) {
+      gameData.cards[type] = JSON.parse(JSON.stringify(sourceCards));
+    }
+  });
 }
 
 function rebuildIndexes() {
@@ -152,7 +157,7 @@ function rebuildIndexes() {
 }
 
 function rankedCards(type) {
-  return gameData.cards[type]
+  return (gameData.cards[type] || [])
     .map((card, sourceIndex) => ({ card, sourceIndex }))
     .sort(
       (a, b) =>
@@ -197,7 +202,7 @@ function renderCardLibrary(filter = "all") {
       `;
       return `
         <article
-          class="library-card${startsCategory ? " category-start" : ""}${typeAtBottom ? " type-label-bottom" : ""}"
+          class="library-card${startsCategory ? " category-start" : ""}${typeAtBottom ? " type-label-bottom" : ""}${card.type === "event" ? " event-card" : ""}"
           data-type="${card.type}"
           data-card-id="${card.id}"
           style="animation-delay:${index * 20}ms"
@@ -215,7 +220,7 @@ function renderCardLibrary(filter = "all") {
 }
 
 function renderLibraryEdges(card) {
-  return CARD_EDGE_CONFIG[card.type]
+  return (CARD_EDGE_CONFIG[card.type] || [])
     .map(({ neighborType, side, mode }) => {
       if (mode === "own") {
         const shape = cardConnectorById.get(card.id) || CONNECTOR_SHAPES[0];
@@ -284,11 +289,18 @@ function renderConnectorShape(shape, side) {
 
 function renderSiteMetrics() {
   const cardCount = cardById.size;
+  const coreCardCount = STARTUP_CARD_ORDER.reduce(
+    (total, type) => total + (gameData.cards[type]?.length || 0),
+    0,
+  );
+  const eventCardCount = gameData.cards.event?.length || 0;
   const relationCount = gameData.relations.length;
-  const categoryCount = Object.keys(gameData.cards).length;
+  const categoryCount = STARTUP_CARD_ORDER.length;
   const relationTypeCount = new Set(gameData.relations.map((relation) => relation.type)).size;
   const metrics = {
     "card-count": cardCount,
+    "core-card-count": coreCardCount,
+    "event-card-count": eventCardCount,
     "category-count": categoryCount,
     "relation-type-count": relationTypeCount,
     "relation-count": relationCount,
@@ -695,7 +707,11 @@ function renderRelationshipNetwork() {
   const svg = document.querySelector("#relationship-network");
   const positions = networkPositions();
   svg.replaceChildren(svgElement("title", { id: "network-title" }));
-  svg.firstChild.textContent = `${cardById.size} 张用户、传播、需求、产品卡牌之间的多对多关系网络`;
+  const coreCardCount = STARTUP_CARD_ORDER.reduce(
+    (total, type) => total + (gameData.cards[type]?.length || 0),
+    0,
+  );
+  svg.firstChild.textContent = `${coreCardCount} 张用户、传播、需求、产品卡牌之间的多对多关系网络`;
 
   const border = svgElement("rect", {
     x: 72,
@@ -789,7 +805,37 @@ function renderRelationshipNetwork() {
     nodeLayer.appendChild(group);
   });
   svg.appendChild(nodeLayer);
+  renderEventMapCards();
   updateNetworkCaption();
+}
+
+function renderEventMapCards() {
+  const container = document.querySelector("#event-map-cards");
+  if (!container) return;
+  const cards = gameData.cards.event || [];
+  container.innerHTML = cards
+    .map(
+      (card) => `
+        <button
+          class="event-map-card${selectedNodeId === card.id ? " is-selected" : ""}"
+          type="button"
+          data-event-card-id="${card.id}"
+          aria-pressed="${selectedNodeId === card.id}"
+        >
+          <span class="event-map-icon" aria-hidden="true">${card.emoji}</span>
+          <span><b>${card.name}</b><small>${card.note}</small></span>
+        </button>
+      `,
+    )
+    .join("");
+  container.querySelectorAll("[data-event-card-id]").forEach((button) => {
+    button.addEventListener("click", () => {
+      selectedNodeId = button.dataset.eventCardId;
+      selectCardForEditor(selectedNodeId);
+      applyNodeHighlight();
+      renderEventMapCards();
+    });
+  });
 }
 
 function curveControlPoint(source, target, index) {

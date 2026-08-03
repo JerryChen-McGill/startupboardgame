@@ -20,7 +20,7 @@
     <link rel="canonical" href="https://jerrychen-mcgill.github.io/startupboardgame/" />
     <link rel="icon" href="./assets/favicon.svg" type="image/svg+xml" />
     <title>迷你创业桌游｜把离谱点子拼成自洽生意</title>
-    <link rel="stylesheet" href="./styles.css?v=20260803-3" />
+    <link rel="stylesheet" href="./styles.css?v=20260803-4" />
   </head>
   <body>
     <a class="skip-link" href="#main">跳到主要内容</a>
@@ -193,7 +193,7 @@
           <div class="section-heading compact">
             <div>
               <p class="kicker">CARD LIBRARY</p>
-              <h2><span data-metric="card-count">34</span> 张已有卡牌，<br /><span data-metric="category-count">4</span> 种创业要素。</h2>
+              <h2><span data-metric="card-count">46</span> 张已有卡牌，<br /><span data-metric="category-count">4</span> 种创业要素＋事件。</h2>
             </div>
           </div>
 
@@ -203,6 +203,7 @@
             <button class="filter-chip" type="button" data-card-filter="need" data-card-filter-count="need">需求 10</button>
             <button class="filter-chip" type="button" data-card-filter="product" data-card-filter-count="product">产品 9</button>
             <button class="filter-chip" type="button" data-card-filter="promotion" data-card-filter-count="promotion">传播 8</button>
+            <button class="filter-chip" type="button" data-card-filter="event" data-card-filter-count="event">事件 12</button>
           </div>
           <div class="card-library" id="card-library" aria-live="polite"></div>
         </div>
@@ -216,8 +217,9 @@
               <h2>没有唯一答案，<br />但每一条线都要讲得通。</h2>
             </div>
             <p class="section-intro">
-              数据中的 <span data-metric="card-count">34</span> 张卡与
-              <span data-metric="relation-count">133</span> 条已确认关系全部进入工作台，并按每张卡的关系数量从多到少排列。
+              数据中的 <span data-metric="core-card-count">34</span> 张创业要素卡与
+              <span data-metric="relation-count">133</span> 条已确认关系全部进入工作台；另有
+              <span data-metric="event-card-count">12</span> 张无连线事件卡单独列在底部。
               悬停连线即可读取逐条理由；点击卡牌或连线可继续修改，所有操作都会保存在本地草稿并写入修改记录。
             </p>
           </div>
@@ -240,6 +242,16 @@
                 </svg>
                 <div class="network-tooltip" id="network-tooltip" role="status"></div>
               </div>
+              <section class="event-map-section" aria-labelledby="event-map-title">
+                <div class="event-map-heading">
+                  <div>
+                    <p class="kicker">EVENT CARDS</p>
+                    <h3 id="event-map-title">机会与风险事件</h3>
+                  </div>
+                  <p>事件卡不参与关系连线。点击任意事件卡可在右侧编辑。</p>
+                </div>
+                <div class="event-map-cards" id="event-map-cards"></div>
+              </section>
               <div class="network-caption" id="network-caption" aria-label="关系图数据统计">
                 <span id="network-card-count">34 张卡</span>
                 <span id="network-relation-count">133 对关系</span>
@@ -284,6 +296,7 @@
                       <option value="promotion">传播</option>
                       <option value="need">需求</option>
                       <option value="product">产品</option>
+                      <option value="event">事件</option>
                     </select>
                   </label>
                   <label>名称<input id="card-name-input" name="name" required /></label>
@@ -347,6 +360,6 @@
       <a href="https://github.com/JerryChen-McGill/startupboardgame">GitHub ↗</a>
     </footer>
 
-    <script src="./app.js?v=20260803-4" defer></script>
+    <script src="./app.js?v=20260803-5" defer></script>
   </body>
 </html>

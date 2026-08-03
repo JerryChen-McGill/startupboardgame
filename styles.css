@@ -1605,6 +1605,96 @@ button {
   font-size: 0.82rem;
 }
 
+.event-map-section {
+  margin-top: 1rem;
+  padding: 1.2rem;
+  color: white;
+  background: rgba(255, 255, 255, 0.055);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 24px;
+}
+
+.event-map-heading {
+  display: flex;
+  gap: 1rem;
+  align-items: end;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.event-map-heading .kicker {
+  margin: 0 0 0.25rem;
+  color: var(--yellow);
+  font-size: 0.64rem;
+}
+
+.event-map-heading h3,
+.event-map-heading p {
+  margin: 0;
+}
+
+.event-map-heading h3 {
+  font-size: 1.05rem;
+}
+
+.event-map-heading > p {
+  max-width: 28rem;
+  color: rgba(255, 255, 255, 0.58);
+  font-size: 0.7rem;
+  text-align: right;
+}
+
+.event-map-cards {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.65rem;
+}
+
+.event-map-card {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 0.65rem;
+  align-items: start;
+  min-width: 0;
+  padding: 0.75rem;
+  color: var(--ink);
+  text-align: left;
+  background: #fffdf8;
+  border: 2px solid transparent;
+  border-radius: 14px;
+  cursor: pointer;
+  transition: border-color 150ms ease, transform 150ms ease;
+}
+
+.event-map-card:hover,
+.event-map-card:focus-visible,
+.event-map-card.is-selected {
+  border-color: var(--yellow);
+  outline: none;
+  transform: translateY(-2px);
+}
+
+.event-map-icon {
+  font-size: 1.35rem;
+  filter: grayscale(1) brightness(0.76) contrast(1.15);
+}
+
+.event-map-card b,
+.event-map-card small {
+  display: block;
+}
+
+.event-map-card b {
+  margin-bottom: 0.2rem;
+  font-size: 0.78rem;
+}
+
+.event-map-card small {
+  color: #5e5a69;
+  font-size: 0.62rem;
+  line-height: 1.45;
+}
+
 .network-caption {
   display: flex;
   gap: 1.6rem;
@@ -2019,6 +2109,10 @@ button {
     grid-template-columns: 1fr;
   }
 
+  .event-map-cards {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .network-editor {
     position: static;
     max-height: none;
@@ -2261,6 +2355,19 @@ button {
 
   .network-caption {
     gap: 0.6rem 1rem;
+  }
+
+  .event-map-heading {
+    display: block;
+  }
+
+  .event-map-heading > p {
+    margin-top: 0.5rem;
+    text-align: left;
+  }
+
+  .event-map-cards {
+    grid-template-columns: 1fr;
   }
 
   .network-toolbar-actions .button {

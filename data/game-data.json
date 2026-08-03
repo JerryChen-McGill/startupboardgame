@@ -2,7 +2,7 @@
   "meta": {
     "title": "迷你创业桌游",
     "version": "0.2",
-    "networkCardCount": 34,
+    "networkCardCount": 46,
     "relationCount": 133,
     "relationshipPrinciple": "每一条关系都必须说明具体场景或作用机制",
     "exportedAt": "2026-07-30T10:47:36.819Z",
@@ -32,6 +32,12 @@
       "en": "SPREAD",
       "question": "怎么让他们知道？",
       "color": "#AC85D7"
+    },
+    "event": {
+      "label": "事件",
+      "en": "EVENT",
+      "question": "发生了什么？",
+      "color": "#E7D45C"
     }
   },
   "cards": {
@@ -414,6 +420,140 @@
         "accentKey": "custom-new-card-ms7bha6s",
         "accentName": "自定义",
         "accent": "#888888",
+        "confirmed": true
+      }
+    ],
+    "event": [
+      {
+        "id": "e-viral-hit",
+        "name": "突然爆红",
+        "emoji": "🔥",
+        "note": "若本轮项目成功，本轮获得的融资奖励翻倍。",
+        "network": false,
+        "accentKey": "event-yellow",
+        "accentName": "事件黄",
+        "accent": "#E7D45C",
+        "confirmed": true
+      },
+      {
+        "id": "e-strategic-pivot",
+        "name": "战略转型",
+        "emoji": "🔄",
+        "note": "本轮取消团队成员一人出一张卡的限制，允许同一名玩家打出多张卡。",
+        "network": false,
+        "accentKey": "event-yellow",
+        "accentName": "事件黄",
+        "accent": "#E7D45C",
+        "confirmed": true
+      },
+      {
+        "id": "e-loyal-users",
+        "name": "忠实用户救场",
+        "emoji": "🛟",
+        "note": "取消一张刚刚打出的负面事件卡及其全部效果。",
+        "network": false,
+        "accentKey": "event-yellow",
+        "accentName": "事件黄",
+        "accent": "#E7D45C",
+        "confirmed": true
+      },
+      {
+        "id": "e-bold-expansion",
+        "name": "豪赌扩张",
+        "emoji": "🎲",
+        "note": "必须在本轮讨论项目之前使用。若最终四边全部连通，融资奖励翻倍；否则本轮融资归零。项目已经谈好后使用则作废。",
+        "network": false,
+        "accentKey": "event-yellow",
+        "accentName": "事件黄",
+        "accent": "#E7D45C",
+        "confirmed": true
+      },
+      {
+        "id": "e-sick-member",
+        "name": "核心成员生病",
+        "emoji": "🤒",
+        "note": "指定一名团队成员；该玩家本回合只能说一句话。",
+        "network": false,
+        "accentKey": "event-yellow",
+        "accentName": "事件黄",
+        "accent": "#E7D45C",
+        "confirmed": true
+      },
+      {
+        "id": "e-staff-turnover",
+        "name": "人员流动",
+        "emoji": "🚪",
+        "note": "选择一名团队外玩家加入团队，并替换一名现有团队成员；被替换的玩家本轮退出团队。",
+        "network": false,
+        "accentKey": "event-yellow",
+        "accentName": "事件黄",
+        "accent": "#E7D45C",
+        "confirmed": true
+      },
+      {
+        "id": "e-joint-launch",
+        "name": "联合发布会",
+        "emoji": "🤝",
+        "note": "选择另一名玩家，双方各自将手牌背面朝上；然后各自盲抽对方一张卡并交换。",
+        "network": false,
+        "accentKey": "event-yellow",
+        "accentName": "事件黄",
+        "accent": "#E7D45C",
+        "confirmed": true
+      },
+      {
+        "id": "e-first-mover",
+        "name": "捷足先登",
+        "emoji": "🏁",
+        "note": "直接拿走场上的一张卡，并将它加入自己的手牌。",
+        "network": false,
+        "accentKey": "event-yellow",
+        "accentName": "事件黄",
+        "accent": "#E7D45C",
+        "confirmed": true
+      },
+      {
+        "id": "e-supply-break",
+        "name": "供应链断裂",
+        "emoji": "⛓️",
+        "note": "当前产品卡立即失效，团队必须强制更换一张产品卡。",
+        "network": false,
+        "accentKey": "event-yellow",
+        "accentName": "事件黄",
+        "accent": "#E7D45C",
+        "confirmed": true
+      },
+      {
+        "id": "e-taste-shift",
+        "name": "用户口味变了",
+        "emoji": "😵‍💫",
+        "note": "当前需求卡立即失效，团队必须强制更换一张需求卡。",
+        "network": false,
+        "accentKey": "event-yellow",
+        "accentName": "事件黄",
+        "accent": "#E7D45C",
+        "confirmed": true
+      },
+      {
+        "id": "e-overseas-order",
+        "name": "海外订单",
+        "emoji": "🌍",
+        "note": "当前用户卡立即失效，团队必须强制更换一张用户卡。",
+        "network": false,
+        "accentKey": "event-yellow",
+        "accentName": "事件黄",
+        "accent": "#E7D45C",
+        "confirmed": true
+      },
+      {
+        "id": "e-channel-failure",
+        "name": "渠道失灵",
+        "emoji": "📵",
+        "note": "当前传播卡立即失效，团队必须强制更换一张传播卡。",
+        "network": false,
+        "accentKey": "event-yellow",
+        "accentName": "事件黄",
+        "accent": "#E7D45C",
         "confirmed": true
       }
     ]

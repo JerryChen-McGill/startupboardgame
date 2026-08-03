@@ -25,7 +25,7 @@ test("card library and relationship map use descending relation rank", () => {
 });
 
 test("card library and relationship filters use the requested display order", () => {
-  assert.match(appSource, /const CARD_LIBRARY_ORDER = \["user", "need", "product", "promotion"\]/);
+  assert.match(appSource, /const CARD_LIBRARY_ORDER = \["user", "need", "product", "promotion", "event"\]/);
   assert.match(
     appSource,
     /const RELATION_FILTER_ORDER = \["user-need", "need-product", "product-promotion", "user-promotion"\]/,
@@ -37,11 +37,17 @@ test("card library and relationship filters use the requested display order", ()
   const needFilter = htmlSource.indexOf('data-card-filter="need"');
   const productFilter = htmlSource.indexOf('data-card-filter="product"');
   const promotionFilter = htmlSource.indexOf('data-card-filter="promotion"');
-  assert.ok(userFilter < needFilter && needFilter < productFilter && productFilter < promotionFilter);
+  const eventFilter = htmlSource.indexOf('data-card-filter="event"');
+  assert.ok(
+    userFilter < needFilter &&
+      needFilter < productFilter &&
+      productFilter < promotionFilter &&
+      promotionFilter < eventFilter,
+  );
 });
 
 test("card faces use Chinese type labels, unframed icons, and complete descriptions", () => {
-  const cards = Object.values(data.cards).flat();
+  const cards = ["user", "need", "product", "promotion"].flatMap((type) => data.cards[type]);
   assert.ok(cards.every((card) => card.note.trim().length > 20));
   ["用户卡", "传播卡", "需求卡", "产品卡"].forEach((label) => {
     assert.ok(appSource.includes(`"${label}"`), `missing card type label ${label}`);
@@ -52,6 +58,19 @@ test("card faces use Chinese type labels, unframed icons, and complete descripti
   assert.doesNotMatch(appSource, /\$\{meta\.en\}\s*CARD/);
   assert.doesNotMatch(appSource, /class="card-emoji"[^>]*><i>/);
   assert.doesNotMatch(cssSource, /\.card-emoji i/);
+});
+
+test("event cards are standalone, interface-free, and editable from the relationship map", () => {
+  assert.equal(data.cards.event.length, 12);
+  assert.ok(data.cards.event.every((card) => card.note.trim().length > 0));
+  assert.match(appSource, /event: "事件卡"/);
+  assert.match(appSource, /CARD_EDGE_CONFIG\[card\.type\] \|\| \[\]/);
+  assert.match(appSource, /function renderEventMapCards\(/);
+  assert.match(appSource, /data-event-card-id/);
+  assert.match(appSource, /selectCardForEditor\(selectedNodeId\)/);
+  assert.match(htmlSource, /id="event-map-cards"/);
+  assert.match(htmlSource, /<option value="event">事件<\/option>/);
+  assert.match(cssSource, /\.event-map-cards\s*\{/);
 });
 
 test("right-clicking a card downloads a tightly cropped PNG", () => {
@@ -137,7 +156,7 @@ test("connector halves share the card border as one exact symmetry axis", () => 
 });
 
 test("the connector stylesheet URL is versioned to bypass stale browser caches", () => {
-  assert.match(htmlSource, /href="\.\/styles\.css\?v=20260803-3"/);
+  assert.match(htmlSource, /href="\.\/styles\.css\?v=20260803-4"/);
 });
 
 test("homepage demo cards can stretch to equal row heights on mobile", () => {
@@ -145,8 +164,8 @@ test("homepage demo cards can stretch to equal row heights on mobile", () => {
 });
 
 test("application assets are versioned to publish interaction changes immediately", () => {
-  assert.match(htmlSource, /href="\.\/styles\.css\?v=20260803-3"/);
-  assert.match(htmlSource, /src="\.\/app\.js\?v=20260803-4"/);
+  assert.match(htmlSource, /href="\.\/styles\.css\?v=20260803-4"/);
+  assert.match(htmlSource, /src="\.\/app\.js\?v=20260803-5"/);
 });
 
 test("the imported workspace starts fully confirmed and without unconfirmed relations", () => {

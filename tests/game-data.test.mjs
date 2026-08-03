@@ -16,17 +16,18 @@ const relationIndex = new Map(
   data.relations.map((relation) => [pairKey(relation.source, relation.target), relation]),
 );
 
-test("the latest export supplies 34 confirmed cards across four categories", () => {
-  assert.equal(allCards.length, 34);
+test("the latest export supplies 34 startup cards and 12 standalone event cards", () => {
+  assert.equal(allCards.length, 46);
   assert.deepEqual(
     Object.fromEntries(Object.entries(data.cards).map(([type, cards]) => [type, cards.length])),
-    { user: 7, need: 10, product: 9, promotion: 8 },
+    { user: 7, need: 10, product: 9, promotion: 8, event: 12 },
   );
-  assert.equal(data.meta.networkCardCount, 34);
+  assert.equal(data.meta.networkCardCount, 46);
   assert.equal(data.meta.playerRange, "3–7");
   assert.ok(allCards.every((card) => card.confirmed === true));
   assert.ok(allCards.every((card) => card.emoji !== "✨"), "placeholder icons should be replaced");
-  assert.ok(Object.values(data.cards).every((cards) => cards.length <= 10));
+  assert.ok(["user", "need", "product", "promotion"].every((type) => data.cards[type].length <= 10));
+  assert.ok(data.cards.event.every((card) => card.network === false));
 });
 
 test("only the 133 confirmed, unique, structurally valid relationships remain", () => {
@@ -49,6 +50,8 @@ test("only the 133 confirmed, unique, structurally valid relationships remain", 
       "product-promotion": "product-promotion",
     };
     assert.equal(actualPair, expectedPairByType[relation.type]);
+    assert.notEqual(cardById.get(relation.source).type, "event");
+    assert.notEqual(cardById.get(relation.target).type, "event");
   });
 });
 
@@ -106,7 +109,7 @@ test("cards are ordered by descending relationship count within every category",
   });
 });
 
-test("every card connects to both neighboring categories", () => {
+test("every startup card connects to both neighboring categories", () => {
   const requiredNeighborTypes = {
     user: ["need", "promotion"],
     need: ["user", "product"],
@@ -122,7 +125,7 @@ test("every card connects to both neighboring categories", () => {
     neighborTypesByCard.get(target.id).add(source.type);
   });
 
-  allCards.forEach((card) => {
+  allCards.filter((card) => card.type !== "event").forEach((card) => {
     requiredNeighborTypes[card.type].forEach((neighborType) => {
       assert.ok(neighborTypesByCard.get(card.id).has(neighborType));
     });
