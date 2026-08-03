@@ -1329,8 +1329,8 @@ button {
   position: relative;
   z-index: 1;
   font-size: clamp(2.5rem, 4vw, 4.4rem);
-  filter: grayscale(1) brightness(0.7) contrast(1.2);
-  opacity: 0.94;
+  filter: grayscale(1) brightness(0.76) contrast(1.15);
+  opacity: 0.92;
 }
 
 .card-name {
