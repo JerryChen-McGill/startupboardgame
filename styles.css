@@ -1251,6 +1251,19 @@ button {
   transition: transform 180ms ease, box-shadow 180ms ease;
 }
 
+.card-image-export {
+  margin: 0 !important;
+  box-shadow: none !important;
+  transform: none !important;
+  transition: none !important;
+}
+
+.card-image-canvas {
+  margin: 0;
+  overflow: hidden;
+  background: transparent;
+}
+
 .library-card::after {
   position: absolute;
   z-index: 1;

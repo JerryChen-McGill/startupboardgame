@@ -63,6 +63,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     bindStartupDemo();
     bindStartupBoardSizing();
     bindCardFilters();
+    bindCardImageDownload();
     renderRelationFilters();
     renderRelationshipNetwork();
     bindNetworkDownload();
@@ -539,6 +540,95 @@ function bindCardFilters() {
       renderCardLibrary(button.dataset.cardFilter);
     });
   });
+}
+
+function bindCardImageDownload() {
+  document.addEventListener("contextmenu", (event) => {
+    const cardElement = event.target.closest(".library-card");
+    if (!cardElement) return;
+
+    event.preventDefault();
+    downloadCardImage(cardElement).catch((error) => {
+      console.error("卡牌图片下载失败。", error);
+      window.alert("卡牌图片生成失败，请刷新页面后重试。");
+    });
+  });
+}
+
+async function downloadCardImage(cardElement) {
+  const bounds = cardElement.getBoundingClientRect();
+  const width = Math.round(bounds.width);
+  const height = Math.round(bounds.height);
+  if (!width || !height) throw new Error("卡牌当前不可见，无法生成图片。");
+
+  const clone = cardElement.cloneNode(true);
+  clone.classList.add("card-image-export");
+  clone.classList.remove("category-start");
+  clone.style.width = `${width}px`;
+  clone.style.height = `${height}px`;
+  clone.style.animation = "none";
+
+  const cssText = Array.from(document.styleSheets)
+    .flatMap((sheet) => {
+      try {
+        return Array.from(sheet.cssRules, (rule) => rule.cssText);
+      } catch (error) {
+        console.warn("导出卡牌时跳过了无法读取的样式表。", error);
+        return [];
+      }
+    })
+    .join("\n");
+
+  const serializedCard = new XMLSerializer().serializeToString(clone);
+  const svg = `
+    <svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}">
+      <foreignObject width="100%" height="100%">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="card-image-canvas" style="width:${width}px;height:${height}px">
+          <style>${cssText}</style>
+          ${serializedCard}
+        </div>
+      </foreignObject>
+    </svg>
+  `;
+
+  const svgUrl = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}`;
+  const image = await loadImage(svgUrl);
+  const scale = Math.max(2, Math.min(4, window.devicePixelRatio || 2));
+  const canvas = document.createElement("canvas");
+  canvas.width = Math.round(width * scale);
+  canvas.height = Math.round(height * scale);
+  const context = canvas.getContext("2d");
+  context.scale(scale, scale);
+  context.drawImage(image, 0, 0, width, height);
+
+  const blob = await new Promise((resolve, reject) => {
+    canvas.toBlob((result) => result ? resolve(result) : reject(new Error("PNG 生成失败。")), "image/png");
+  });
+  const card = cardById?.get(cardElement.dataset.cardId);
+  const rawName = card?.name || cardElement.querySelector(".card-name")?.textContent || "卡牌";
+  const filename = `${rawName.trim().replace(/[\\/:*?"<>|]+/g, "-")}.png`;
+  downloadBlob(blob, filename);
+}
+
+function loadImage(source) {
+  return new Promise((resolve, reject) => {
+    const image = new Image();
+    image.onload = () => resolve(image);
+    image.onerror = () => reject(new Error("无法渲染卡牌图片。"));
+    image.src = source;
+  });
+}
+
+function downloadBlob(blob, filename) {
+  const url = URL.createObjectURL(blob);
+  const anchor = document.createElement("a");
+  anchor.href = url;
+  anchor.download = filename;
+  anchor.hidden = true;
+  document.body.append(anchor);
+  anchor.click();
+  anchor.remove();
+  window.setTimeout(() => URL.revokeObjectURL(url), 1000);
 }
 
 function renderRelationFilters() {

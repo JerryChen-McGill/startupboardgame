@@ -54,6 +54,16 @@ test("card faces use Chinese type labels, unframed icons, and complete descripti
   assert.doesNotMatch(cssSource, /\.card-emoji i/);
 });
 
+test("right-clicking a card downloads a tightly cropped PNG", () => {
+  assert.match(appSource, /addEventListener\("contextmenu"/);
+  assert.match(appSource, /event\.target\.closest\("\.library-card"\)/);
+  assert.match(appSource, /event\.preventDefault\(\)/);
+  assert.match(appSource, /getBoundingClientRect\(\)/);
+  assert.match(appSource, /canvas\.toBlob/);
+  assert.match(appSource, /"image\/png"/);
+  assert.match(cssSource, /\.card-image-export\s*{[\s\S]*?box-shadow:\s*none\s*!important;/);
+});
+
 test("ten same-bounds connector shapes are encoded and overlaid", () => {
   const shapeKeys = [
     "line",
@@ -126,15 +136,16 @@ test("connector halves share the card border as one exact symmetry axis", () => 
 });
 
 test("the connector stylesheet URL is versioned to bypass stale browser caches", () => {
-  assert.match(htmlSource, /href="\.\/styles\.css\?v=20260731-14"/);
+  assert.match(htmlSource, /href="\.\/styles\.css\?v=20260803-1"/);
 });
 
 test("homepage demo cards can stretch to equal row heights on mobile", () => {
   assert.match(cssSource, /\.startup-card\.library-card\s*\{\s*aspect-ratio:\s*auto;\s*\}/);
 });
 
-test("the application script URL is versioned to publish ordering changes immediately", () => {
-  assert.match(htmlSource, /src="\.\/app\.js\?v=20260731-7"/);
+test("application assets are versioned to publish interaction changes immediately", () => {
+  assert.match(htmlSource, /href="\.\/styles\.css\?v=20260803-1"/);
+  assert.match(htmlSource, /src="\.\/app\.js\?v=20260803-3"/);
 });
 
 test("the imported workspace starts fully confirmed and without unconfirmed relations", () => {
