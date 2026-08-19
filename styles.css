@@ -544,6 +544,166 @@ button {
   box-shadow: 0 10px 22px rgba(23, 21, 47, 0.2);
 }
 
+.startup-demo-actions {
+  display: flex;
+  gap: 0.65rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 1.1rem;
+}
+
+.startup-demo-actions .button {
+  margin-top: 0;
+}
+
+.connector-lab-button {
+  color: var(--ink);
+  background: var(--yellow);
+  box-shadow: 0 10px 22px rgba(23, 21, 47, 0.12);
+}
+
+.connector-lab {
+  width: min(100%, 860px);
+  margin-top: 1rem;
+  padding: 1.2rem;
+  color: var(--ink);
+  background: rgba(255, 253, 248, 0.98);
+  border: 1px solid var(--line);
+  border-radius: 22px;
+  box-shadow: 0 18px 46px rgba(23, 21, 47, 0.18);
+  text-align: left;
+}
+
+.connector-lab[hidden] {
+  display: none;
+}
+
+.connector-lab-heading {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.connector-lab-heading .kicker {
+  margin-bottom: 0.35rem;
+  color: var(--coral);
+  font-size: 0.64rem;
+}
+
+.connector-lab-heading h2 {
+  margin: 0;
+  font-size: clamp(1.2rem, 2.4vw, 1.8rem);
+  letter-spacing: -0.04em;
+  line-height: 1.15;
+}
+
+.connector-lab-heading p:not(.kicker) {
+  max-width: 560px;
+  margin: 0.35rem 0 0;
+  color: var(--ink-soft);
+  font-size: 0.76rem;
+  line-height: 1.5;
+}
+
+.connector-lab-close {
+  display: grid;
+  width: 32px;
+  height: 32px;
+  flex: 0 0 auto;
+  place-items: center;
+  color: var(--ink);
+  background: transparent;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 1.25rem;
+  line-height: 1;
+}
+
+.connector-lab-fields {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.65rem;
+}
+
+.connector-lab-field {
+  min-width: 0;
+  margin: 0;
+  padding: 0.65rem;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+}
+
+.connector-lab-field legend {
+  padding: 0 0.35rem;
+  color: var(--ink-soft);
+  font-size: 0.68rem;
+  font-weight: 900;
+}
+
+.connector-lab-field-main {
+  display: grid;
+  grid-template-columns: 42px minmax(0, 1.25fr) minmax(0, 0.8fr) minmax(0, 0.85fr);
+  gap: 0.45rem;
+  align-items: end;
+}
+
+.connector-lab-preview-wrap {
+  display: grid;
+  width: 42px;
+  height: 42px;
+  place-items: center;
+  background: #f5f0e5;
+  border-radius: 10px;
+}
+
+.connector-lab-preview {
+  display: block;
+  width: 36px;
+  height: 36px;
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.connector-lab-field label {
+  display: grid;
+  gap: 0.22rem;
+  min-width: 0;
+  color: var(--ink-soft);
+  font-size: 0.62rem;
+  font-weight: 800;
+}
+
+.connector-lab-field select {
+  width: 100%;
+  min-width: 0;
+  min-height: 34px;
+  padding: 0.35rem 0.4rem;
+  color: var(--ink);
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  font: inherit;
+  font-size: 0.68rem;
+}
+
+.connector-lab-actions {
+  display: flex;
+  gap: 0.55rem;
+  justify-content: flex-end;
+  margin-top: 1rem;
+}
+
+.connector-lab-actions .button {
+  min-height: 40px;
+  margin-top: 0;
+  font-size: 0.76rem;
+}
+
 .shuffle-button span {
   font-size: 1.2rem;
 }
@@ -2162,6 +2322,22 @@ button {
 
   .startup-demo {
     width: 100%;
+  }
+
+  .connector-lab {
+    padding: 0.9rem;
+  }
+
+  .connector-lab-fields {
+    grid-template-columns: 1fr;
+  }
+
+  .connector-lab-field-main {
+    grid-template-columns: 42px minmax(0, 1fr) minmax(0, 0.8fr);
+  }
+
+  .connector-lab-field-main label:last-child {
+    grid-column: 2 / -1;
   }
 
   .startup-board {

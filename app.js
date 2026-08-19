@@ -11,6 +11,7 @@ let selectedRelationKey = null;
 let editorChangeLog = [];
 let currentStartupCards = [];
 const EDITOR_STORAGE_KEY = "startup-boardgame-relationship-editor-v3";
+const CONNECTOR_LAB_STORAGE_KEY = "startup-boardgame-connector-lab-v1";
 const STARTUP_CARD_ORDER = ["user", "promotion", "need", "product"];
 const CARD_LIBRARY_ORDER = ["user", "need", "product", "promotion", "event"];
 const RELATION_FILTER_ORDER = ["user-need", "need-product", "product-promotion", "user-promotion"];
@@ -50,7 +51,25 @@ const CONNECTOR_SHAPES = [
   { key: "star", name: "五角星", markup: '<path d="M20 4.5 24.6 14.8 35.7 16 27.4 23.5 29.7 34.5 20 28.9 10.3 34.5 12.6 23.5 4.3 16 15.4 14.8Z" />' },
   { key: "ellipse-horizontal", name: "横椭圆", markup: '<ellipse cx="20" cy="20" rx="15" ry="10" />' },
   { key: "ellipse-vertical", name: "竖椭圆", markup: '<ellipse cx="20" cy="20" rx="10" ry="15" />' },
+  { key: "octagon", name: "八边形", markup: '<path d="M12 4h16l8 8v16l-8 8H12l-8-8V12Z" />' },
+  { key: "cross", name: "十字形", markup: '<path d="M15 4h10v11h11v10H25v11H15V25H4V15h11Z" />' },
+  { key: "double-circle", name: "双圆", markup: '<circle cx="20" cy="20" r="15" /><circle cx="20" cy="20" r="8" />' },
 ];
+const DEFAULT_CONNECTOR_SLOT_CONFIG = [
+  { shapeKey: "line", color: "black", width: "thick" },
+  { shapeKey: "square", color: "black", width: "thick" },
+  { shapeKey: "circle", color: "black", width: "thick" },
+  { shapeKey: "diamond", color: "black", width: "thin" },
+  { shapeKey: "triangle", color: "black", width: "thin" },
+  { shapeKey: "hexagon", color: "gray", width: "thin" },
+  { shapeKey: "pentagon", color: "gray", width: "thin" },
+  { shapeKey: "star", color: "gray", width: "thin" },
+  { shapeKey: "ellipse-horizontal", color: "gray", width: "thin" },
+  { shapeKey: "ellipse-vertical", color: "gray", width: "thin" },
+];
+const CONNECTOR_COLORS = { black: "#000", gray: "#888" };
+const CONNECTOR_WIDTHS = { thick: 2.6, thin: 1.3 };
+let connectorSlotConfig = DEFAULT_CONNECTOR_SLOT_CONFIG.map((slot) => ({ ...slot }));
 
 document.addEventListener("DOMContentLoaded", async () => {
   try {
@@ -58,10 +77,12 @@ document.addEventListener("DOMContentLoaded", async () => {
     if (!response.ok) throw new Error(`数据加载失败：${response.status}`);
     const sourceData = await response.json();
     loadEditorWorkspace(sourceData);
+    loadConnectorSlotConfig();
     rebuildIndexes();
     renderSiteMetrics();
     renderCardLibrary();
     bindStartupDemo();
+    bindConnectorLab();
     bindStartupBoardSizing();
     bindCardFilters();
     bindCardImageDownload();
@@ -135,6 +156,46 @@ function loadEditorWorkspace(sourceData) {
   });
 }
 
+function loadConnectorSlotConfig() {
+  connectorSlotConfig = DEFAULT_CONNECTOR_SLOT_CONFIG.map((slot) => ({ ...slot }));
+  try {
+    const saved = JSON.parse(localStorage.getItem(CONNECTOR_LAB_STORAGE_KEY));
+    if (!Array.isArray(saved)) return;
+    saved.slice(0, 10).forEach((slot, index) => {
+      if (
+        CONNECTOR_SHAPES.some((shape) => shape.key === slot?.shapeKey) &&
+        Object.hasOwn(CONNECTOR_COLORS, slot?.color) &&
+        Object.hasOwn(CONNECTOR_WIDTHS, slot?.width)
+      ) {
+        connectorSlotConfig[index] = {
+          shapeKey: slot.shapeKey,
+          color: slot.color,
+          width: slot.width,
+        };
+      }
+    });
+  } catch (error) {
+    console.warn("无法读取几何图形实验室设置，将使用默认组合。", error);
+  }
+}
+
+function saveConnectorSlotConfig() {
+  localStorage.setItem(CONNECTOR_LAB_STORAGE_KEY, JSON.stringify(connectorSlotConfig));
+}
+
+function connectorShapeForSlot(index) {
+  const slot = connectorSlotConfig[index % connectorSlotConfig.length] || DEFAULT_CONNECTOR_SLOT_CONFIG[0];
+  const shape = CONNECTOR_SHAPES.find((item) => item.key === slot.shapeKey) || CONNECTOR_SHAPES[0];
+  return {
+    ...shape,
+    color: slot.color,
+    strokeColor: CONNECTOR_COLORS[slot.color] || CONNECTOR_COLORS.black,
+    width: slot.width,
+    strokeWidth: CONNECTOR_WIDTHS[slot.width] || CONNECTOR_WIDTHS.thick,
+    slot: index + 1,
+  };
+}
+
 function rebuildIndexes() {
   cardById = buildCardIndex(gameData.cards);
   relationByPair = buildRelationIndex(gameData.relations);
@@ -147,7 +208,7 @@ function rebuildIndexes() {
   STARTUP_CARD_ORDER.forEach((type) => {
     rankedCards(type).forEach((card, index) => {
       cardConnectorById.set(card.id, {
-        ...CONNECTOR_SHAPES[index % CONNECTOR_SHAPES.length],
+        ...connectorShapeForSlot(index),
         order: index,
       });
     });
@@ -277,12 +338,23 @@ function renderConnectorShape(shape, side) {
     <svg
       class="connector-shape"
       data-shape="${shape.key}"
+      style="stroke:${shape.strokeColor || "#111"};stroke-width:${shape.strokeWidth || 2.6}"
       viewBox="${viewBoxes[side]}"
       preserveAspectRatio="xMidYMid meet"
       role="img"
       aria-label="${shape.name}的一半"
     >
       <g${shapeTransform}>${shape.markup}</g>
+    </svg>
+  `;
+}
+
+function renderConnectorPreview(shape) {
+  return `
+    <svg class="connector-lab-preview" data-shape="${shape.key}"
+      style="stroke:${shape.strokeColor};stroke-width:${shape.strokeWidth}"
+      viewBox="0 0 40 40" aria-hidden="true">
+      ${shape.markup}
     </svg>
   `;
 }
@@ -542,6 +614,109 @@ function bindStartupDemo() {
   });
   shuffleButton.addEventListener("click", shuffle);
   renderStartupDemo(randomStartupCards());
+}
+
+function renderConnectorLab() {
+  const fields = document.querySelector("#connector-lab-fields");
+  if (!fields) return;
+  fields.innerHTML = connectorSlotConfig
+    .map((slot, index) => {
+      const shape = connectorShapeForSlot(index);
+      const shapeOptions = CONNECTOR_SHAPES.map(
+        (option) => `<option value="${option.key}"${option.key === slot.shapeKey ? " selected" : ""}>${option.name}</option>`,
+      ).join("");
+      return `
+        <fieldset class="connector-lab-field" data-connector-slot="${index}">
+          <legend>接口 ${index + 1}</legend>
+          <div class="connector-lab-field-main">
+            <div class="connector-lab-preview-wrap">${renderConnectorPreview(shape)}</div>
+            <label>形状
+              <select data-connector-property="shapeKey">${shapeOptions}</select>
+            </label>
+            <label>颜色
+              <select data-connector-property="color">
+                <option value="black"${slot.color === "black" ? " selected" : ""}>黑色</option>
+                <option value="gray"${slot.color === "gray" ? " selected" : ""}>灰色</option>
+              </select>
+            </label>
+            <label>粗细
+              <select data-connector-property="width">
+                <option value="thick"${slot.width === "thick" ? " selected" : ""}>粗线（2.6）</option>
+                <option value="thin"${slot.width === "thin" ? " selected" : ""}>细线（1.3）</option>
+              </select>
+            </label>
+          </div>
+        </fieldset>
+      `;
+    })
+    .join("");
+}
+
+function readConnectorLabConfig() {
+  return Array.from(document.querySelectorAll("[data-connector-slot]")).map((field) => {
+    const getValue = (property) => field.querySelector(`[data-connector-property="${property}"]`)?.value;
+    return {
+      shapeKey: getValue("shapeKey"),
+      color: getValue("color"),
+      width: getValue("width"),
+    };
+  });
+}
+
+function refreshConnectorLabPreview(field) {
+  const index = Number(field.dataset.connectorSlot);
+  const values = {
+    ...connectorSlotConfig[index],
+    ...Object.fromEntries(
+      Array.from(field.querySelectorAll("[data-connector-property]")).map((control) => [
+        control.dataset.connectorProperty,
+        control.value,
+      ]),
+    ),
+  };
+  const shape = CONNECTOR_SHAPES.find((item) => item.key === values.shapeKey) || CONNECTOR_SHAPES[0];
+  const preview = field.querySelector(".connector-lab-preview-wrap");
+  preview.innerHTML = renderConnectorPreview({
+    ...shape,
+    strokeColor: CONNECTOR_COLORS[values.color] || CONNECTOR_COLORS.black,
+    strokeWidth: CONNECTOR_WIDTHS[values.width] || CONNECTOR_WIDTHS.thick,
+  });
+}
+
+function bindConnectorLab() {
+  const openButton = document.querySelector("#open-connector-lab");
+  const lab = document.querySelector("#connector-lab");
+  const fields = document.querySelector("#connector-lab-fields");
+  const confirmButton = document.querySelector("#confirm-connector-lab");
+  const cancelButton = document.querySelector("#cancel-connector-lab");
+  const secondaryCancelButton = document.querySelector("#cancel-connector-lab-secondary");
+  if (!openButton || !lab || !fields || !confirmButton || !cancelButton || !secondaryCancelButton) return;
+
+  renderConnectorLab();
+  openButton.addEventListener("click", () => {
+    renderConnectorLab();
+    lab.hidden = false;
+    lab.scrollIntoView({ behavior: "smooth", block: "nearest" });
+  });
+  cancelButton.addEventListener("click", () => {
+    lab.hidden = true;
+  });
+  secondaryCancelButton.addEventListener("click", () => {
+    lab.hidden = true;
+  });
+  fields.addEventListener("change", (event) => {
+    const field = event.target.closest("[data-connector-slot]");
+    if (field) refreshConnectorLabPreview(field);
+  });
+  confirmButton.addEventListener("click", () => {
+    connectorSlotConfig = readConnectorLabConfig();
+    saveConnectorSlotConfig();
+    rebuildIndexes();
+    const activeFilter = document.querySelector("[data-card-filter].active")?.dataset.cardFilter || "all";
+    renderCardLibrary(activeFilter);
+    renderStartupDemo(currentStartupCards.length ? currentStartupCards : randomStartupCards());
+    lab.hidden = true;
+  });
 }
 
 function bindCardFilters() {

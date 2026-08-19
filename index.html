@@ -20,7 +20,7 @@
     <link rel="canonical" href="https://jerrychen-mcgill.github.io/startupboardgame/" />
     <link rel="icon" href="./assets/favicon.svg" type="image/svg+xml" />
     <title>迷你创业桌游｜把离谱点子拼成自洽生意</title>
-    <link rel="stylesheet" href="./styles.css?v=20260803-4" />
+    <link rel="stylesheet" href="./styles.css?v=20260820-1" />
   </head>
   <body>
     <a class="skip-link" href="#main">跳到主要内容</a>
@@ -65,11 +65,31 @@
           <div class="orbit orbit-two"></div>
           <div class="startup-demo">
             <div class="startup-board" id="startup-board" aria-live="polite"></div>
-            <button class="button shuffle-button" id="shuffle-startup" type="button">
-              <span aria-hidden="true">↻</span> 重新组合
-            </button>
+            <div class="startup-demo-actions">
+              <button class="button shuffle-button" id="shuffle-startup" type="button">
+                <span aria-hidden="true">↻</span> 重新组合
+              </button>
+              <button class="button connector-lab-button" id="open-connector-lab" type="button">
+                ◇ 几何图形实验室
+              </button>
+            </div>
             <section class="startup-result" id="startup-result" aria-live="polite">
               <strong id="startup-verdict">正在组合生意…</strong>
+            </section>
+            <section class="connector-lab" id="connector-lab" hidden aria-labelledby="connector-lab-title">
+              <div class="connector-lab-heading">
+                <div>
+                  <p class="kicker">CONNECTOR LAB · 接口实验室</p>
+                  <h2 id="connector-lab-title">重新设计 1–10 号接口</h2>
+                  <p>每个接口都可以换形状、颜色和线宽；确认后立即应用到当前四张卡牌组合。</p>
+                </div>
+                <button class="connector-lab-close" id="cancel-connector-lab" type="button" aria-label="关闭几何图形实验室">×</button>
+              </div>
+              <div class="connector-lab-fields" id="connector-lab-fields"></div>
+              <div class="connector-lab-actions">
+                <button class="button button-dark" id="confirm-connector-lab" type="button">确认并应用</button>
+                <button class="button button-ghost" id="cancel-connector-lab-secondary" type="button">取消</button>
+              </div>
             </section>
           </div>
         </div>
@@ -353,6 +373,6 @@
       <a href="https://github.com/JerryChen-McGill/startupboardgame">GitHub ↗</a>
     </footer>
 
-    <script src="./app.js?v=20260803-5" defer></script>
+    <script src="./app.js?v=20260820-1" defer></script>
   </body>
 </html>
