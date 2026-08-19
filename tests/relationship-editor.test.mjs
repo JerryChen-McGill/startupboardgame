@@ -216,9 +216,11 @@ test("the homepage demo randomizes current cards and evaluates all four adjacent
   assert.match(htmlSource, /class="rulebook-book"/);
   assert.match(htmlSource, /rulebook-page rulebook-page-left/);
   assert.match(htmlSource, /rulebook-page rulebook-page-right/);
-  assert.match(htmlSource, /融资与胜利/);
-  assert.match(htmlSource, /<span>U 字形连通<\/span>/);
-  assert.match(htmlSource, /<span>未完全连通，创业失败<\/span>/);
+  assert.match(htmlSource, /暗黑版 · 创业试炼场/);
+  assert.match(htmlSource, /光明版 · 协作创业/);
+  assert.match(htmlSource, /创业期 · 3 分钟/);
+  assert.match(htmlSource, /每位创业者收益＝项目利润＋总投资额/);
+  assert.match(htmlSource, /项目成员就强制各补几张卡/);
 });
 
 test("the relationship map lists dynamic combination and outcome statistics", () => {
