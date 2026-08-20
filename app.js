@@ -54,7 +54,9 @@ const CONNECTOR_SHAPES = [
   { key: "ellipse-vertical", name: "竖椭圆", markup: '<ellipse cx="20" cy="20" rx="10" ry="15" />' },
   { key: "octagon", name: "八边形", markup: '<path d="M12 4h16l8 8v16l-8 8H12l-8-8V12Z" />' },
   { key: "cross", name: "十字形", markup: '<path d="M15 4h10v11h11v10H25v11H15V25H4V15h11Z" />' },
-  { key: "double-circle", name: "双圆", markup: '<circle cx="20" cy="20" r="15" /><circle cx="20" cy="20" r="8" />' },
+  { key: "small-circle", name: "小圆", markup: '<circle cx="20" cy="20" r="8" />' },
+  { key: "heart", name: "心形", markup: '<path d="M20 34 7 21C1 15 5 6 12 6c4 0 6 2 8 5 2-3 4-5 8-5 7 0 11 9 5 15Z" />' },
+  { key: "triangle-inverted", name: "倒等边三角形", markup: '<path d="M6 9h28L20 35Z" />' },
 ];
 const DEFAULT_CONNECTOR_SLOT_CONFIG = [
   { shapeKey: "line", color: "black", width: "thick" },
@@ -229,13 +231,14 @@ function loadConnectorSlotConfig() {
     const saved = JSON.parse(localStorage.getItem(CONNECTOR_LAB_STORAGE_KEY));
     if (!Array.isArray(saved)) return;
     saved.slice(0, 10).forEach((slot, index) => {
+      const shapeKey = slot?.shapeKey === "double-circle" ? "small-circle" : slot?.shapeKey;
       if (
-        CONNECTOR_SHAPES.some((shape) => shape.key === slot?.shapeKey) &&
+        CONNECTOR_SHAPES.some((shape) => shape.key === shapeKey) &&
         Object.hasOwn(CONNECTOR_COLORS, slot?.color) &&
         Object.hasOwn(CONNECTOR_WIDTHS, slot?.width)
       ) {
         connectorSlotConfig[index] = {
-          shapeKey: slot.shapeKey,
+          shapeKey,
           color: slot.color,
           width: slot.width,
         };

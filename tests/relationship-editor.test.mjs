@@ -156,9 +156,12 @@ test("connector halves share the card border as one exact symmetry axis", () => 
 });
 
 test("the homepage exposes a connector lab for ten editable slots", () => {
-  ["octagon", "cross", "double-circle"].forEach((key) => {
+  ["octagon", "cross", "small-circle", "heart", "triangle-inverted"].forEach((key) => {
     assert.ok(appSource.includes(`key: "${key}"`), `missing additional shape ${key}`);
   });
+  assert.match(appSource, /name: "小圆"/);
+  assert.match(appSource, /name: "心形"/);
+  assert.match(appSource, /name: "倒等边三角形"/);
   assert.match(htmlSource, /id="open-connector-lab"[\s\S]*几何图形实验室/);
   assert.match(htmlSource, /id="connector-lab"[\s\S]*id="connector-lab-fields"/);
   assert.match(htmlSource, /id="confirm-connector-lab"[\s\S]*确认并应用/);
@@ -172,7 +175,7 @@ test("the homepage exposes a connector lab for ten editable slots", () => {
 });
 
 test("the connector stylesheet URL is versioned to bypass stale browser caches", () => {
-  assert.match(htmlSource, /href="\.\/styles\.css\?v=20260820-1"/);
+  assert.match(htmlSource, /href="\.\/styles\.css\?v=20260820-2"/);
 });
 
 test("homepage demo cards can stretch to equal row heights on mobile", () => {
@@ -180,8 +183,8 @@ test("homepage demo cards can stretch to equal row heights on mobile", () => {
 });
 
 test("application assets are versioned to publish interaction changes immediately", () => {
-  assert.match(htmlSource, /href="\.\/styles\.css\?v=20260820-1"/);
-  assert.match(htmlSource, /src="\.\/app\.js\?v=20260820-1"/);
+  assert.match(htmlSource, /href="\.\/styles\.css\?v=20260820-2"/);
+  assert.match(htmlSource, /src="\.\/app\.js\?v=20260820-2"/);
 });
 
 test("the imported workspace starts fully confirmed and without unconfirmed relations", () => {
