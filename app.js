@@ -12,6 +12,7 @@ let editorChangeLog = [];
 let currentStartupCards = [];
 const EDITOR_STORAGE_KEY = "startup-boardgame-relationship-editor-v3";
 const CONNECTOR_LAB_STORAGE_KEY = "startup-boardgame-connector-lab-v1";
+const RULEBOOK_STORAGE_KEY = "startup-boardgame-rulebook-v1";
 const STARTUP_CARD_ORDER = ["user", "promotion", "need", "product"];
 const CARD_LIBRARY_ORDER = ["user", "need", "product", "promotion", "event"];
 const RELATION_FILTER_ORDER = ["user-need", "need-product", "product-promotion", "user-promotion"];
@@ -90,12 +91,78 @@ document.addEventListener("DOMContentLoaded", async () => {
     renderRelationshipNetwork();
     bindNetworkDownload();
     bindRelationshipEditor();
+    bindRulebookEditor();
   } catch (error) {
     console.error(error);
     document.querySelector("#card-library").innerHTML =
       '<p class="load-error">卡牌数据暂时无法加载，请刷新页面重试。</p>';
   }
 });
+
+function bindRulebookEditor() {
+  const pages = [...document.querySelectorAll("[data-rulebook-page]")];
+  const editButton = document.querySelector("#edit-rulebook");
+  const saveButton = document.querySelector("#save-rulebook");
+  const resetButton = document.querySelector("#reset-rulebook");
+  const status = document.querySelector("#rulebook-status");
+  if (!pages.length || !editButton || !saveButton || !resetButton || !status) return;
+
+  const defaults = pages.map((page) => page.innerHTML);
+
+  try {
+    const saved = JSON.parse(localStorage.getItem(RULEBOOK_STORAGE_KEY));
+    if (Array.isArray(saved?.pages) && saved.pages.length === pages.length) {
+      saved.pages.forEach((content, index) => {
+        if (typeof content === "string") pages[index].innerHTML = content;
+      });
+      status.textContent = "已载入本机保存的说明书";
+    }
+  } catch (error) {
+    console.warn("无法读取说明书草稿，将使用默认内容。", error);
+  }
+
+  const setEditing = (editing) => {
+    pages.forEach((page) => {
+      page.contentEditable = String(editing);
+    });
+    editButton.hidden = editing;
+    saveButton.hidden = !editing;
+    status.textContent = editing ? "编辑中：可直接修改两页文字" : "可编辑并保存到本机";
+    if (editing) pages[0].focus();
+  };
+
+  editButton.addEventListener("click", () => setEditing(true));
+
+  saveButton.addEventListener("click", () => {
+    try {
+      localStorage.setItem(
+        RULEBOOK_STORAGE_KEY,
+        JSON.stringify({ savedAt: new Date().toISOString(), pages: pages.map((page) => page.innerHTML) }),
+      );
+      setEditing(false);
+      status.textContent = "已保存到本机浏览器";
+    } catch (error) {
+      console.warn("无法保存说明书草稿。", error);
+      status.textContent = "保存失败：请检查浏览器存储空间";
+    }
+  });
+
+  resetButton.addEventListener("click", () => {
+    pages.forEach((page, index) => {
+      page.innerHTML = defaults[index];
+    });
+    localStorage.removeItem(RULEBOOK_STORAGE_KEY);
+    setEditing(false);
+    status.textContent = "已恢复默认说明书";
+  });
+
+  window.addEventListener("keydown", (event) => {
+    if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === "s" && !saveButton.hidden) {
+      event.preventDefault();
+      saveButton.click();
+    }
+  });
+}
 
 function buildCardIndex(categories) {
   const index = new Map();

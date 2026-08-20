@@ -232,11 +232,17 @@ test("the homepage demo randomizes current cards and evaluates all four adjacent
   assert.match(htmlSource, /class="rulebook-book"/);
   assert.match(htmlSource, /rulebook-page rulebook-page-left/);
   assert.match(htmlSource, /rulebook-page rulebook-page-right/);
+  assert.match(htmlSource, /迷你创业桌游说明书/);
   assert.match(htmlSource, /暗黑版 · 创业试炼场/);
   assert.match(htmlSource, /光明版 · 协作创业/);
-  assert.match(htmlSource, /创业期 · 3 分钟/);
+  assert.match(htmlSource, /id="edit-rulebook"/);
+  assert.match(htmlSource, /id="save-rulebook"/);
   assert.match(htmlSource, /每位创业者收益＝项目利润＋总投资额/);
   assert.match(htmlSource, /项目成员就强制各补几张卡/);
+  ["收益 1", "收益 4", "收益 9", "收益 16"].forEach((label) => assert.match(htmlSource, new RegExp(label)));
+  assert.match(appSource, /function bindRulebookEditor\(/);
+  assert.match(appSource, /RULEBOOK_STORAGE_KEY/);
+  assert.match(cssSource, /\.manual-board div[\s\S]*?aspect-ratio:\s*3\s*\/\s*4/);
 });
 
 test("the relationship map lists dynamic combination and outcome statistics", () => {
