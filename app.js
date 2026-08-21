@@ -127,7 +127,7 @@ function bindRulebookEditor() {
 
   const defaults = pages.map((page) => page.innerHTML);
 
-  const exportRulebookAsImage = () => {
+  const exportRulebookAsImage = (mode = "split") => {
     const book = document.querySelector(".rulebook-book");
     if (!book) return;
 
@@ -149,13 +149,25 @@ function bindRulebookEditor() {
       )
       .join("");
 
+    // choose print CSS based on mode
+    const extraPrintCss = mode === "single" ? `
+            @page { size: A4 landscape; margin: 10mm; }
+            .rulebook-export { display: flex; gap: 0; }
+            .rulebook-page-export { width: 50%; box-sizing: border-box; min-height: 0; }
+            .rulebook-page-export + .rulebook-page-export { border-left: 1px solid #d9d3c8; }
+          ` : `
+            @page { size: A4 portrait; margin: 10mm; }
+            .rulebook-export { display: block; }
+            .rulebook-page-export { width: 100%; box-sizing: border-box; page-break-inside: avoid; page-break-after: always; }
+          `;
+
     printWindow.document.write(`<!doctype html>
       <html lang="zh-CN">
         <head>
           <meta charset="utf-8" />
           <title>迷你创业桌游说明书</title>
           <style>
-            @page { size: A4 portrait; margin: 10mm; }
+            ${extraPrintCss}
             html, body {
               margin: 0;
               background: #efeae2;
@@ -166,10 +178,6 @@ function bindRulebookEditor() {
               padding: 16px;
             }
             .rulebook-export {
-              display: grid;
-              grid-template-columns: 1fr 1fr;
-              gap: 0;
-              width: 100%;
               background: #e7e3da;
               border: 1px solid #cfc9bd;
               box-shadow: 0 24px 55px rgba(23, 21, 47, 0.12);
@@ -230,9 +238,10 @@ function bindRulebookEditor() {
     setTimeout(() => printWindow.print(), 250);
   };
 
-  if (downloadButton) {
-    downloadButton.addEventListener("click", exportRulebookAsImage);
-  }
+  const downloadSingle = document.querySelector('#download-rulebook-single');
+  const downloadTwo = document.querySelector('#download-rulebook-two');
+  if (downloadSingle) downloadSingle.addEventListener('click', () => exportRulebookAsImage('single'));
+  if (downloadTwo) downloadTwo.addEventListener('click', () => exportRulebookAsImage('split'));
 
   try {
     const saved = JSON.parse(localStorage.getItem(RULEBOOK_STORAGE_KEY));
