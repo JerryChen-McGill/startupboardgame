@@ -184,12 +184,15 @@ function bindRulebookEditor() {
             }
             .rulebook-page-export {
               position: relative;
-              min-height: 1180px;
-              padding: clamp(2rem, 4vw, 4.4rem) clamp(1.65rem, 3.8vw, 4.2rem) 2.2rem;
+              /* remove large fixed min-height to avoid big blank areas */
+              min-height: auto;
+              /* reduce padding so content fits closer to page edges */
+              padding: clamp(0.8rem, 2vw, 1.2rem) clamp(0.8rem, 2.4vw, 1.2rem) 0.8rem;
               background: linear-gradient(rgba(255,255,255,0.22), rgba(255,255,255,0.22)), #f8f5ed;
               color: #282621;
               box-sizing: border-box;
               break-inside: avoid;
+              page-break-after: always;
             }
             .rulebook-page-export + .rulebook-page-export {
               border-left: 1px solid #d9d3c8;
