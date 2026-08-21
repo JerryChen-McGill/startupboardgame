@@ -1073,7 +1073,8 @@ button {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 0.12rem;
-  width: min(100%, 128px);
+  /* shrink to ~1/3 of original 128px */
+  width: min(100%, 42px);
   /* ensure grid layout even if aspect-ratio is not supported */
   align-items: stretch;
 }
@@ -1083,8 +1084,9 @@ button {
   align-items: center;
   justify-content: center;
   aspect-ratio: 3 / 4;
-  min-height: 48px;
-  min-width: 36px;
+  /* keep proportion but smaller: ~1/3 original */
+  min-height: 24px;
+  min-width: 18px;
   border: 1px solid #615c53;
   background: rgba(40, 38, 33, 0.025);
   box-shadow: inset 0 0 0 1px rgba(40, 38, 33, 0.04);
