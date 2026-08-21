@@ -94,6 +94,22 @@ document.addEventListener("DOMContentLoaded", async () => {
     bindNetworkDownload();
     bindRelationshipEditor();
     bindRulebookEditor();
+    // initialize compactness control (preview)
+    try {
+      const compactSelect = document.querySelector('#rulebook-compactness');
+      const book = document.querySelector('.rulebook-book');
+      const KEY = 'rulebook-compactness';
+      if (compactSelect) {
+        const saved = localStorage.getItem(KEY) || '100';
+        compactSelect.value = saved;
+        if (book) book.style.fontSize = saved + '%';
+        compactSelect.addEventListener('change', (e) => {
+          const v = e.target.value;
+          try { localStorage.setItem(KEY, v); } catch (err) {}
+          if (book) book.style.fontSize = v + '%';
+        });
+      }
+    } catch (e) {}
     // Ensure the small quality grid sits visually after section 03 and before section 04
     try {
       const ensureQualityPlacement = () => {
