@@ -210,9 +210,9 @@ function bindRulebookEditor() {
             }
             .rulebook-page-export {
               position: relative;
-              /* remove large fixed min-height to avoid big blank areas */
-              min-height: auto;
-              /* reduce padding so content fits closer to page edges */
+              display: flex;
+              flex-direction: column;
+              min-height: 0;
               padding: clamp(0.8rem, 2vw, 1.2rem) clamp(0.8rem, 2.4vw, 1.2rem) 0.8rem;
               background: linear-gradient(rgba(255,255,255,0.22), rgba(255,255,255,0.22)), #f8f5ed;
               color: #282621;
@@ -245,7 +245,17 @@ function bindRulebookEditor() {
             .manual-score b { font-size: 0.8rem; }
             .manual-score span { color: #5e594f; }
             .manual-score strong { text-align: right; }
-            .manual-page-number { position: absolute; right: clamp(1.65rem, 3.8vw, 4.2rem); bottom: 1.35rem; left: clamp(1.65rem, 3.8vw, 4.2rem); display: flex; align-items: center; justify-content: space-between; padding-top: 0.55rem; border-top: 1px solid #b9b2a7; color: #777065; font-size: 0.62rem; letter-spacing: 0.08em; }
+            .manual-page-number {
+              display: flex;
+              align-items: center;
+              justify-content: space-between;
+              margin-top: auto;
+              padding-top: 0.55rem;
+              border-top: 1px solid #b9b2a7;
+              color: #777065;
+              font-size: 0.62rem;
+              letter-spacing: 0.08em;
+            }
             .manual-page-number b { color: #282621; font-size: 0.72rem; }
             .manual-quality-wrap { display: flex; justify-content: center; margin: 0.25rem 0 0.4rem; }
             .manual-quality-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.12rem; width: min(100%, 128px); }
