@@ -149,16 +149,26 @@ function bindRulebookEditor() {
       )
       .join("");
 
-    // choose print CSS based on mode
+    // choose print CSS based on mode and include compactness (font-size) from localStorage
+    const compactness = (function () {
+      try {
+        return localStorage.getItem('rulebook-compactness') || '100';
+      } catch (e) {
+        return '100';
+      }
+    })();
+
     const extraPrintCss = mode === "single" ? `
             @page { size: A4 landscape; margin: 10mm; }
             .rulebook-export { display: flex; gap: 0; }
             .rulebook-page-export { width: 50%; box-sizing: border-box; min-height: 0; }
             .rulebook-page-export + .rulebook-page-export { border-left: 1px solid #d9d3c8; }
+            html, body { font-size: ${compactness}%; }
           ` : `
             @page { size: A4 portrait; margin: 10mm; }
             .rulebook-export { display: block; }
             .rulebook-page-export { width: 100%; box-sizing: border-box; page-break-inside: avoid; page-break-after: always; }
+            html, body { font-size: ${compactness}%; }
           `;
 
     printWindow.document.write(`<!doctype html>
