@@ -1063,6 +1063,42 @@ button {
   border-bottom: 1px solid #615c53;
 }
 
+.manual-quality-wrap {
+  display: flex;
+  justify-content: center;
+  margin: 0.25rem 0 0.4rem;
+}
+
+.manual-quality-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.12rem;
+  width: min(100%, 128px);
+}
+
+.manual-quality-cell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 3 / 4;
+  min-height: 0;
+  border: 1px solid #615c53;
+  background: rgba(40, 38, 33, 0.025);
+  box-shadow: inset 0 0 0 1px rgba(40, 38, 33, 0.04);
+}
+
+.manual-quality-cell span {
+  font-size: 0.58rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+.manual-quality-note {
+  margin-top: 0.6rem;
+  font-size: 0.75rem;
+  line-height: 1.7;
+}
+
 .manual-board b,
 .manual-board small {
   display: block;
@@ -1130,6 +1166,12 @@ button {
   padding: 0.58rem 0;
   border-bottom: 1px solid #c7c0b4;
   font-size: 0.72rem;
+}
+
+.manual-score-compact div {
+  grid-template-columns: 86px 1fr auto;
+  gap: 0.55rem;
+  font-size: 0.68rem;
 }
 
 .manual-score b {

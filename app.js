@@ -94,6 +94,21 @@ document.addEventListener("DOMContentLoaded", async () => {
     bindNetworkDownload();
     bindRelationshipEditor();
     bindRulebookEditor();
+    // Ensure the small quality grid sits visually after section 03 and before section 04
+    try {
+      const ensureQualityPlacement = () => {
+        const qualityWrap = document.querySelector('.manual-quality-wrap');
+        const section04 = document.querySelector('.manual-section-quality');
+        if (qualityWrap && section04 && section04.parentNode) {
+          section04.parentNode.insertBefore(qualityWrap, section04);
+        }
+      };
+      // Try once immediately and again after a short delay to handle late DOM updates
+      ensureQualityPlacement();
+      setTimeout(ensureQualityPlacement, 200);
+    } catch (e) {
+      // no-op
+    }
   } catch (error) {
     console.error(error);
     document.querySelector("#card-library").innerHTML =
@@ -105,11 +120,119 @@ function bindRulebookEditor() {
   const pages = [...document.querySelectorAll("[data-rulebook-page]")];
   const editButton = document.querySelector("#edit-rulebook");
   const saveButton = document.querySelector("#save-rulebook");
+  const downloadButton = document.querySelector("#download-rulebook");
   const resetButton = document.querySelector("#reset-rulebook");
   const status = document.querySelector("#rulebook-status");
   if (!pages.length || !editButton || !saveButton || !resetButton || !status) return;
 
   const defaults = pages.map((page) => page.innerHTML);
+
+  const exportRulebookAsImage = () => {
+    const book = document.querySelector(".rulebook-book");
+    if (!book) return;
+
+    const pages = Array.from(book.querySelectorAll(".rulebook-page")).map((page) => page.cloneNode(true));
+    const printWindow = window.open("", "_blank", "width=1400,height=1000");
+
+    if (!printWindow) {
+      status.textContent = "下载失败：请允许浏览器弹出新窗口";
+      return;
+    }
+
+    const pageMarkup = pages
+      .map(
+        (page) => `
+          <article class="rulebook-page-export">
+            ${page.innerHTML}
+          </article>
+        `,
+      )
+      .join("");
+
+    printWindow.document.write(`<!doctype html>
+      <html lang="zh-CN">
+        <head>
+          <meta charset="utf-8" />
+          <title>迷你创业桌游说明书</title>
+          <style>
+            @page { size: A4 portrait; margin: 10mm; }
+            html, body {
+              margin: 0;
+              background: #efeae2;
+              color: #282621;
+              font-family: "Noto Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif;
+            }
+            body {
+              padding: 16px;
+            }
+            .rulebook-export {
+              display: grid;
+              grid-template-columns: 1fr 1fr;
+              gap: 0;
+              width: 100%;
+              background: #e7e3da;
+              border: 1px solid #cfc9bd;
+              box-shadow: 0 24px 55px rgba(23, 21, 47, 0.12);
+            }
+            .rulebook-page-export {
+              position: relative;
+              min-height: 1180px;
+              padding: clamp(2rem, 4vw, 4.4rem) clamp(1.65rem, 3.8vw, 4.2rem) 2.2rem;
+              background: linear-gradient(rgba(255,255,255,0.22), rgba(255,255,255,0.22)), #f8f5ed;
+              color: #282621;
+              box-sizing: border-box;
+              break-inside: avoid;
+            }
+            .rulebook-page-export + .rulebook-page-export {
+              border-left: 1px solid #d9d3c8;
+            }
+            .manual-title { margin-bottom: 2rem; padding-bottom: 1.35rem; border-bottom: 2px solid #282621; }
+            .manual-title p, .manual-title strong { display: block; margin: 0; font-size: 0.72rem; font-weight: 850; letter-spacing: 0.12em; }
+            .manual-title p { margin-bottom: 0.5rem; }
+            .manual-title h2 { margin: 0 0 0.45rem; font-family: var(--font-display, "Arial Black", sans-serif); font-size: clamp(2.2rem, 4.1vw, 4.6rem); letter-spacing: -0.055em; line-height: 1; }
+            .manual-title strong { color: #5a554c; letter-spacing: 0.04em; }
+            .manual-facts { display: grid; grid-template-columns: repeat(3, 1fr); margin-bottom: 2rem; padding: 0.8rem 0; border-top: 1px solid #aaa398; border-bottom: 1px solid #aaa398; }
+            .manual-facts p { margin: 0; padding: 0 0.8rem; border-right: 1px solid #c7c0b4; font-size: 0.72rem; line-height: 1.45; }
+            .manual-facts p:last-child { padding-right: 0; border-right: 0; }
+            .manual-facts b { display: block; margin-bottom: 0.1rem; font-size: 0.65rem; letter-spacing: 0.1em; }
+            .manual-section { margin-bottom: 1.55rem; }
+            .manual-section h3 { display: flex; align-items: baseline; gap: 0.65rem; margin: 0 0 0.55rem; font-size: 1.02rem; letter-spacing: 0.02em; }
+            .manual-section h3 span { color: #777065; font-size: 0.62rem; letter-spacing: 0.12em; }
+            .manual-section p, .manual-section li { margin: 0 0 0.62rem; color: #514d45; font-family: "Noto Serif SC", "Songti SC", SimSun, serif; font-size: 0.82rem; line-height: 1.78; }
+            .manual-steps { margin: 0; padding: 0; counter-reset: manual-step; list-style: none; }
+            .manual-steps li { position: relative; margin-bottom: 0.62rem; padding-left: 2rem; color: #514d45; font-family: "Noto Serif SC", "Songti SC", SimSun, serif; font-size: 0.8rem; line-height: 1.68; counter-increment: manual-step; }
+            .manual-steps li::before { position: absolute; top: 0.05rem; left: 0; width: 1.35rem; height: 1.35rem; content: counter(manual-step); border: 1px solid #716b61; border-radius: 50%; font-family: "Noto Sans SC", sans-serif; font-size: 0.62rem; font-weight: 900; line-height: 1.25rem; text-align: center; }
+            .manual-steps b { color: #282621; font-family: "Noto Sans SC", sans-serif; }
+            .manual-score { margin: 0.8rem 0; border-top: 1px solid #8f887d; }
+            .manual-score div { display: grid; grid-template-columns: 65px 1fr auto; gap: 0.75rem; align-items: center; padding: 0.58rem 0; border-bottom: 1px solid #c7c0b4; font-size: 0.72rem; }
+            .manual-score b { font-size: 0.8rem; }
+            .manual-score span { color: #5e594f; }
+            .manual-score strong { text-align: right; }
+            .manual-page-number { position: absolute; right: clamp(1.65rem, 3.8vw, 4.2rem); bottom: 1.35rem; left: clamp(1.65rem, 3.8vw, 4.2rem); display: flex; align-items: center; justify-content: space-between; padding-top: 0.55rem; border-top: 1px solid #b9b2a7; color: #777065; font-size: 0.62rem; letter-spacing: 0.08em; }
+            .manual-page-number b { color: #282621; font-size: 0.72rem; }
+            .manual-quality-wrap { display: flex; justify-content: center; margin: 0.25rem 0 0.4rem; }
+            .manual-quality-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.12rem; width: min(100%, 128px); }
+            .manual-quality-cell { display: flex; align-items: center; justify-content: center; aspect-ratio: 3 / 4; border: 1px solid #615c53; background: rgba(40, 38, 33, 0.025); }
+            .manual-quality-cell span { font-size: 0.58rem; font-weight: 700; letter-spacing: 0.08em; }
+            .manual-quality-note { margin-top: 0.6rem; font-size: 0.75rem; line-height: 1.7; }
+            @media print {
+              body { padding: 0; }
+              .rulebook-page-export { box-shadow: none; }
+            }
+          </style>
+        </head>
+        <body>
+          <div class="rulebook-export">${pageMarkup}</div>
+        </body>
+      </html>`);
+    printWindow.document.close();
+    printWindow.focus();
+    setTimeout(() => printWindow.print(), 250);
+  };
+
+  if (downloadButton) {
+    downloadButton.addEventListener("click", exportRulebookAsImage);
+  }
 
   try {
     const saved = JSON.parse(localStorage.getItem(RULEBOOK_STORAGE_KEY));
