@@ -95,6 +95,14 @@ test("right-clicking a card downloads a tightly cropped PNG", () => {
   assert.match(cssSource, /\.card-image-export\s*{[\s\S]*?box-shadow:\s*none\s*!important;/);
 });
 
+test("card library supports downloading every visible card image", () => {
+  assert.match(htmlSource, /id="download-all-cards"/);
+  assert.match(appSource, /function downloadAllCardImages\(\)/);
+  assert.match(appSource, /function createCardImageBlob\(cardElement\)/);
+  assert.match(appSource, /document\.querySelectorAll\("#card-library \.library-card"\)/);
+  assert.match(appSource, /renderCardLibrary\("all"\)/);
+});
+
 test("ten same-bounds connector shapes are encoded and overlaid", () => {
   const shapeKeys = [
     "line",

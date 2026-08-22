@@ -1001,6 +1001,7 @@ function bindCardFilters() {
 }
 
 function bindCardImageDownload() {
+  document.querySelector("#download-all-cards").addEventListener("click", downloadAllCardImages);
   document.addEventListener("contextmenu", (event) => {
     const cardElement = event.target.closest(".library-card");
     if (!cardElement) return;
@@ -1014,6 +1015,14 @@ function bindCardImageDownload() {
 }
 
 async function downloadCardImage(cardElement) {
+  const blob = await createCardImageBlob(cardElement);
+  const card = cardById?.get(cardElement.dataset.cardId);
+  const rawName = card?.name || cardElement.querySelector(".card-name")?.textContent || "卡牌";
+  const filename = `${rawName.trim().replace(/[\\/:*?"<>|]+/g, "-")}.png`;
+  downloadBlob(blob, filename);
+}
+
+async function createCardImageBlob(cardElement) {
   const bounds = cardElement.getBoundingClientRect();
   const width = Math.round(bounds.width);
   const height = Math.round(bounds.height);
@@ -1068,10 +1077,42 @@ async function downloadCardImage(cardElement) {
   const blob = await new Promise((resolve, reject) => {
     canvas.toBlob((result) => result ? resolve(result) : reject(new Error("PNG 生成失败。")), "image/png");
   });
-  const card = cardById?.get(cardElement.dataset.cardId);
-  const rawName = card?.name || cardElement.querySelector(".card-name")?.textContent || "卡牌";
-  const filename = `${rawName.trim().replace(/[\\/:*?"<>|]+/g, "-")}.png`;
-  downloadBlob(blob, filename);
+  return blob;
+}
+
+function waitForFrame() {
+  return new Promise((resolve) => requestAnimationFrame(resolve));
+}
+
+async function downloadAllCardImages() {
+  const button = document.querySelector("#download-all-cards");
+  if (!button || button.disabled) return;
+  const activeFilter = document.querySelector("[data-card-filter].active")?.dataset.cardFilter || "all";
+  button.disabled = true;
+  try {
+    renderCardLibrary("all");
+    await waitForFrame();
+    const cardElements = [...document.querySelectorAll("#card-library .library-card")];
+    for (let index = 0; index < cardElements.length; index += 1) {
+      button.textContent = `生成中 ${index + 1}/${cardElements.length}`;
+      const cardElement = cardElements[index];
+      const blob = await createCardImageBlob(cardElement);
+      const card = cardById.get(cardElement.dataset.cardId);
+      const filename = `${(card?.name || "卡牌").trim().replace(/[\\/:*?"<>|]+/g, "-")}.png`;
+      downloadBlob(blob, filename);
+      await new Promise((resolve) => window.setTimeout(resolve, 120));
+    }
+    button.textContent = `已下载 ${cardElements.length} 张`;
+  } catch (error) {
+    console.error("批量卡牌图片下载失败。", error);
+    button.textContent = "批量下载失败，请重试";
+  } finally {
+    renderCardLibrary(activeFilter);
+    button.disabled = false;
+    window.setTimeout(() => {
+      button.textContent = "批量下载全部卡牌";
+    }, 2200);
+  }
 }
 
 function loadImage(source) {
