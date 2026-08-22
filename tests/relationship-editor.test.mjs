@@ -276,6 +276,14 @@ test("the relationship map lists dynamic combination and outcome statistics", ()
   assert.doesNotMatch(htmlSource, /张卡已确认|条关系已确认/);
 });
 
+test("availability changes recalculate visible cards, relations, and combinations", () => {
+  assert.match(appSource, /card\.active = card\.active === false/);
+  assert.match(appSource, /cardById = buildCardIndex\(gameData\.cards\)/);
+  assert.match(appSource, /gameData\.relations\.filter\(\(relation\) => cardById\.has\(relation\.source\)/);
+  assert.match(appSource, /card\.active !== false/);
+  assert.match(appSource, /const relationCount = relationByPair\?\.size \|\| 0/);
+});
+
 test("editor still supports local changes and separate exports", () => {
   [
     'id="card-editor-form"',

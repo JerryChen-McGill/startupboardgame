@@ -471,9 +471,10 @@ function connectorShapeForSlot(index) {
 
 function rebuildIndexes() {
   cardById = buildCardIndex(gameData.cards);
-     editorCardById = buildEditorCardIndex(gameData.cards);
-    relationByPair = buildRelationIndex(gameData.relations);
-  relationByPair = buildRelationIndex(gameData.relations);
+  editorCardById = buildEditorCardIndex(gameData.cards);
+  relationByPair = buildRelationIndex(
+    gameData.relations.filter((relation) => cardById.has(relation.source) && cardById.has(relation.target)),
+  );
   cardConnectorById = new Map();
   STARTUP_CARD_ORDER.forEach((type) => {
     rankedCards(type).forEach((card, index) => {
@@ -484,7 +485,7 @@ function rebuildIndexes() {
     });
   });
   gameData.meta.networkCardCount = cardById.size;
-  gameData.meta.relationCount = gameData.relations.length;
+  gameData.meta.relationCount = relationByPair.size;
 }
 
 function rankedCards(type) {
@@ -636,9 +637,9 @@ function renderSiteMetrics() {
     0,
   );
   const eventCardCount = gameData.cards.event?.filter((card) => card.active !== false).length || 0;
-  const relationCount = gameData.relations.length;
+  const relationCount = relationByPair.size;
   const categoryCount = STARTUP_CARD_ORDER.length;
-  const relationTypeCount = new Set(gameData.relations.map((relation) => relation.type)).size;
+  const relationTypeCount = new Set([...relationByPair.values()].map((relation) => relation.type)).size;
   const metrics = {
     "card-count": cardCount,
     "core-card-count": coreCardCount,
@@ -774,7 +775,7 @@ function calculateStartupStatistics() {
     perfect: 0,
   };
   const [users, promotions, needs, products] = STARTUP_CARD_ORDER.map(
-    (type) => gameData.cards[type] || [],
+    (type) => (gameData.cards[type] || []).filter((card) => card.active !== false),
   );
 
   users.forEach((user) => {
@@ -1096,7 +1097,7 @@ function downloadBlob(blob, filename) {
 
 function renderRelationFilters() {
   const container = document.querySelector("#relation-filters");
-  const relationCounts = gameData.relations.reduce((counts, relation) => {
+  const relationCounts = [...relationByPair.values()].reduce((counts, relation) => {
     counts[relation.type] = (counts[relation.type] || 0) + 1;
     return counts;
   }, {});
@@ -2025,7 +2026,7 @@ function setEditorMessage(message, state = "") {
 
 function updateNetworkCaption() {
   const cardCount = cardById?.size || 0;
-  const relationCount = gameData?.relations?.length || 0;
+  const relationCount = relationByPair?.size || 0;
   const statistics = calculateStartupStatistics();
   const formatNumber = (value) => value.toLocaleString("zh-CN");
   const values = {
