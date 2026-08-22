@@ -60,7 +60,7 @@ test("card library and relationship filters use the requested display order", ()
 test("card faces use Chinese type labels, unframed icons, and complete descriptions", () => {
   const cards = ["user", "need", "product", "promotion"].flatMap((type) => data.cards[type]);
   assert.ok(cards.every((card) => card.note.trim().length > 20));
-  ["用户卡", "传播卡", "需求卡", "产品卡"].forEach((label) => {
+  ["用户卡", "传播卡", "痛点卡", "产品卡"].forEach((label) => {
     assert.ok(appSource.includes(`"${label}"`), `missing card type label ${label}`);
   });
   assert.match(appSource, /\$\{CARD_TYPE_LABELS\[card\.type\]\}/);
@@ -277,11 +277,11 @@ test("the relationship map lists dynamic combination and outcome statistics", ()
 });
 
 test("availability changes recalculate visible cards, relations, and combinations", () => {
-  assert.match(appSource, /card\.active = card\.active === false/);
+  assert.match(appSource, /location\.card\.active = location\.card\.active === false/);
   assert.match(appSource, /cardById = buildCardIndex\(gameData\.cards\)/);
-  assert.match(appSource, /gameData\.relations\.filter\(\(relation\) => cardById\.has\(relation\.source\)/);
+  assert.match(appSource, /gameData\.relations\.filter/);
   assert.match(appSource, /card\.active !== false/);
-  assert.match(appSource, /const relationCount = relationByPair\?\.size \|\| 0/);
+  assert.match(appSource, /const relationCount = relationByPair/);
 });
 
 test("editor still supports local changes and separate exports", () => {

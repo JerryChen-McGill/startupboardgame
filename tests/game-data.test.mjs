@@ -16,13 +16,13 @@ const relationIndex = new Map(
   data.relations.map((relation) => [pairKey(relation.source, relation.target), relation]),
 );
 
-test("the latest export supplies 37 startup cards and 12 standalone event cards", () => {
-  assert.equal(allCards.length, 49);
+test("the latest export supplies 34 startup cards and 12 standalone event cards", () => {
+  assert.equal(allCards.length, 46);
   assert.deepEqual(
     Object.fromEntries(Object.entries(data.cards).map(([type, cards]) => [type, cards.length])),
-    { user: 10, need: 10, product: 9, promotion: 8, event: 12 },
+    { user: 7, need: 10, product: 9, promotion: 8, event: 12 },
   );
-  assert.equal(data.meta.networkCardCount, 49);
+  assert.equal(data.meta.networkCardCount, 46);
   assert.equal(data.meta.playerRange, "3–7");
   assert.ok(allCards.every((card) => card.confirmed === true));
   assert.ok(allCards.every((card) => card.emoji !== "✨"), "placeholder icons should be replaced");
@@ -30,10 +30,10 @@ test("the latest export supplies 37 startup cards and 12 standalone event cards"
   assert.ok(data.cards.event.every((card) => card.network === false));
 });
 
-test("only the 150 confirmed, unique, structurally valid relationships remain", () => {
-  assert.equal(data.relations.length, 150);
-  assert.equal(data.meta.relationCount, 150);
-  assert.equal(relationIndex.size, 150);
+test("only the 125 confirmed, unique, structurally valid relationships remain", () => {
+  assert.equal(data.relations.length, 125);
+  assert.equal(data.meta.relationCount, 125);
+  assert.equal(relationIndex.size, 125);
   data.relations.forEach((relation) => {
     assert.equal(relation.confirmed, true);
     assert.ok(cardById.has(relation.source), `missing source ${relation.source}`);
@@ -63,8 +63,8 @@ test("the relationship groups reflect the filtered export", () => {
     ]),
   );
   assert.deepEqual(counts, {
-    "user-need": 43,
-    "user-promotion": 38,
+    "user-need": 31,
+    "user-promotion": 25,
     "need-product": 36,
     "product-promotion": 33,
   });
@@ -92,16 +92,12 @@ test("all four-card combinations split into the three startup outcomes", () => {
     }
   }
 
-  assert.deepEqual(outcomeCounts, { failure: 5472, basic: 1412, perfect: 316 });
-  assert.equal(Object.values(outcomeCounts).reduce((total, count) => total + count, 0), 7200);
+  assert.deepEqual(outcomeCounts, { failure: 3924, basic: 928, perfect: 188 });
+  assert.equal(Object.values(outcomeCounts).reduce((total, count) => total + count, 0), 5040);
 });
 
-test("new user cards are appended after the existing category cards", () => {
-  assert.deepEqual(
-    data.cards.user.slice(-3).map((card) => card.id),
-    ["u-mars-colonist", "u-wedding-host", "u-santa"],
-  );
-  assert.deepEqual(data.cards.user.slice(-3).map((card) => card.order), [7, 8, 9]);
+test("the three deleted user cards are removed from the current data", () => {
+  assert.ok(["u-octopus", "u-crow", "u-snail"].every((id) => !cardById.has(id)));
 });
 
 test("every startup card connects to both neighboring categories", () => {

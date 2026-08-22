@@ -19,7 +19,7 @@ const RELATION_FILTER_ORDER = ["user-need", "need-product", "product-promotion",
 const CARD_TYPE_LABELS = {
   user: "用户卡",
   promotion: "传播卡",
-  need: "需求卡",
+  need: "痛点卡",
   product: "产品卡",
   event: "事件卡",
 };
@@ -1157,7 +1157,7 @@ function renderRelationshipNetwork() {
     (total, type) => total + (gameData.cards[type]?.filter((card) => card.active !== false).length || 0),
     0,
   );
-  svg.firstChild.textContent = `${coreCardCount} 张用户、传播、需求、产品卡牌之间的多对多关系网络`;
+  svg.firstChild.textContent = `${coreCardCount} 张用户、传播、痛点、产品卡牌之间的多对多关系网络`;
 
   const border = svgElement("rect", {
     x: 72,

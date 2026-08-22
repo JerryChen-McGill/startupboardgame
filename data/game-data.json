@@ -2,8 +2,8 @@
   "meta": {
     "title": "迷你创业桌游",
     "version": "0.2",
-    "networkCardCount": 49,
-    "relationCount": 150,
+    "networkCardCount": 46,
+    "relationCount": 125,
     "relationshipPrinciple": "每一条关系都必须说明具体场景或作用机制",
     "exportedAt": "2026-07-30T10:47:36.819Z",
     "playerRange": "3–7"
@@ -16,7 +16,7 @@
       "color": "#73B97C"
     },
     "need": {
-      "label": "需求",
+      "label": "痛点",
       "en": "NEED",
       "question": "怎么了？",
       "color": "#F0A15A"
@@ -76,28 +76,6 @@
         "confirmed": true
       },
       {
-        "id": "u-octopus",
-        "name": "小章鱼",
-        "emoji": "🐙",
-        "note": "八只手看似能干，忙起来却依然顾此失彼，只想找机会放松和远走。带有海洋气息或从天而降的新奇体验尤其令它好奇。",
-        "network": false,
-        "accentKey": "purple",
-        "accentName": "紫",
-        "accent": "#8E67D5",
-        "confirmed": true
-      },
-      {
-        "id": "u-crow",
-        "name": "乌鸦邮差",
-        "emoji": "🐦",
-        "note": "长途奔波让它又累又粗心，连照顾自己都常常顾不上。覆盖范围广、在空中也能看见的宣传最容易在送信途中拦住它。",
-        "network": false,
-        "accentKey": "blue",
-        "accentName": "蓝",
-        "accent": "#4D8FE5",
-        "confirmed": true
-      },
-      {
         "id": "new-card-ms60pajb",
         "name": "病重老头",
         "emoji": "👴",
@@ -106,17 +84,6 @@
         "accentKey": "custom-new-card-ms60pajb",
         "accentName": "自定义",
         "accent": "#888888",
-        "confirmed": true
-      },
-      {
-        "id": "u-snail",
-        "name": "蜗牛",
-        "emoji": "🐌",
-        "note": "缓慢的脚步把小问题拖成了大焦虑，也让远方显得格外诱人。无需追赶、远远就能看到的宣传方式对它最友好。",
-        "network": true,
-        "accentKey": "brown",
-        "accentName": "棕",
-        "accent": "#8A5B3D",
         "confirmed": true
       },
       {
@@ -135,7 +102,7 @@
       {
         "id": "u-wedding-host",
         "name": "婚礼司仪",
-        "emoji": "🎤",
+        "emoji": "🤵",
         "note": "每天替别人制造浪漫、煽情和惊喜，面对突发情况还得始终保持笑容。工作结束后最大的愿望就是没人再找他说话。",
         "network": true,
         "accentKey": "custom-u-wedding-host",
@@ -566,7 +533,7 @@
         "id": "e-taste-shift",
         "name": "用户口味变了",
         "emoji": "😵‍💫",
-        "note": "当前需求卡本轮失效，团队必须强制更换一张需求卡。",
+        "note": "当前痛点卡本轮失效，团队必须强制更换一张痛点卡。",
         "network": false,
         "accentKey": "event-yellow",
         "accentName": "事件黄",
@@ -599,7 +566,7 @@
   },
   "relationMeta": {
     "user-need": {
-      "label": "用户 × 需求",
+      "label": "用户 × 痛点",
       "color": "#4A90E2"
     },
     "user-promotion": {
@@ -607,7 +574,7 @@
       "color": "#8B61C2"
     },
     "need-product": {
-      "label": "需求 × 产品",
+      "label": "痛点 × 产品",
       "color": "#F39C3D"
     },
     "product-promotion": {
@@ -616,14 +583,6 @@
     }
   },
   "relations": [
-    {
-      "source": "u-octopus",
-      "target": "n-slack",
-      "type": "user-need",
-      "weight": 3,
-      "reason": "八只手同时被任务占满，越忙越想偷出一只手摸鱼",
-      "confirmed": true
-    },
     {
       "source": "new-card-ms60m3pb",
       "target": "n-eight",
@@ -697,48 +656,8 @@
       "confirmed": true
     },
     {
-      "source": "u-snail",
-      "target": "new-card-ms6srxip",
-      "type": "user-need",
-      "weight": 3,
-      "reason": "慢",
-      "confirmed": true
-    },
-    {
-      "source": "u-octopus",
-      "target": "new-card-ms6srxip",
-      "type": "user-need",
-      "weight": 3,
-      "reason": "唉",
-      "confirmed": true
-    },
-    {
-      "source": "u-crow",
-      "target": "new-card-ms6t2tuz",
-      "type": "user-need",
-      "weight": 3,
-      "reason": ".",
-      "confirmed": true
-    },
-    {
-      "source": "u-crow",
-      "target": "n-slack",
-      "type": "user-need",
-      "weight": 3,
-      "reason": ".",
-      "confirmed": true
-    },
-    {
       "source": "new-card-ms60m3pb",
       "target": "new-card-ms6smvxm",
-      "type": "user-need",
-      "weight": 3,
-      "reason": ".",
-      "confirmed": true
-    },
-    {
-      "source": "new-card-ms60m3pb",
-      "target": "new-card-ms6t2tuz",
       "type": "user-need",
       "weight": 3,
       "reason": ".",
@@ -769,14 +688,6 @@
       "confirmed": true
     },
     {
-      "source": "u-crow",
-      "target": "n-water",
-      "type": "user-need",
-      "weight": 3,
-      "reason": ".",
-      "confirmed": true
-    },
-    {
       "source": "new-card-ms60m3pb",
       "target": "n-water",
       "type": "user-need",
@@ -793,23 +704,7 @@
       "confirmed": true
     },
     {
-      "source": "u-octopus",
-      "target": "new-card-ms6tn0fj",
-      "type": "user-need",
-      "weight": 3,
-      "reason": ".",
-      "confirmed": true
-    },
-    {
       "source": "new-card-ms60m3pb",
-      "target": "new-card-ms6tn0fj",
-      "type": "user-need",
-      "weight": 3,
-      "reason": ".",
-      "confirmed": true
-    },
-    {
-      "source": "u-snail",
       "target": "new-card-ms6tn0fj",
       "type": "user-need",
       "weight": 3,
@@ -881,14 +776,6 @@
       "confirmed": true
     },
     {
-      "source": "u-snail",
-      "target": "n-eight",
-      "type": "user-need",
-      "weight": 3,
-      "reason": ".",
-      "confirmed": true
-    },
-    {
       "source": "new-card-ms6wlmfs",
       "target": "n-phone",
       "type": "user-need",
@@ -932,14 +819,6 @@
       "source": "n-eight",
       "target": "new-card-ms6trc3c",
       "type": "need-product",
-      "weight": 3,
-      "reason": ".",
-      "confirmed": true
-    },
-    {
-      "source": "u-crow",
-      "target": "n-sleepy",
-      "type": "user-need",
       "weight": 3,
       "reason": ".",
       "confirmed": true
@@ -1068,14 +947,6 @@
       "source": "new-card-ms6smvxm",
       "target": "new-card-ms6trc3c",
       "type": "need-product",
-      "weight": 3,
-      "reason": ".",
-      "confirmed": true
-    },
-    {
-      "source": "u-octopus",
-      "target": "new-card-ms6t2tuz",
-      "type": "user-need",
       "weight": 3,
       "reason": ".",
       "confirmed": true
@@ -1513,78 +1384,6 @@
       "confirmed": true
     },
     {
-      "source": "new-card-ms7bhw8r",
-      "target": "u-snail",
-      "type": "user-promotion",
-      "weight": 3,
-      "reason": ".",
-      "confirmed": true
-    },
-    {
-      "source": "new-card-ms7bhw8r",
-      "target": "u-crow",
-      "type": "user-promotion",
-      "weight": 3,
-      "reason": ".",
-      "confirmed": true
-    },
-    {
-      "source": "new-card-ms7bhw8r",
-      "target": "new-card-ms6up5pz",
-      "type": "user-promotion",
-      "weight": 3,
-      "reason": ".",
-      "confirmed": true
-    },
-    {
-      "source": "new-card-ms7bhw8r",
-      "target": "new-card-ms60pajb",
-      "type": "user-promotion",
-      "weight": 3,
-      "reason": ".",
-      "confirmed": true
-    },
-    {
-      "source": "new-card-ms7bhw8r",
-      "target": "new-card-ms6wlmfs",
-      "type": "user-promotion",
-      "weight": 3,
-      "reason": ".",
-      "confirmed": true
-    },
-    {
-      "source": "new-card-ms7bgc52",
-      "target": "new-card-ms60m3pb",
-      "type": "user-promotion",
-      "weight": 3,
-      "reason": ".",
-      "confirmed": true
-    },
-    {
-      "source": "new-card-ms7bgc52",
-      "target": "new-card-ms6up5pz",
-      "type": "user-promotion",
-      "weight": 3,
-      "reason": ".",
-      "confirmed": true
-    },
-    {
-      "source": "new-card-ms7bgc52",
-      "target": "new-card-ms6wlmfs",
-      "type": "user-promotion",
-      "weight": 3,
-      "reason": ".",
-      "confirmed": true
-    },
-    {
-      "source": "new-card-ms7bha6s",
-      "target": "new-card-ms6up5pz",
-      "type": "user-promotion",
-      "weight": 3,
-      "reason": ".",
-      "confirmed": true
-    },
-    {
       "source": "new-card-ms7bha6s",
       "target": "new-card-ms6wlmfs",
       "type": "user-promotion",
@@ -1595,30 +1394,6 @@
     {
       "source": "new-card-ms7bha6s",
       "target": "new-card-ms60m3pb",
-      "type": "user-promotion",
-      "weight": 3,
-      "reason": ".",
-      "confirmed": true
-    },
-    {
-      "source": "new-card-ms7ciu1t",
-      "target": "u-snail",
-      "type": "user-promotion",
-      "weight": 3,
-      "reason": ".",
-      "confirmed": true
-    },
-    {
-      "source": "new-card-ms7ciu1t",
-      "target": "u-octopus",
-      "type": "user-promotion",
-      "weight": 3,
-      "reason": ".",
-      "confirmed": true
-    },
-    {
-      "source": "new-card-ms7ciu1t",
-      "target": "u-crow",
       "type": "user-promotion",
       "weight": 3,
       "reason": ".",
@@ -1643,14 +1418,6 @@
     {
       "source": "new-card-ms7ciu1t",
       "target": "new-card-ms60m3pb",
-      "type": "user-promotion",
-      "weight": 3,
-      "reason": ".",
-      "confirmed": true
-    },
-    {
-      "source": "new-card-ms7cqxgr",
-      "target": "u-octopus",
       "type": "user-promotion",
       "weight": 3,
       "reason": ".",
