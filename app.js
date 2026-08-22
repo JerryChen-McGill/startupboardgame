@@ -2,8 +2,8 @@ const SVG_NS = "http://www.w3.org/2000/svg";
 
 let gameData;
 let cardById;
+let editorCardById;
 let relationByPair;
-let cardDegreeById;
 let cardConnectorById;
 let activeRelationType = "all";
 let selectedNodeId = null;
@@ -340,6 +340,14 @@ function bindRulebookEditor() {
 function buildCardIndex(categories) {
   const index = new Map();
   Object.entries(categories).forEach(([type, cards]) => {
+    cards.filter((card) => card.active !== false).forEach((card) => index.set(card.id, { ...card, type }));
+  });
+  return index;
+}
+
+function buildEditorCardIndex(categories) {
+  const index = new Map();
+  Object.entries(categories).forEach(([type, cards]) => {
     cards.forEach((card) => index.set(card.id, { ...card, type }));
   });
   return index;
@@ -359,14 +367,32 @@ function normalizeEditorData(sourceData) {
   Object.values(normalized.cards).forEach((cards) => {
     cards.forEach((card) => {
       card.confirmed = Boolean(card.confirmed);
+      card.active = card.active !== false;
     });
   });
+  normalizeCardOrders(normalized.cards);
   normalized.relations.forEach((relation) => {
     relation.confirmed = Boolean(relation.confirmed);
   });
   normalized.meta.networkCardCount = Object.values(normalized.cards).flat().length;
   normalized.meta.relationCount = normalized.relations.length;
   return normalized;
+}
+
+function normalizeCardOrders(categories) {
+  Object.values(categories).forEach((cards) => {
+    cards.forEach((card, index) => {
+      card.order = Number.isInteger(card.order) ? card.order : index;
+    });
+    cards.sort((a, b) => a.order - b.order);
+  });
+}
+
+function nextCardOrder(type) {
+  return (gameData.cards[type] || []).reduce(
+    (highest, card) => Math.max(highest, Number.isInteger(card.order) ? card.order : -1),
+    -1,
+  ) + 1;
 }
 
 function loadEditorWorkspace(sourceData) {
@@ -390,9 +416,15 @@ function loadEditorWorkspace(sourceData) {
     ...gameData.categoryMeta,
   };
   Object.entries(sourceData.cards).forEach(([type, sourceCards]) => {
-    if (loadedSavedWorkspace && !savedCardTypes.has(type)) {
+    if (!loadedSavedWorkspace || !savedCardTypes.has(type)) {
       gameData.cards[type] = JSON.parse(JSON.stringify(sourceCards));
+      return;
     }
+    const savedIds = new Set(gameData.cards[type].map((card) => card.id));
+    sourceCards.forEach((card) => {
+      if (!savedIds.has(card.id)) gameData.cards[type].push(JSON.parse(JSON.stringify(card)));
+    });
+    normalizeCardOrders(gameData.cards);
   });
 }
 
@@ -439,12 +471,9 @@ function connectorShapeForSlot(index) {
 
 function rebuildIndexes() {
   cardById = buildCardIndex(gameData.cards);
+     editorCardById = buildEditorCardIndex(gameData.cards);
+    relationByPair = buildRelationIndex(gameData.relations);
   relationByPair = buildRelationIndex(gameData.relations);
-  cardDegreeById = new Map([...cardById.keys()].map((id) => [id, 0]));
-  gameData.relations.forEach((relation) => {
-    cardDegreeById.set(relation.source, (cardDegreeById.get(relation.source) || 0) + 1);
-    cardDegreeById.set(relation.target, (cardDegreeById.get(relation.target) || 0) + 1);
-  });
   cardConnectorById = new Map();
   STARTUP_CARD_ORDER.forEach((type) => {
     rankedCards(type).forEach((card, index) => {
@@ -459,11 +488,11 @@ function rebuildIndexes() {
 }
 
 function rankedCards(type) {
-  return (gameData.cards[type] || [])
+  return (gameData.cards[type] || []).filter((card) => card.active !== false)
     .map((card, sourceIndex) => ({ card, sourceIndex }))
     .sort(
       (a, b) =>
-        (cardDegreeById?.get(b.card.id) || 0) - (cardDegreeById?.get(a.card.id) || 0) ||
+        (a.card.order ?? a.sourceIndex) - (b.card.order ?? b.sourceIndex) ||
         a.sourceIndex - b.sourceIndex,
     )
     .map(({ card }) => card);
@@ -488,9 +517,9 @@ function persistEditorWorkspace() {
 
 function renderCardLibrary(filter = "all") {
   const library = document.querySelector("#card-library");
-  const cards = CARD_LIBRARY_ORDER.flatMap((type) =>
-    rankedCards(type).map((card) => ({ ...card, type })),
-  ).filter((card) => filter === "all" || card.type === filter);
+      const cards = CARD_LIBRARY_ORDER.flatMap((type) =>
+        rankedCards(type).filter((card) => card.active !== false).map((card) => ({ ...card, type })),
+      ).filter((card) => filter === "all" || card.type === filter);
 
   library.innerHTML = cards
     .map((card, index) => {
@@ -603,10 +632,10 @@ function renderConnectorPreview(shape) {
 function renderSiteMetrics() {
   const cardCount = cardById.size;
   const coreCardCount = STARTUP_CARD_ORDER.reduce(
-    (total, type) => total + (gameData.cards[type]?.length || 0),
+    (total, type) => total + (gameData.cards[type]?.filter((card) => card.active !== false).length || 0),
     0,
   );
-  const eventCardCount = gameData.cards.event?.length || 0;
+  const eventCardCount = gameData.cards.event?.filter((card) => card.active !== false).length || 0;
   const relationCount = gameData.relations.length;
   const categoryCount = STARTUP_CARD_ORDER.length;
   const relationTypeCount = new Set(gameData.relations.map((relation) => relation.type)).size;
@@ -625,7 +654,7 @@ function renderSiteMetrics() {
   });
   document.querySelectorAll("[data-card-filter-count]").forEach((button) => {
     const type = button.dataset.cardFilterCount;
-    const count = type === "all" ? cardCount : gameData.cards[type]?.length || 0;
+    const count = type === "all" ? cardCount : gameData.cards[type]?.filter((card) => card.active !== false).length || 0;
     const label = type === "all" ? "全部" : gameData.categoryMeta[type]?.label || type;
     button.textContent = `${label} ${count}`;
   });
@@ -633,7 +662,7 @@ function renderSiteMetrics() {
 
 function randomStartupCards() {
   return STARTUP_CARD_ORDER.map((type) => {
-    const cards = gameData.cards[type];
+    const cards = gameData.cards[type].filter((card) => card.active !== false);
     return { ...cards[Math.floor(Math.random() * cards.length)], type };
   });
 }
@@ -1099,10 +1128,10 @@ function relationshipMapCards(type) {
 function networkPositions() {
   const spread = (start, end, count) =>
     Array.from({ length: count }, (_, index) => (count === 1 ? (start + end) / 2 : start + ((end - start) * index) / (count - 1)));
-  const userHorizontal = spread(110, 1290, gameData.cards.user.length);
-  const productHorizontal = spread(110, 1290, gameData.cards.product.length);
-  const needVertical = spread(116, 864, gameData.cards.need.length);
-  const promotionVertical = spread(116, 864, gameData.cards.promotion.length);
+  const userHorizontal = spread(110, 1290, rankedCards("user").length);
+  const productHorizontal = spread(110, 1290, rankedCards("product").length);
+  const needVertical = spread(116, 864, rankedCards("need").length);
+  const promotionVertical = spread(116, 864, rankedCards("promotion").length);
   const positions = new Map();
 
   relationshipMapCards("user").forEach((card, index) => positions.set(card.id, { x: userHorizontal[index], y: 68, side: "top" }));
@@ -1124,7 +1153,7 @@ function renderRelationshipNetwork() {
   const positions = networkPositions();
   svg.replaceChildren(svgElement("title", { id: "network-title" }));
   const coreCardCount = STARTUP_CARD_ORDER.reduce(
-    (total, type) => total + (gameData.cards[type]?.length || 0),
+    (total, type) => total + (gameData.cards[type]?.filter((card) => card.active !== false).length || 0),
     0,
   );
   svg.firstChild.textContent = `${coreCardCount} 张用户、传播、需求、产品卡牌之间的多对多关系网络`;
@@ -1228,7 +1257,7 @@ function renderRelationshipNetwork() {
 function renderEventMapCards() {
   const container = document.querySelector("#event-map-cards");
   if (!container) return;
-  const cards = gameData.cards.event || [];
+  const cards = (gameData.cards.event || []).filter((card) => card.active !== false);
   container.innerHTML = cards
     .map(
       (card) => `
@@ -1388,22 +1417,29 @@ function bindNetworkDownload() {
 function bindRelationshipEditor() {
   document.querySelector("#new-card").addEventListener("click", showNewCardForm);
   document.querySelector("#new-relation").addEventListener("click", showNewRelationForm);
+  document.querySelector("#editor-card-picker").addEventListener("change", (event) => {
+    if (event.target.value) selectCardForEditor(event.target.value);
+  });
   document.querySelector("#card-editor-form").addEventListener("submit", saveCardFromEditor);
   document.querySelector("#relation-editor-form").addEventListener("submit", saveRelationFromEditor);
   document.querySelector("#toggle-card-confirmation").addEventListener("click", toggleCardConfirmation);
+  document.querySelector("#toggle-card-availability").addEventListener("click", toggleCardAvailability);
   document.querySelector("#toggle-relation-confirmation").addEventListener("click", toggleRelationConfirmation);
+  document.querySelector("#move-card-up").addEventListener("click", () => moveCardInEditor(-1));
+  document.querySelector("#move-card-down").addEventListener("click", () => moveCardInEditor(1));
   document.querySelector("#delete-card").addEventListener("click", deleteCardFromEditor);
   document.querySelector("#delete-relation").addEventListener("click", deleteRelationFromEditor);
   document.querySelector("#relation-source").addEventListener("change", updateRelationTypePreview);
   document.querySelector("#relation-target").addEventListener("change", updateRelationTypePreview);
   document.querySelector("#export-game-json").addEventListener("click", exportEditedGameData);
   document.querySelector("#export-change-log").addEventListener("click", exportEditorChangeLog);
+  renderEditorCardPicker();
   renderChangeLogPreview();
   updateNetworkCaption();
 }
 
 function selectCardForEditor(id) {
-  const card = cardById.get(id);
+  const card = editorCardById.get(id);
   if (!card) return;
   selectedRelationKey = null;
   document.querySelector("#editor-empty").hidden = true;
@@ -1420,12 +1456,39 @@ function selectCardForEditor(id) {
   document.querySelector("#card-accent-name").value = card.accentName;
   document.querySelector("#card-accent").value = card.accent;
   document.querySelector("#card-network").checked = Boolean(card.network);
+  document.querySelector("#toggle-card-availability").hidden = false;
+  updateCardAvailabilityControls(card.id);
+  updateCardOrderControls(card.id);
   const deleteButton = document.querySelector("#delete-card");
   deleteButton.disabled = false;
   deleteButton.dataset.deleteKey = "";
   deleteButton.textContent = "删除";
   updateConfirmationControls("card", card.confirmed);
+  document.querySelector("#editor-card-picker").value = card.id;
   setEditorMessage(`正在检查：${card.name}`);
+}
+
+function renderEditorCardPicker() {
+  const select = document.querySelector("#editor-card-picker");
+  if (!select) return;
+  const selectedId = select.value;
+  select.replaceChildren();
+  const placeholder = document.createElement("option");
+  placeholder.value = "";
+  placeholder.textContent = "选择卡牌进行管理";
+  select.appendChild(placeholder);
+  CARD_LIBRARY_ORDER.forEach((type) => {
+    const group = document.createElement("optgroup");
+    group.label = CARD_TYPE_LABELS[type];
+    (gameData.cards[type] || []).forEach((card) => {
+      const option = document.createElement("option");
+      option.value = card.id;
+      option.textContent = `${card.active === false ? "[已下架] " : ""}${card.emoji} ${card.name}`;
+      group.appendChild(option);
+    });
+    if (group.children.length) select.appendChild(group);
+  });
+  select.value = selectedId;
 }
 
 function selectRelationForEditor(key) {
@@ -1467,6 +1530,10 @@ function showNewCardForm() {
   document.querySelector("#card-emoji-input").value = "✨";
   document.querySelector("#card-accent-name").value = "自定义";
   document.querySelector("#card-accent").value = "#888888";
+  document.querySelector("#card-order").textContent = "保存后排在类别末尾";
+  document.querySelector("#move-card-up").disabled = true;
+  document.querySelector("#move-card-down").disabled = true;
+  document.querySelector("#toggle-card-availability").hidden = true;
   const deleteButton = document.querySelector("#delete-card");
   deleteButton.disabled = true;
   deleteButton.dataset.deleteKey = "";
@@ -1499,7 +1566,7 @@ function populateRelationCardOptions(sourceId = "", targetId = "") {
   const sourceSelect = document.querySelector("#relation-source");
   const targetSelect = document.querySelector("#relation-target");
   const groups = STARTUP_CARD_ORDER.flatMap((type) =>
-    gameData.cards[type].map((card) => ({
+    gameData.cards[type].filter((card) => card.active !== false).map((card) => ({
       id: card.id,
       label: `${gameData.categoryMeta[type].label} · ${card.emoji} ${card.name}`,
     })),
@@ -1550,12 +1617,15 @@ function saveCardFromEditor(event) {
   const id = document.querySelector("#card-id").value.trim();
   const type = document.querySelector("#card-type").value;
   const existingLocation = originalId ? findCardLocation(originalId) : null;
+  const targetOrder = existingLocation && existingLocation.type === type
+    ? existingLocation.card.order
+    : nextCardOrder(type);
 
   if (!id || !/^[a-z0-9-]+$/.test(id)) {
     setEditorMessage("卡牌 ID 只能使用小写字母、数字和连字符。", "error");
     return;
   }
-  if ((!originalId || id !== originalId) && cardById.has(id)) {
+  if ((!originalId || id !== originalId) && editorCardById.has(id)) {
     setEditorMessage(`卡牌 ID“${id}”已经存在。`, "error");
     return;
   }
@@ -1576,6 +1646,8 @@ function saveCardFromEditor(event) {
     accentName: document.querySelector("#card-accent-name").value.trim(),
     accent: document.querySelector("#card-accent").value.toUpperCase(),
     confirmed: form.dataset.confirmed === "true",
+    active: existingLocation?.card.active !== false,
+    order: targetOrder,
   };
 
   if (existingLocation) {
@@ -1758,6 +1830,64 @@ function findCardLocation(id) {
   return null;
 }
 
+function updateCardAvailabilityControls(id) {
+  const card = editorCardById.get(id);
+  const button = document.querySelector("#toggle-card-availability");
+  if (!card || !button) return;
+  button.textContent = card.active === false ? "上架" : "下架";
+  button.classList.toggle("is-listed", card.active !== false);
+}
+
+function toggleCardAvailability() {
+  const id = document.querySelector("#card-original-id").value;
+  const location = findCardLocation(id);
+  if (!location) return;
+  const before = { ...location.card, type: location.type };
+  location.card.active = location.card.active === false;
+  recordEditorChange(
+    location.card.active ? "list" : "unlist",
+    "card",
+    id,
+    before,
+    { ...location.card, type: location.type },
+  );
+  refreshAfterEditorMutation();
+  selectCardForEditor(id);
+  setEditorMessage(`卡牌“${location.card.name}”已${location.card.active ? "上架" : "下架"}。`, "success");
+}
+
+function updateCardOrderControls(id) {
+  const location = findCardLocation(id);
+  const orderOutput = document.querySelector("#card-order");
+  const moveUpButton = document.querySelector("#move-card-up");
+  const moveDownButton = document.querySelector("#move-card-down");
+  if (!location || !orderOutput || !moveUpButton || !moveDownButton) return;
+  const cards = gameData.cards[location.type] || [];
+  orderOutput.textContent = `第 ${location.index + 1} / ${cards.length} 张`;
+  moveUpButton.disabled = location.index === 0;
+  moveDownButton.disabled = location.index === cards.length - 1;
+}
+
+function moveCardInEditor(direction) {
+  const id = document.querySelector("#card-original-id").value;
+  const location = findCardLocation(id);
+  if (!location) return;
+  const cards = gameData.cards[location.type];
+  const targetIndex = location.index + direction;
+  if (targetIndex < 0 || targetIndex >= cards.length) return;
+
+  const before = { ...location.card, type: location.type };
+  [cards[location.index], cards[targetIndex]] = [cards[targetIndex], cards[location.index]];
+  cards.forEach((card, index) => {
+    card.order = index;
+  });
+  const movedCard = cards[targetIndex];
+  recordEditorChange("update", "card", id, before, { ...movedCard, type: location.type });
+  refreshAfterEditorMutation();
+  selectCardForEditor(id);
+  setEditorMessage(`卡牌“${movedCard.name}”已${direction < 0 ? "前移" : "后移"}。`, "success");
+}
+
 function reconcileRelationsForCard(cardId) {
   const reconciled = [];
   gameData.relations.forEach((relation) => {
@@ -1813,6 +1943,8 @@ function describeEditorChangeLocation(entityType, entityId, before, after) {
 function describeEditorChangeResult(action, entityType, before, after) {
   if (action === "create") return "新增";
   if (action === "delete") return "已删除";
+  if (action === "list") return "已上架";
+  if (action === "unlist") return "已下架";
   if (action === "confirm") return "确认状态 → 已确认";
   if (action === "unconfirm") return "确认状态 → 待确认";
 
@@ -1870,6 +2002,7 @@ function refreshAfterEditorMutation() {
   renderSiteMetrics();
   const activeCardFilter = document.querySelector("[data-card-filter].active")?.dataset.cardFilter || "all";
   renderCardLibrary(activeCardFilter);
+  renderEditorCardPicker();
   renderRelationFilters();
   renderRelationshipNetwork();
   renderStartupDemo(randomStartupCards());

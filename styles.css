@@ -2057,6 +2057,25 @@ button {
   font-weight: 850;
 }
 
+.editor-card-picker {
+  display: grid;
+  gap: 0.3rem;
+  margin-top: 0.7rem;
+  color: var(--ink-soft);
+  font-size: 0.63rem;
+  font-weight: 800;
+}
+
+.editor-card-picker select {
+  min-height: 38px;
+  padding: 0.55rem 0.65rem;
+  color: var(--ink);
+  background: white;
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  font: inherit;
+}
+
 .editor-primary-actions button {
   color: var(--ink);
   background: white;
@@ -2149,6 +2168,31 @@ button {
   align-items: center;
 }
 
+.card-order-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.45rem;
+  margin-top: 0.7rem;
+}
+
+.card-order-actions button {
+  min-height: 34px;
+  padding: 0.45rem 0.65rem;
+  color: var(--ink);
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.68rem;
+  font-weight: 800;
+}
+
+.card-order-actions button:disabled {
+  cursor: not-allowed;
+  opacity: 0.45;
+}
+
 .editor-checkbox {
   grid-template-columns: auto 1fr !important;
   align-items: center;
@@ -2166,6 +2210,10 @@ button {
   margin-top: 0.8rem;
 }
 
+#card-editor-form .editor-form-actions {
+  grid-template-columns: repeat(3, 1fr) auto;
+}
+
 .editor-save {
   color: white;
   background: var(--ink);
@@ -2174,6 +2222,11 @@ button {
 .editor-confirm {
   color: #5a4300;
   background: var(--yellow);
+}
+
+.editor-availability {
+  color: #285a7a;
+  background: #edf7ff;
 }
 
 .editor-delete {

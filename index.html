@@ -306,6 +306,11 @@
                 <button type="button" id="new-card">＋ 新增卡牌</button>
                 <button type="button" id="new-relation">＋ 新增关系</button>
               </div>
+              <label class="editor-card-picker">卡牌管理
+                <select id="editor-card-picker">
+                  <option value="">选择卡牌进行管理</option>
+                </select>
+              </label>
 
               <p class="editor-message" id="editor-message" aria-live="polite"></p>
               <div class="editor-empty" id="editor-empty">
@@ -330,6 +335,7 @@
                       <option value="event">事件</option>
                     </select>
                   </label>
+                  <label>类别内序号<output id="card-order">保存后排在类别末尾</output></label>
                   <label>名称<input id="card-name-input" name="name" required /></label>
                   <label>图标<input id="card-emoji-input" name="emoji" required maxlength="8" /></label>
                   <label class="editor-field-wide">描述<input id="card-note-input" name="note" required /></label>
@@ -340,9 +346,14 @@
                     纳入首页核心卡池
                   </label>
                 </div>
+                <div class="card-order-actions" aria-label="调整类别内顺序">
+                  <button type="button" id="move-card-up">↑ 前移</button>
+                  <button type="button" id="move-card-down">↓ 后移</button>
+                </div>
                 <div class="editor-form-actions">
                   <button class="editor-save" type="submit">保存卡牌</button>
                   <button class="editor-confirm" id="toggle-card-confirmation" type="button">确认卡牌</button>
+                  <button class="editor-availability" id="toggle-card-availability" type="button">下架</button>
                   <button class="editor-delete" id="delete-card" type="button">删除</button>
                 </div>
               </form>

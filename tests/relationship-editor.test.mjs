@@ -18,10 +18,21 @@ test("site metrics are rendered from data rather than fixed counts", () => {
   assert.match(htmlSource, /data-card-filter-count="all"/);
 });
 
-test("card library and relationship map use descending relation rank", () => {
+test("card library and relationship map use persistent category order", () => {
   assert.match(appSource, /function rankedCards\(type\)/);
   assert.match(appSource, /function relationshipMapCards\(type\)\s*{\s*return rankedCards\(type\);/);
-  assert.match(appSource, /cardDegreeById/);
+  assert.match(appSource, /a\.card\.order.*b\.card\.order/);
+});
+
+test("card editor persists category order and supports moving cards", () => {
+  assert.match(appSource, /function normalizeCardOrders\(categories\)/);
+  assert.match(appSource, /function nextCardOrder\(type\)/);
+  assert.match(appSource, /order: targetOrder/);
+  assert.match(appSource, /function moveCardInEditor\(direction\)/);
+  assert.match(appSource, /cards\.forEach\(\(card, index\) => \{\s*card\.order = index;/);
+  assert.match(htmlSource, /id="card-order"/);
+  assert.match(htmlSource, /id="move-card-up"/);
+  assert.match(htmlSource, /id="move-card-down"/);
 });
 
 test("card library and relationship filters use the requested display order", () => {

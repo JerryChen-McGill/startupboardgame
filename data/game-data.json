@@ -2,8 +2,8 @@
   "meta": {
     "title": "迷你创业桌游",
     "version": "0.2",
-    "networkCardCount": 46,
-    "relationCount": 133,
+    "networkCardCount": 49,
+    "relationCount": 150,
     "relationshipPrinciple": "每一条关系都必须说明具体场景或作用机制",
     "exportedAt": "2026-07-30T10:47:36.819Z",
     "playerRange": "3–7"
@@ -118,6 +118,45 @@
         "accentName": "棕",
         "accent": "#8A5B3D",
         "confirmed": true
+      },
+      {
+        "id": "u-mars-colonist",
+        "name": "火星移民",
+        "emoji": "👽",
+        "note": "离开地球后独自生活在陌生环境里，连喝水、睡觉和走路都需要依赖设备。资源有限，怀念在地球的日子。",
+        "network": true,
+        "accentKey": "custom-u-mars-colonist",
+        "accentName": "自定义",
+        "accent": "#888888",
+        "confirmed": true,
+        "active": true,
+        "order": 7
+      },
+      {
+        "id": "u-wedding-host",
+        "name": "婚礼司仪",
+        "emoji": "🎤",
+        "note": "每天替别人制造浪漫、煽情和惊喜，面对突发情况还得始终保持笑容。工作结束后最大的愿望就是没人再找他说话。",
+        "network": true,
+        "accentKey": "custom-u-wedding-host",
+        "accentName": "自定义",
+        "accent": "#888888",
+        "confirmed": true,
+        "active": true,
+        "order": 8
+      },
+      {
+        "id": "u-santa",
+        "name": "圣诞老人",
+        "emoji": "🎅",
+        "note": "每天都要在极短时间内完成一次全球范围的长途配送，平时还得操心礼物、路线和驯鹿。年复一年下来，他最需要的不是惊喜，而是一次真正不用赶路的假期。",
+        "network": true,
+        "accentKey": "custom-u-santa",
+        "accentName": "自定义",
+        "accent": "#888888",
+        "confirmed": true,
+        "active": true,
+        "order": 9
       }
     ],
     "need": [
@@ -1639,6 +1678,142 @@
       "type": "user-promotion",
       "weight": 3,
       "reason": ".",
+      "confirmed": true
+    },
+    {
+      "source": "u-mars-colonist",
+      "target": "new-card-ms6tn0fj",
+      "type": "user-need",
+      "weight": 3,
+      "reason": "离开地球后，火星移民渴望重新体验远行与地球生活。",
+      "confirmed": true
+    },
+    {
+      "source": "u-mars-colonist",
+      "target": "n-water",
+      "type": "user-need",
+      "weight": 3,
+      "reason": "资源有限且依赖设备生活，让火星移民更容易遇到饮水困难。",
+      "confirmed": true
+    },
+    {
+      "source": "u-mars-colonist",
+      "target": "n-sleepy",
+      "type": "user-need",
+      "weight": 3,
+      "reason": "陌生环境和设备依赖使火星移民难以安心休息。",
+      "confirmed": true
+    },
+    {
+      "source": "u-mars-colonist",
+      "target": "new-card-ms6srxip",
+      "type": "user-need",
+      "weight": 3,
+      "reason": "火星移民依赖设备行动，走路缓慢的困扰与蜗牛相似。",
+      "confirmed": true
+    },
+    {
+      "source": "u-mars-colonist",
+      "target": "new-card-ms7bhw8r",
+      "type": "user-promotion",
+      "weight": 3,
+      "reason": "彩虹广告能让远离地球的火星移民想起地球的色彩。",
+      "confirmed": true
+    },
+    {
+      "source": "u-mars-colonist",
+      "target": "new-card-ms7bha6s",
+      "type": "user-promotion",
+      "weight": 3,
+      "reason": "高科技博览会展示的设备能直接回应火星移民的生活依赖。",
+      "confirmed": true
+    },
+    {
+      "source": "u-wedding-host",
+      "target": "n-sleepy",
+      "type": "user-need",
+      "weight": 3,
+      "reason": "婚礼司仪长时间保持工作状态，下班后容易一坐下就犯困。",
+      "confirmed": true
+    },
+    {
+      "source": "u-wedding-host",
+      "target": "new-card-ms6smvxm",
+      "type": "user-need",
+      "weight": 3,
+      "reason": "婚礼司仪面对高压工作，常常只想暂时摸鱼放空。",
+      "confirmed": true
+    },
+    {
+      "source": "u-wedding-host",
+      "target": "new-card-ms7bgc52",
+      "type": "user-promotion",
+      "weight": 3,
+      "reason": "婚礼司仪擅长制造气氛，适合在人群集中的开学季传播产品。",
+      "confirmed": true
+    },
+    {
+      "source": "u-wedding-host",
+      "target": "new-card-ms7ciu1t",
+      "type": "user-promotion",
+      "weight": 3,
+      "reason": "婚礼现场需要惊喜，直升机撒样品能制造强烈的出场效果。",
+      "confirmed": true
+    },
+    {
+      "source": "u-wedding-host",
+      "target": "new-card-ms7bdsou",
+      "type": "user-promotion",
+      "weight": 3,
+      "reason": "婚礼司仪善于组织现场互动，适合借助运动会扩大活动声量。",
+      "confirmed": true
+    },
+    {
+      "source": "u-wedding-host",
+      "target": "new-card-ms7bgpuo",
+      "type": "user-promotion",
+      "weight": 3,
+      "reason": "婚礼司仪擅长调动情绪，音乐节合作能自然放大现场氛围。",
+      "confirmed": true
+    },
+    {
+      "source": "u-santa",
+      "target": "n-lost",
+      "type": "user-need",
+      "weight": 3,
+      "reason": "圣诞老人每天处理大量礼物和路线，容易遇到物品找不到的问题。",
+      "confirmed": true
+    },
+    {
+      "source": "u-santa",
+      "target": "n-sleepy",
+      "type": "user-need",
+      "weight": 3,
+      "reason": "全球配送任务极其耗时，圣诞老人完成工作后很容易犯困。",
+      "confirmed": true
+    },
+    {
+      "source": "u-santa",
+      "target": "new-card-ms6srxip",
+      "type": "user-need",
+      "weight": 3,
+      "reason": "长途配送和路线压力让圣诞老人尤其在意行动速度。",
+      "confirmed": true
+    },
+    {
+      "source": "u-santa",
+      "target": "new-card-ms7bhw8r",
+      "type": "user-promotion",
+      "weight": 3,
+      "reason": "彩虹上的广告适合在圣诞老人飞行途中远距离看到。",
+      "confirmed": true
+    },
+    {
+      "source": "u-santa",
+      "target": "new-card-ms7ciu1t",
+      "type": "user-promotion",
+      "weight": 3,
+      "reason": "直升机撒样品与圣诞老人的空中配送场景高度契合。",
       "confirmed": true
     }
   ],
