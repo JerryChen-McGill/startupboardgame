@@ -1081,18 +1081,20 @@ async function createCardImageBlob(cardElement) {
 }
 
 function waitForFrame() {
-  return new Promise((resolve) => requestAnimationFrame(resolve));
+  return new Promise((resolve) => window.setTimeout(resolve, 80));
 }
 
 async function downloadAllCardImages() {
   const button = document.querySelector("#download-all-cards");
   if (!button || button.disabled) return;
   const activeFilter = document.querySelector("[data-card-filter].active")?.dataset.cardFilter || "all";
+  const filterLabel = activeFilter === "all" ? "全部" : CARD_TYPE_LABELS[activeFilter] || activeFilter;
   button.disabled = true;
   try {
-    renderCardLibrary("all");
+    renderCardLibrary(activeFilter);
     await waitForFrame();
     const cardElements = [...document.querySelectorAll("#card-library .library-card")];
+    if (!cardElements.length) throw new Error("当前分类没有可下载的上架卡牌。");
     for (let index = 0; index < cardElements.length; index += 1) {
       button.textContent = `生成中 ${index + 1}/${cardElements.length}`;
       const cardElement = cardElements[index];
@@ -1102,7 +1104,7 @@ async function downloadAllCardImages() {
       downloadBlob(blob, filename);
       await new Promise((resolve) => window.setTimeout(resolve, 120));
     }
-    button.textContent = `已下载 ${cardElements.length} 张`;
+    button.textContent = `已下载 ${filterLabel} ${cardElements.length} 张`;
   } catch (error) {
     console.error("批量卡牌图片下载失败。", error);
     button.textContent = "批量下载失败，请重试";
