@@ -1095,15 +1095,18 @@ async function downloadAllCardImages() {
     await waitForFrame();
     const cardElements = [...document.querySelectorAll("#card-library .library-card")];
     if (!cardElements.length) throw new Error("当前分类没有可下载的上架卡牌。");
+    const files = [];
     for (let index = 0; index < cardElements.length; index += 1) {
       button.textContent = `生成中 ${index + 1}/${cardElements.length}`;
       const cardElement = cardElements[index];
       const blob = await createCardImageBlob(cardElement);
       const card = cardById.get(cardElement.dataset.cardId);
       const filename = `${(card?.name || "卡牌").trim().replace(/[\\/:*?"<>|]+/g, "-")}.png`;
-      downloadBlob(blob, filename);
-      await new Promise((resolve) => window.setTimeout(resolve, 120));
+      files.push({ filename, data: new Uint8Array(await blob.arrayBuffer()) });
     }
+    button.textContent = "正在打包 ZIP";
+    const zipBlob = createZipBlob(files);
+    downloadBlob(zipBlob, `迷你创业桌游-${filterLabel}-卡牌图片.zip`);
     button.textContent = `已下载 ${filterLabel} ${cardElements.length} 张`;
   } catch (error) {
     console.error("批量卡牌图片下载失败。", error);
@@ -1115,6 +1118,65 @@ async function downloadAllCardImages() {
       button.textContent = "批量下载全部卡牌";
     }, 2200);
   }
+}
+
+function crc32(bytes) {
+  let value = 0xffffffff;
+  for (const byte of bytes) {
+    value ^= byte;
+    for (let bit = 0; bit < 8; bit += 1) {
+      value = (value >>> 1) ^ (value & 1 ? 0xedb88320 : 0);
+    }
+  }
+  return (value ^ 0xffffffff) >>> 0;
+}
+
+function createZipBlob(files) {
+  const encoder = new TextEncoder();
+  const localParts = [];
+  const centralParts = [];
+  let offset = 0;
+  files.forEach(({ filename, data }) => {
+    const name = encoder.encode(filename);
+    const checksum = crc32(data);
+    const localHeader = new Uint8Array(30 + name.length);
+    const localView = new DataView(localHeader.buffer);
+    localView.setUint32(0, 0x04034b50, true);
+    localView.setUint16(4, 20, true);
+    localView.setUint16(6, 0x800, true);
+    localView.setUint16(8, 0, true);
+    localView.setUint32(14, checksum, true);
+    localView.setUint32(18, data.length, true);
+    localView.setUint32(22, data.length, true);
+    localView.setUint16(26, name.length, true);
+    localHeader.set(name, 30);
+    localParts.push(localHeader, data);
+
+    const centralHeader = new Uint8Array(46 + name.length);
+    const centralView = new DataView(centralHeader.buffer);
+    centralView.setUint32(0, 0x02014b50, true);
+    centralView.setUint16(4, 20, true);
+    centralView.setUint16(6, 20, true);
+    centralView.setUint16(8, 0x800, true);
+    centralView.setUint32(16, checksum, true);
+    centralView.setUint32(20, data.length, true);
+    centralView.setUint32(24, data.length, true);
+    centralView.setUint16(28, name.length, true);
+    centralView.setUint32(42, offset, true);
+    centralHeader.set(name, 46);
+    centralParts.push(centralHeader);
+    offset += localHeader.length + data.length;
+  });
+
+  const centralSize = centralParts.reduce((total, part) => total + part.length, 0);
+  const end = new Uint8Array(22);
+  const endView = new DataView(end.buffer);
+  endView.setUint32(0, 0x06054b50, true);
+  endView.setUint16(8, files.length, true);
+  endView.setUint16(10, files.length, true);
+  endView.setUint32(12, centralSize, true);
+  endView.setUint32(16, offset, true);
+  return new Blob([...localParts, ...centralParts, end], { type: "application/zip" });
 }
 
 function loadImage(source) {

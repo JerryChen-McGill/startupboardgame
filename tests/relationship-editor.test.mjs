@@ -103,6 +103,8 @@ test("card library supports downloading every visible card image", () => {
   assert.match(appSource, /renderCardLibrary\(activeFilter\)/);
   assert.match(appSource, /const filterLabel = activeFilter === "all"/);
   assert.match(appSource, /当前分类没有可下载的上架卡牌/);
+  assert.match(appSource, /function createZipBlob\(files\)/);
+  assert.match(appSource, /application\/zip/);
 });
 
 test("ten same-bounds connector shapes are encoded and overlaid", () => {
