@@ -30,10 +30,10 @@ test("the latest export supplies 34 startup cards and 12 standalone event cards"
   assert.ok(data.cards.event.every((card) => card.network === false));
 });
 
-test("only the 118 confirmed, unique, structurally valid relationships remain", () => {
-  assert.equal(data.relations.length, 118);
-  assert.equal(data.meta.relationCount, 118);
-  assert.equal(relationIndex.size, 118);
+test("only the 129 confirmed, unique, structurally valid relationships remain", () => {
+  assert.equal(data.relations.length, 129);
+  assert.equal(data.meta.relationCount, 129);
+  assert.equal(relationIndex.size, 129);
   data.relations.forEach((relation) => {
     assert.equal(relation.confirmed, true);
     assert.ok(cardById.has(relation.source), `missing source ${relation.source}`);
@@ -63,9 +63,9 @@ test("the relationship groups reflect the filtered export", () => {
     ]),
   );
   assert.deepEqual(counts, {
-    "user-need": 31,
-    "user-promotion": 23,
-    "need-product": 32,
+    "user-need": 37,
+    "user-promotion": 26,
+    "need-product": 34,
     "product-promotion": 32,
   });
 });
@@ -92,7 +92,7 @@ test("all four-card combinations split into the three startup outcomes", () => {
     }
   }
 
-  assert.deepEqual(outcomeCounts, { failure: 4069, basic: 817, perfect: 154 });
+  assert.deepEqual(outcomeCounts, { failure: 3819, basic: 1015, perfect: 206 });
   assert.equal(Object.values(outcomeCounts).reduce((total, count) => total + count, 0), 5040);
 });
 

@@ -76,7 +76,7 @@ let connectorSlotConfig = DEFAULT_CONNECTOR_SLOT_CONFIG.map((slot) => ({ ...slot
 
 document.addEventListener("DOMContentLoaded", async () => {
   try {
-    const response = await fetch("./data/game-data.json?v=20261018-2");
+    const response = await fetch("./data/game-data.json?v=20261018-3");
     if (!response.ok) throw new Error(`数据加载失败：${response.status}`);
     const sourceData = await response.json();
     loadEditorWorkspace(sourceData);
@@ -269,7 +269,7 @@ function loadEditorWorkspace(sourceData) {
     normalizeCardOrders(gameData.cards);
   });
   if (gameData.meta.dataRevision !== sourceData.meta.dataRevision) {
-    applyLatestRelationshipUpdate(gameData, sourceData);
+    applyApprovedPairingUpdate(gameData, sourceData);
     try {
       localStorage.setItem(EDITOR_STORAGE_KEY, JSON.stringify({ gameData, changeLog: editorChangeLog }));
     } catch (error) { console.warn("数据已更新，但无法保存到本机。", error); }
@@ -2198,6 +2198,29 @@ function applyLatestRelationshipUpdate(workspace, source) {
   const deletedPairs = new Set([["new-card-ms6t2tuz", "new-card-ms73bi9q"], ["n-phone", "new-card-ms6trc3c"], ["n-eight", "new-card-ms73bi9q"], ["n-water", "new-card-ms6trc3c"], ["new-card-ms6trc3c", "new-card-ms7bhw8r"], ["new-card-ms7bgpuo", "new-card-ms60m3pb"]].map(([a, b]) => [a, b].sort().join("::")));
   workspace.relations = workspace.relations.filter((relation) =>
     !deletedPairs.has([relation.source, relation.target].sort().join("::")));
+  workspace.meta.relationCount = workspace.relations.length;
+  workspace.meta.dataRevision = source.meta.dataRevision;
+}
+
+// Add only the approved pairs and refresh the descriptions involved in this release.
+function applyApprovedPairingUpdate(workspace, source) {
+  if (workspace.meta.dataRevision === source.meta.dataRevision) return;
+  if (workspace.meta.dataRevision !== "20261018-2") {
+    applyLatestRelationshipUpdate(workspace, source);
+  }
+  const approvedPairs = new Set([["new-card-ms60pajb", "new-card-ms7bhw8r"], ["new-card-ms60pajb", "new-card-ms7ciu1t"], ["u-santa", "new-card-ms7bha6s"], ["u-wedding-host", "new-card-ms6t2tuz"], ["new-card-ms6wlmfs", "new-card-ms6t2tuz"], ["new-card-ms60m3pb", "n-phone"], ["u-wedding-host", "n-slack"], ["new-card-ms6wlmfs", "n-eight"], ["u-santa", "n-eight"], ["new-card-ms6t2tuz", "p-hat"], ["n-slack", "new-card-ms77e6i4"]].map(([a, b]) => [a, b].sort().join("::")));
+  source.relations.filter((relation) => approvedPairs.has([relation.source, relation.target].sort().join("::")))
+    .forEach((relation) => {
+      const existing = workspace.relations.find((candidate) =>
+        [candidate.source, candidate.target].sort().join("::") === [relation.source, relation.target].sort().join("::"));
+      if (existing) Object.assign(existing, relation);
+      else workspace.relations.push({ ...relation });
+    });
+  const updatedCards = new Set(["new-card-ms60pajb", "new-card-ms60m3pb", "new-card-ms6wlmfs", "u-wedding-host", "u-santa", "new-card-ms6t2tuz", "n-phone", "n-slack", "n-eight", "p-hat", "new-card-ms77e6i4", "new-card-ms7bhw8r", "new-card-ms7ciu1t", "new-card-ms7bha6s"]);
+  const originals = new Map(Object.values(source.cards).flat().map((card) => [card.id, card]));
+  Object.values(workspace.cards).flat().forEach((card) => {
+    if (updatedCards.has(card.id) && originals.has(card.id)) card.note = originals.get(card.id).note;
+  });
   workspace.meta.relationCount = workspace.relations.length;
   workspace.meta.dataRevision = source.meta.dataRevision;
 }

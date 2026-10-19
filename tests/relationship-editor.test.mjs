@@ -207,7 +207,7 @@ test("homepage demo cards can stretch to equal row heights on mobile", () => {
 
 test("application assets are versioned to publish interaction changes immediately", () => {
   assert.match(htmlSource, /href="\.\/styles\.css\?v=20261018-1"/);
-  assert.match(htmlSource, /src="\.\/app\.js\?v=20261018-2"/);
+  assert.match(htmlSource, /src="\.\/app\.js\?v=20261018-3"/);
 });
 
 test("the imported workspace starts fully confirmed and without unconfirmed relations", () => {

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" width="1400" height="980" viewBox="0 0 1400 980" role="img">
   <title>迷你创业桌游：四元素关系网</title>
-  <desc>46 张已确认卡牌按关系数量排列于矩形四边，中间以 118 条已确认关系连接。</desc>
+  <desc>46 张已确认卡牌按关系数量排列于矩形四边，中间以 129 条已确认关系连接。</desc>
   <rect width="1400" height="980" fill="#111025"/>
   <defs>
     <pattern id="grid" width="30" height="30" patternUnits="userSpaceOnUse">
@@ -719,6 +719,72 @@
         stroke-linecap="round" opacity=".78"
         stroke-dasharray="none">
         <title>圣诞老人 × 直升机撒样品：直升机撒样品与圣诞老人的空中配送场景高度契合。</title>
+      </path>
+      <path d="M 700 68 Q 890.3 248.8 1328 116"
+        fill="none" stroke="#8B61C2" stroke-width="1.95"
+        stroke-linecap="round" opacity=".78"
+        stroke-dasharray="none">
+        <title>病重老头 × 彩虹上打广告：病重老头不便外出，仍能从住处或病房窗边看到天空中醒目的彩虹广告。</title>
+      </path>
+      <path d="M 700 68 Q 880.3 304.9 1328 222.85714285714286"
+        fill="none" stroke="#8B61C2" stroke-width="1.95"
+        stroke-linecap="round" opacity=".78"
+        stroke-dasharray="none">
+        <title>病重老头 × 直升机撒样品：样品在附近定点投放后，由家属或照护人员代领送到身边，让不便出门的病重老头也能接触产品。</title>
+      </path>
+      <path d="M 1290 68 Q 1119.9 473.3 1328 864"
+        fill="none" stroke="#8B61C2" stroke-width="1.95"
+        stroke-linecap="round" opacity=".78"
+        stroke-dasharray="none">
+        <title>圣诞老人 × 高科技博览会：高科技博览会展示的自动分拣、路线规划和配送设备，直接回应圣诞老人派送礼物的工作负担。</title>
+      </path>
+      <path d="M 1093.3333333333335 68 Q 624.7 314.5 72 365.33333333333337"
+        fill="none" stroke="#4A90E2" stroke-width="1.95"
+        stroke-linecap="round" opacity=".78"
+        stroke-dasharray="none">
+        <title>婚礼司仪 × 长得太丑了：婚礼司仪经常上台和上镜，担心自己的外貌不够体面，容易在意照片和他人的评价。</title>
+      </path>
+      <path d="M 503.3333333333333 68 Q 432.5 304.6 72 365.33333333333337"
+        fill="none" stroke="#4A90E2" stroke-width="1.95"
+        stroke-linecap="round" opacity=".78"
+        stroke-dasharray="none">
+        <title>熊孩子 × 长得太丑了：熊孩子被同伴拿长相起外号或比较时，会怀疑自己的外貌，产生觉得自己不好看的烦恼。</title>
+      </path>
+      <path d="M 306.66666666666663 68 Q 405.9 359.0 72 448.44444444444446"
+        fill="none" stroke="#4A90E2" stroke-width="1.95"
+        stroke-linecap="round" opacity=".78"
+        stroke-dasharray="none">
+        <title>厨师 × 睡前总想刷手机：厨师忙完一天后才有自己的时间，躺下仍舍不得放下手机，想多享受一会儿不用干活的自由。</title>
+      </path>
+      <path d="M 1093.3333333333335 68 Q 631.0 427.0 72 697.7777777777778"
+        fill="none" stroke="#4A90E2" stroke-width="1.95"
+        stroke-linecap="round" opacity=".78"
+        stroke-dasharray="none">
+        <title>婚礼司仪 × 每天都想摸鱼：婚礼司仪持续调动气氛、照顾宾客情绪，工作间隙只想放空，不再回应任何人的要求。</title>
+      </path>
+      <path d="M 503.3333333333333 68 Q 412.0 465.6 72 864"
+        fill="none" stroke="#4A90E2" stroke-width="1.95"
+        stroke-linecap="round" opacity=".78"
+        stroke-dasharray="none">
+        <title>熊孩子 × 天黑就会焦虑：熊孩子怕黑，独自入睡时缺乏安全感，天一黑就想找人陪伴。</title>
+      </path>
+      <path d="M 1290 68 Q 697.6 489.7 72 864"
+        fill="none" stroke="#4A90E2" stroke-width="1.95"
+        stroke-linecap="round" opacity=".78"
+        stroke-dasharray="none">
+        <title>圣诞老人 × 天黑就会焦虑：夜间派送的截止时间逼近，圣诞老人担心路线出错、礼物送不完，越晚越焦虑。</title>
+      </path>
+      <path d="M 72 365.33333333333337 Q 504.1 582.8 700 912"
+        fill="none" stroke="#F39C3D" stroke-width="1.95"
+        stroke-linecap="round" opacity=".78"
+        stroke-dasharray="none">
+        <title>长得太丑了 × 多功能帽：多功能帽通过帽型修饰脸形、遮挡不满意的发型，让佩戴者更愿意出门和面对镜头。</title>
+      </path>
+      <path d="M 72 697.7777777777778 Q 685.4 698.6 1290 912"
+        fill="none" stroke="#F39C3D" stroke-width="1.95"
+        stroke-linecap="round" opacity=".78"
+        stroke-dasharray="none">
+        <title>每天都想摸鱼 × 多功能盒子：把手机、游戏机等容易分心的物品暂时收进盒子，减少随手拿起来玩的机会，帮助专注眼前任务。</title>
       </path></g>
   <g>
       <g transform="translate(110 68)">
