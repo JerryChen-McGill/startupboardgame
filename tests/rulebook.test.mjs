@@ -106,3 +106,28 @@ test("approved additions update older drafts once, preserve other edits, and exc
   }
   assert.ok(!data.relations.some(r => key(r.source, r.target) === key(cards.get("火星移民").id, cards.get("海族馆广告").id)));
 });
+
+test("the softer copy release updates descriptions without changing saved pairings", () => {
+  const log = JSON.parse(fs.readFileSync(new URL("../data/迷你创业桌游-卡牌文案含蓄版.json", import.meta.url), "utf8"));
+  const draft = structuredClone(data);
+  draft.meta.dataRevision = "20261018-3";
+  const allCards = Object.values(draft.cards).flat();
+  log.changes.forEach(change => {
+    allCards.find(card => card.name === change.location.slice(3)).note = change.previous;
+  });
+  // Preserve user edits made after the previous pairing release, including deletions.
+  draft.relations.pop();
+  draft.relations[0].reason = "本机修改的关系理由";
+  const beforeRelations = JSON.stringify(draft.relations);
+  const mars = allCards.find(card => card.id === "u-mars-colonist");
+  mars.note = "本机火星说明";
+  context.applyApprovedPairingUpdate(draft, data);
+  assert.equal(JSON.stringify(draft.relations), beforeRelations);
+  assert.equal(draft.meta.relationCount, draft.relations.length);
+  assert.equal(mars.note, "本机火星说明");
+  assert.equal(log.changes.length, 14);
+  for (const change of log.changes) {
+    assert.equal(allCards.find(card => card.name === change.location.slice(3)).note, change.changedTo.slice(5));
+  }
+  assert.equal(draft.meta.dataRevision, data.meta.dataRevision);
+});
