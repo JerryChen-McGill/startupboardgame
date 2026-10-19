@@ -3,11 +3,11 @@
     "title": "迷你创业桌游",
     "version": "0.2",
     "networkCardCount": 46,
-    "relationCount": 124,
+    "relationCount": 118,
     "relationshipPrinciple": "每一条关系都必须说明具体场景或作用机制",
     "exportedAt": "2026-07-30T10:47:36.819Z",
     "playerRange": "3–7",
-    "dataRevision": "20261018-1"
+    "dataRevision": "20261018-2"
   },
   "categoryMeta": {
     "user": {
@@ -721,14 +721,6 @@
       "confirmed": true
     },
     {
-      "source": "n-water",
-      "target": "new-card-ms6trc3c",
-      "type": "need-product",
-      "weight": 3,
-      "reason": ".",
-      "confirmed": true
-    },
-    {
       "source": "new-card-ms6up5pz",
       "target": "new-card-ms6t2tuz",
       "type": "user-need",
@@ -810,14 +802,6 @@
     },
     {
       "source": "n-eight",
-      "target": "new-card-ms73bi9q",
-      "type": "need-product",
-      "weight": 3,
-      "reason": ".",
-      "confirmed": true
-    },
-    {
-      "source": "n-eight",
       "target": "new-card-ms6trc3c",
       "type": "need-product",
       "weight": 3,
@@ -867,14 +851,6 @@
     {
       "source": "n-phone",
       "target": "new-card-ms73bi9q",
-      "type": "need-product",
-      "weight": 3,
-      "reason": ".",
-      "confirmed": true
-    },
-    {
-      "source": "n-phone",
-      "target": "new-card-ms6trc3c",
       "type": "need-product",
       "weight": 3,
       "reason": ".",
@@ -971,14 +947,6 @@
     {
       "source": "new-card-ms6t2tuz",
       "target": "new-card-ms6trc3c",
-      "type": "need-product",
-      "weight": 3,
-      "reason": ".",
-      "confirmed": true
-    },
-    {
-      "source": "new-card-ms6t2tuz",
-      "target": "new-card-ms73bi9q",
       "type": "need-product",
       "weight": 3,
       "reason": ".",
@@ -1185,14 +1153,6 @@
       "confirmed": true
     },
     {
-      "source": "new-card-ms6trc3c",
-      "target": "new-card-ms7bhw8r",
-      "type": "product-promotion",
-      "weight": 3,
-      "reason": ".",
-      "confirmed": true
-    },
-    {
       "source": "p-bubble",
       "target": "new-card-ms7bhw8r",
       "type": "product-promotion",
@@ -1355,14 +1315,6 @@
     {
       "source": "new-card-ms7bfuj1",
       "target": "new-card-ms60pajb",
-      "type": "user-promotion",
-      "weight": 3,
-      "reason": ".",
-      "confirmed": true
-    },
-    {
-      "source": "new-card-ms7bgpuo",
-      "target": "new-card-ms60m3pb",
       "type": "user-promotion",
       "weight": 3,
       "reason": ".",

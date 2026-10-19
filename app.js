@@ -76,7 +76,7 @@ let connectorSlotConfig = DEFAULT_CONNECTOR_SLOT_CONFIG.map((slot) => ({ ...slot
 
 document.addEventListener("DOMContentLoaded", async () => {
   try {
-    const response = await fetch("./data/game-data.json?v=20261018-1");
+    const response = await fetch("./data/game-data.json?v=20261018-2");
     if (!response.ok) throw new Error(`数据加载失败：${response.status}`);
     const sourceData = await response.json();
     loadEditorWorkspace(sourceData);
@@ -269,7 +269,7 @@ function loadEditorWorkspace(sourceData) {
     normalizeCardOrders(gameData.cards);
   });
   if (gameData.meta.dataRevision !== sourceData.meta.dataRevision) {
-    applyOctoberDataUpdate(gameData, sourceData);
+    applyLatestRelationshipUpdate(gameData, sourceData);
     try {
       localStorage.setItem(EDITOR_STORAGE_KEY, JSON.stringify({ gameData, changeLog: editorChangeLog }));
     } catch (error) { console.warn("数据已更新，但无法保存到本机。", error); }
@@ -2188,4 +2188,16 @@ async function exportRulebook(mode = "single") {
     status.textContent = "下载准备失败，请重试。";
     printWindow.close();
   }
+}
+
+// Apply the six explicit deletions to older drafts, preserving other local edits.
+function applyLatestRelationshipUpdate(workspace, source) {
+  if (workspace.meta.dataRevision !== "20261018-1") {
+    applyOctoberDataUpdate(workspace, source);
+  }
+  const deletedPairs = new Set([["new-card-ms6t2tuz", "new-card-ms73bi9q"], ["n-phone", "new-card-ms6trc3c"], ["n-eight", "new-card-ms73bi9q"], ["n-water", "new-card-ms6trc3c"], ["new-card-ms6trc3c", "new-card-ms7bhw8r"], ["new-card-ms7bgpuo", "new-card-ms60m3pb"]].map(([a, b]) => [a, b].sort().join("::")));
+  workspace.relations = workspace.relations.filter((relation) =>
+    !deletedPairs.has([relation.source, relation.target].sort().join("::")));
+  workspace.meta.relationCount = workspace.relations.length;
+  workspace.meta.dataRevision = source.meta.dataRevision;
 }
