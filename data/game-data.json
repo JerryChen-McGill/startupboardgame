@@ -3,10 +3,11 @@
     "title": "迷你创业桌游",
     "version": "0.2",
     "networkCardCount": 46,
-    "relationCount": 125,
+    "relationCount": 124,
     "relationshipPrinciple": "每一条关系都必须说明具体场景或作用机制",
     "exportedAt": "2026-07-30T10:47:36.819Z",
-    "playerRange": "3–7"
+    "playerRange": "3–7",
+    "dataRevision": "20261018-1"
   },
   "categoryMeta": {
     "user": {
@@ -55,7 +56,7 @@
       },
       {
         "id": "new-card-ms60m3pb",
-        "name": "倒霉的厨师",
+        "name": "厨师",
         "emoji": "🧑‍🍳",
         "note": "高压忙乱的工作让他身心俱疲，总想逃离眼前的一地鸡毛。他频繁出入各种公共场合，因此很容易接触到活动式、体验式宣传。",
         "network": false,
@@ -252,7 +253,7 @@
       },
       {
         "id": "new-card-ms6trc3c",
-        "name": "多功能胶囊💊",
+        "name": "多功能胶囊",
         "emoji": "💊",
         "note": "它把复杂烦恼压缩成一次简单服用，特别擅长处理身体和状态上的问题。健康、运动和高曝光场合最能放大它“立即见效”的吸引力。",
         "network": false,
@@ -377,7 +378,7 @@
         "id": "new-card-ms7cqxgr",
         "name": "海族馆广告",
         "emoji": "🐠",
-        "note": "富有幻想、探索和沉浸感的产品，能自然融入神秘的水下世界。它尤其容易吸引亲子人群、海洋生物和想暂时逃离日常的人。",
+        "note": "富有幻想、探索和沉浸感的产品，能自然融入神秘的水下世界。它尤其容易吸引亲子人群，和想暂时逃离日常的人。",
         "network": false,
         "accentKey": "custom-new-card-ms7cqxgr",
         "accentName": "自定义",
@@ -1386,14 +1387,6 @@
     {
       "source": "new-card-ms7bha6s",
       "target": "new-card-ms6wlmfs",
-      "type": "user-promotion",
-      "weight": 3,
-      "reason": ".",
-      "confirmed": true
-    },
-    {
-      "source": "new-card-ms7bha6s",
-      "target": "new-card-ms60m3pb",
       "type": "user-promotion",
       "weight": 3,
       "reason": ".",

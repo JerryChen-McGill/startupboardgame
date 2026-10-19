@@ -20,7 +20,8 @@
     <link rel="canonical" href="https://jerrychen-mcgill.github.io/startupboardgame/" />
     <link rel="icon" href="./assets/favicon.svg" type="image/svg+xml" />
     <title>迷你创业桌游｜把离谱点子拼成自洽生意</title>
-    <link rel="stylesheet" href="./styles.css?v=20260820-2" />
+    <link rel="stylesheet" href="./styles.css?v=20261018-1" />
+    <link rel="stylesheet" href="./rulebook.css?v=20261018-1" />
   </head>
   <body>
     <a class="skip-link" href="#main">跳到主要内容</a>
@@ -115,22 +116,23 @@
             <div class="rulebook-actions" aria-label="说明书编辑工具">
               <span id="rulebook-status" role="status">可编辑并保存到本机</span>
               <button class="rulebook-action" id="edit-rulebook" type="button">编辑说明书</button>
-              <button class="rulebook-action" id="download-rulebook-single" type="button">下载（单页）</button>
-              <button class="rulebook-action" id="download-rulebook-two" type="button">下载（分两页）</button>
-              <label style="display:inline-flex;align-items:center;gap:0.4rem;margin-left:0.4rem">
-                紧凑度
-                <select id="rulebook-compactness" class="rulebook-action" style="padding:0.2rem 0.4rem;font-weight:700">
-                  <option value="100">正常</option>
-                  <option value="90">90%</option>
-                  <option value="80">80%</option>
-                  <option value="70">70%</option>
-                </select>
-              </label>
+              <button class="rulebook-action" id="download-rulebook-single" type="button">下载 PDF（单页）</button>
+              <button class="rulebook-action" id="download-rulebook-two" type="button">下载 PDF（分两页）</button>
               <button class="rulebook-action" id="save-rulebook" type="button" hidden>保存内容</button>
               <button class="rulebook-action rulebook-action-quiet" id="reset-rulebook" type="button">恢复默认</button>
             </div>
         </div>
 
+        <div class="rulebook-layout-controls" aria-label="说明书排版设置">
+          <label for="rulebook-width">展开纸张宽度 <output id="rulebook-width-value" for="rulebook-width">420 mm</output>
+            <input id="rulebook-width" type="range" min="200" max="1200" step="5" value="420" />
+          </label>
+          <label for="rulebook-font-size">正文字号 <output id="rulebook-font-value" for="rulebook-font-size">12 pt</output>
+            <input id="rulebook-font-size" type="range" min="8" max="24" step="0.5" value="12" />
+          </label>
+          <p>按印厂尺寸调节展开宽度，不限 A4；高度随内容自动适配。分两页时，每页宽度为展开宽度的一半。预览可横向滚动，下载沿用当前宽度和字号。</p>
+        </div>
+        <div class="rulebook-preview" tabindex="0" aria-label="说明书实际尺寸预览，可横向滚动">
         <div class="rulebook-book" aria-label="迷你创业桌游两页游戏说明书">
           <article class="rulebook-page rulebook-page-left" data-rulebook-page="left">
             <header class="manual-title">
@@ -155,11 +157,7 @@
 
             <section class="manual-section">
               <h3><span>03</span> 回合内任务</h3>
-              <ol class="manual-steps">
-                <li><b>分配岗位。</b>确定本回合的用户、传播、痛点、产品负责人，以及投资人或外部竞争对手。</li>
-                <li><b>选择卡牌。</b>四名负责人查看自己类别的卡牌，团队讨论后各选一张。</li>
-                <li><b>拼成项目。</b>按下图固定位置放下四张卡，组成 2×2 项目面板。</li>
-              </ol>
+              <p>创业团队4名创业者通过讨论，每人打出一张不同种类的卡，将4张卡按下图固定位置放置，组成 2×2 项目面板，从而创立创业项目。</p>
 
               <div class="manual-quality-wrap">
                 <div class="manual-quality-grid" aria-label="创业项目质量判定矩阵">
@@ -216,6 +214,7 @@
 
             <footer class="manual-page-number"><span>迷你创业桌游 · 游戏说明书</span><b>01</b></footer>
           </article>
+        </div>
         </div>
       </section>
 
@@ -403,6 +402,6 @@
       <a href="https://github.com/JerryChen-McGill/startupboardgame">GitHub ↗</a>
     </footer>
 
-    <script src="./app.js?v=20260820-2" defer></script>
+    <script src="./app.js?v=20261018-1" defer></script>
   </body>
 </html>

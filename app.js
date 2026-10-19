@@ -62,11 +62,11 @@ const DEFAULT_CONNECTOR_SLOT_CONFIG = [
   { shapeKey: "line", color: "black", width: "thick" },
   { shapeKey: "square", color: "black", width: "thick" },
   { shapeKey: "circle", color: "black", width: "thick" },
+  { shapeKey: "small-circle", color: "black", width: "thick" },
   { shapeKey: "diamond", color: "black", width: "thin" },
   { shapeKey: "triangle", color: "black", width: "thin" },
-  { shapeKey: "hexagon", color: "gray", width: "thin" },
-  { shapeKey: "pentagon", color: "gray", width: "thin" },
-  { shapeKey: "star", color: "gray", width: "thin" },
+  { shapeKey: "triangle-inverted", color: "black", width: "thin" },
+  { shapeKey: "heart", color: "gray", width: "thin" },
   { shapeKey: "ellipse-horizontal", color: "gray", width: "thin" },
   { shapeKey: "ellipse-vertical", color: "gray", width: "thin" },
 ];
@@ -76,7 +76,7 @@ let connectorSlotConfig = DEFAULT_CONNECTOR_SLOT_CONFIG.map((slot) => ({ ...slot
 
 document.addEventListener("DOMContentLoaded", async () => {
   try {
-    const response = await fetch("./data/game-data.json?v=20260803-1");
+    const response = await fetch("./data/game-data.json?v=20261018-1");
     if (!response.ok) throw new Error(`数据加载失败：${response.status}`);
     const sourceData = await response.json();
     loadEditorWorkspace(sourceData);
@@ -94,37 +94,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     bindNetworkDownload();
     bindRelationshipEditor();
     bindRulebookEditor();
-    // initialize compactness control (preview)
-    try {
-      const compactSelect = document.querySelector('#rulebook-compactness');
-      const book = document.querySelector('.rulebook-book');
-      const KEY = 'rulebook-compactness';
-      if (compactSelect) {
-        const saved = localStorage.getItem(KEY) || '100';
-        compactSelect.value = saved;
-        if (book) book.style.fontSize = saved + '%';
-        compactSelect.addEventListener('change', (e) => {
-          const v = e.target.value;
-          try { localStorage.setItem(KEY, v); } catch (err) {}
-          if (book) book.style.fontSize = v + '%';
-        });
-      }
-    } catch (e) {}
-    // Ensure the small quality grid sits visually after section 03 and before section 04
-    try {
-      const ensureQualityPlacement = () => {
-        const qualityWrap = document.querySelector('.manual-quality-wrap');
-        const section04 = document.querySelector('.manual-section-quality');
-        if (qualityWrap && section04 && section04.parentNode) {
-          section04.parentNode.insertBefore(qualityWrap, section04);
-        }
-      };
-      // Try once immediately and again after a short delay to handle late DOM updates
-      ensureQualityPlacement();
-      setTimeout(ensureQualityPlacement, 200);
-    } catch (e) {
-      // no-op
-    }
+    bindRulebookLayout();
   } catch (error) {
     console.error(error);
     document.querySelector("#card-library").innerHTML =
@@ -136,151 +106,14 @@ function bindRulebookEditor() {
   const pages = [...document.querySelectorAll("[data-rulebook-page]")];
   const editButton = document.querySelector("#edit-rulebook");
   const saveButton = document.querySelector("#save-rulebook");
-  const downloadButton = document.querySelector("#download-rulebook");
   const resetButton = document.querySelector("#reset-rulebook");
   const status = document.querySelector("#rulebook-status");
   if (!pages.length || !editButton || !saveButton || !resetButton || !status) return;
 
   const defaults = pages.map((page) => page.innerHTML);
 
-  const exportRulebookAsImage = (mode = "split") => {
-    const book = document.querySelector(".rulebook-book");
-    if (!book) return;
-
-    const pages = Array.from(book.querySelectorAll(".rulebook-page")).map((page) => page.cloneNode(true));
-    const printWindow = window.open("", "_blank", "width=1400,height=1000");
-
-    if (!printWindow) {
-      status.textContent = "下载失败：请允许浏览器弹出新窗口";
-      return;
-    }
-
-    const pageMarkup = pages
-      .map(
-        (page) => `
-          <article class="rulebook-page-export">
-            ${page.innerHTML}
-          </article>
-        `,
-      )
-      .join("");
-
-    // choose print CSS based on mode and include compactness (font-size) from localStorage
-    const compactness = (function () {
-      try {
-        return localStorage.getItem('rulebook-compactness') || '100';
-      } catch (e) {
-        return '100';
-      }
-    })();
-
-    const extraPrintCss = mode === "single" ? `
-            @page { size: A4 landscape; margin: 10mm; }
-            .rulebook-export { display: flex; gap: 0; }
-            .rulebook-page-export { width: 50%; box-sizing: border-box; min-height: 0; }
-            .rulebook-page-export + .rulebook-page-export { border-left: 1px solid #d9d3c8; }
-            html, body { font-size: ${compactness}%; }
-          ` : `
-            @page { size: A4 portrait; margin: 10mm; }
-            .rulebook-export { display: block; }
-            .rulebook-page-export { width: 100%; box-sizing: border-box; page-break-inside: avoid; page-break-after: always; }
-            html, body { font-size: ${compactness}%; }
-          `;
-
-    printWindow.document.write(`<!doctype html>
-      <html lang="zh-CN">
-        <head>
-          <meta charset="utf-8" />
-          <title>迷你创业桌游说明书</title>
-          <style>
-            ${extraPrintCss}
-            html, body {
-              margin: 0;
-              background: #efeae2;
-              color: #282621;
-              font-family: "Noto Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif;
-            }
-            body {
-              padding: 16px;
-            }
-            .rulebook-export {
-              background: #e7e3da;
-              border: 1px solid #cfc9bd;
-              box-shadow: 0 24px 55px rgba(23, 21, 47, 0.12);
-            }
-            .rulebook-page-export {
-              position: relative;
-              display: flex;
-              flex-direction: column;
-              min-height: 0;
-              padding: clamp(0.8rem, 2vw, 1.2rem) clamp(0.8rem, 2.4vw, 1.2rem) 0.8rem;
-              background: linear-gradient(rgba(255,255,255,0.22), rgba(255,255,255,0.22)), #f8f5ed;
-              color: #282621;
-              box-sizing: border-box;
-              break-inside: avoid;
-              page-break-after: always;
-            }
-            .rulebook-page-export + .rulebook-page-export {
-              border-left: 1px solid #d9d3c8;
-            }
-            .manual-title { margin-bottom: 2rem; padding-bottom: 1.35rem; border-bottom: 2px solid #282621; }
-            .manual-title p, .manual-title strong { display: block; margin: 0; font-size: 0.72rem; font-weight: 850; letter-spacing: 0.12em; }
-            .manual-title p { margin-bottom: 0.5rem; }
-            .manual-title h2 { margin: 0 0 0.45rem; font-family: var(--font-display, "Arial Black", sans-serif); font-size: clamp(2.2rem, 4.1vw, 4.6rem); letter-spacing: -0.055em; line-height: 1; }
-            .manual-title strong { color: #5a554c; letter-spacing: 0.04em; }
-            .manual-facts { display: grid; grid-template-columns: repeat(3, 1fr); margin-bottom: 2rem; padding: 0.8rem 0; border-top: 1px solid #aaa398; border-bottom: 1px solid #aaa398; }
-            .manual-facts p { margin: 0; padding: 0 0.8rem; border-right: 1px solid #c7c0b4; font-size: 0.72rem; line-height: 1.45; }
-            .manual-facts p:last-child { padding-right: 0; border-right: 0; }
-            .manual-facts b { display: block; margin-bottom: 0.1rem; font-size: 0.65rem; letter-spacing: 0.1em; }
-            .manual-section { margin-bottom: 1.55rem; }
-            .manual-section h3 { display: flex; align-items: baseline; gap: 0.65rem; margin: 0 0 0.55rem; font-size: 1.02rem; letter-spacing: 0.02em; }
-            .manual-section h3 span { color: #777065; font-size: 0.62rem; letter-spacing: 0.12em; }
-            .manual-section p, .manual-section li { margin: 0 0 0.62rem; color: #514d45; font-family: "Noto Serif SC", "Songti SC", SimSun, serif; font-size: 0.82rem; line-height: 1.78; }
-            .manual-steps { margin: 0; padding: 0; counter-reset: manual-step; list-style: none; }
-            .manual-steps li { position: relative; margin-bottom: 0.62rem; padding-left: 2rem; color: #514d45; font-family: "Noto Serif SC", "Songti SC", SimSun, serif; font-size: 0.8rem; line-height: 1.68; counter-increment: manual-step; }
-            .manual-steps li::before { position: absolute; top: 0.05rem; left: 0; width: 1.35rem; height: 1.35rem; content: counter(manual-step); border: 1px solid #716b61; border-radius: 50%; font-family: "Noto Sans SC", sans-serif; font-size: 0.62rem; font-weight: 900; line-height: 1.25rem; text-align: center; }
-            .manual-steps b { color: #282621; font-family: "Noto Sans SC", sans-serif; }
-            .manual-score { margin: 0.8rem 0; border-top: 1px solid #8f887d; }
-            .manual-score div { display: grid; grid-template-columns: 65px 1fr auto; gap: 0.75rem; align-items: center; padding: 0.58rem 0; border-bottom: 1px solid #c7c0b4; font-size: 0.72rem; }
-            .manual-score b { font-size: 0.8rem; }
-            .manual-score span { color: #5e594f; }
-            .manual-score strong { text-align: right; }
-            .manual-page-number {
-              display: flex;
-              align-items: center;
-              justify-content: space-between;
-              margin-top: auto;
-              padding-top: 0.55rem;
-              border-top: 1px solid #b9b2a7;
-              color: #777065;
-              font-size: 0.62rem;
-              letter-spacing: 0.08em;
-            }
-            .manual-page-number b { color: #282621; font-size: 0.72rem; }
-            .manual-quality-wrap { display: flex; justify-content: center; margin: 0.25rem 0 0.4rem; }
-            .manual-quality-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.12rem; width: min(100%, 128px); }
-            .manual-quality-cell { display: flex; align-items: center; justify-content: center; aspect-ratio: 3 / 4; border: 1px solid #615c53; background: rgba(40, 38, 33, 0.025); }
-            .manual-quality-cell span { font-size: 0.58rem; font-weight: 700; letter-spacing: 0.08em; }
-            .manual-quality-note { margin-top: 0.6rem; font-size: 0.75rem; line-height: 1.7; }
-            @media print {
-              body { padding: 0; }
-              .rulebook-page-export { box-shadow: none; }
-            }
-          </style>
-        </head>
-        <body>
-          <div class="rulebook-export">${pageMarkup}</div>
-        </body>
-      </html>`);
-    printWindow.document.close();
-    printWindow.focus();
-    setTimeout(() => printWindow.print(), 250);
-  };
-
-  const downloadSingle = document.querySelector('#download-rulebook-single');
-  const downloadTwo = document.querySelector('#download-rulebook-two');
-  if (downloadSingle) downloadSingle.addEventListener('click', () => exportRulebookAsImage('single'));
-  if (downloadTwo) downloadTwo.addEventListener('click', () => exportRulebookAsImage('split'));
+  document.querySelector("#download-rulebook-single")?.addEventListener("click", () => exportRulebook("single"));
+  document.querySelector("#download-rulebook-two")?.addEventListener("click", () => exportRulebook("split"));
 
   try {
     const saved = JSON.parse(localStorage.getItem(RULEBOOK_STORAGE_KEY));
@@ -292,6 +125,15 @@ function bindRulebookEditor() {
     }
   } catch (error) {
     console.warn("无法读取说明书草稿，将使用默认内容。", error);
+  }
+
+  const taskSection = [...pages[0].querySelectorAll(".manual-section")]
+    .find((section) => section.querySelector("h3 span")?.textContent.trim() === "03");
+  const oldSteps = taskSection?.querySelector("ol.manual-steps");
+  if (oldSteps) {
+    const paragraph = document.createElement("p");
+    paragraph.textContent = "创业团队4名创业者通过讨论，每人打出一张不同种类的卡，将4张卡按下图固定位置放置，组成 2×2 项目面板，从而创立创业项目。";
+    oldSteps.replaceWith(paragraph);
   }
 
   const setEditing = (editing) => {
@@ -426,6 +268,13 @@ function loadEditorWorkspace(sourceData) {
     });
     normalizeCardOrders(gameData.cards);
   });
+  if (gameData.meta.dataRevision !== sourceData.meta.dataRevision) {
+    applyOctoberDataUpdate(gameData, sourceData);
+    try {
+      localStorage.setItem(EDITOR_STORAGE_KEY, JSON.stringify({ gameData, changeLog: editorChangeLog }));
+    } catch (error) { console.warn("数据已更新，但无法保存到本机。", error); }
+  }
+
 }
 
 function loadConnectorSlotConfig() {
@@ -2203,4 +2052,140 @@ function downloadJson(value, filename) {
   anchor.download = filename;
   anchor.click();
   URL.revokeObjectURL(url);
+}
+
+function applyOctoberDataUpdate(workspace, source) {
+  const deletedIds = new Set(["u-octopus", "u-crow", "u-snail"]);
+  const deletedPairs = new Set([["new-card-ms7bha6s", "new-card-ms6up5pz"], ["new-card-ms60m3pb", "new-card-ms6t2tuz"], ["new-card-ms7bha6s", "new-card-ms60m3pb"], ["new-card-ms7bgc52", "new-card-ms6wlmfs"]].map(([a, b]) => [a, b].sort().join("::")));
+  Object.keys(workspace.cards).forEach((type) => {
+    workspace.cards[type] = workspace.cards[type].filter((card) => !deletedIds.has(card.id));
+  });
+  workspace.relations = workspace.relations.filter((relation) =>
+    !deletedIds.has(relation.source) && !deletedIds.has(relation.target) &&
+    !deletedPairs.has([relation.source, relation.target].sort().join("::")));
+  const sourceCards = Object.values(source.cards).flat();
+  const updates = { "厨师": ["name"], "多功能胶囊": ["name"], "婚礼司仪": ["emoji"], "海族馆广告": ["note"] };
+  Object.entries(updates).forEach(([name, fields]) => {
+    const original = sourceCards.find((card) => card.name === name);
+    const card = Object.values(workspace.cards).flat().find((card) => card.id === original.id);
+    if (card) fields.forEach((field) => { card[field] = original[field]; });
+  });
+  workspace.meta.dataRevision = source.meta.dataRevision;
+  workspace.meta.networkCardCount = Object.values(workspace.cards).flat().length;
+  workspace.meta.relationCount = workspace.relations.length;
+}
+
+const RULEBOOK_LAYOUT_STORAGE_KEY = "startup-boardgame-rulebook-layout-v1";
+let rulebookLayout = { widthMm: 420, fontPt: 12 };
+
+function normalizeRulebookLayout(value = {}) {
+  const bounded = (input, fallback, min, max) => {
+    const number = Number(input);
+    return Number.isFinite(number) ? Math.min(max, Math.max(min, number)) : fallback;
+  };
+  return {
+    widthMm: Math.round(bounded(value?.widthMm ?? 420, 420, 200, 1200) / 5) * 5,
+    fontPt: Math.round(bounded(value?.fontPt ?? 12, 12, 8, 24) * 2) / 2,
+  };
+}
+
+function bindRulebookLayout() {
+  const book = document.querySelector(".rulebook-book");
+  const width = document.querySelector("#rulebook-width");
+  const font = document.querySelector("#rulebook-font-size");
+  if (!book || !width || !font) return;
+  try {
+    rulebookLayout = normalizeRulebookLayout(JSON.parse(localStorage.getItem(RULEBOOK_LAYOUT_STORAGE_KEY)));
+  } catch (error) { console.warn("无法读取说明书排版设置。", error); }
+  const apply = () => {
+    width.value = rulebookLayout.widthMm;
+    font.value = rulebookLayout.fontPt;
+    book.style.setProperty("--rulebook-width", `${rulebookLayout.widthMm}mm`);
+    // The existing body text is 0.82 units; convert the selected points to CSS pixels.
+    book.style.setProperty("--rulebook-unit", `${rulebookLayout.fontPt * 4 / 3 / 0.82}px`);
+    document.querySelector("#rulebook-width-value").textContent = `${rulebookLayout.widthMm} mm`;
+    document.querySelector("#rulebook-font-value").textContent = `${rulebookLayout.fontPt} pt`;
+    width.setAttribute("aria-valuetext", `${rulebookLayout.widthMm} 毫米`);
+    font.setAttribute("aria-valuetext", `${rulebookLayout.fontPt} 磅`);
+  };
+  const update = () => {
+    rulebookLayout = normalizeRulebookLayout({ widthMm: width.value, fontPt: font.value });
+    apply();
+    try {
+      localStorage.setItem(RULEBOOK_LAYOUT_STORAGE_KEY, JSON.stringify(rulebookLayout));
+      document.querySelector("#rulebook-status").textContent = "排版已保存，下载将使用当前宽度和字号";
+    } catch (error) {
+      document.querySelector("#rulebook-status").textContent = "排版已应用，可下载；本机存储不可用";
+    }
+  };
+  width.addEventListener("input", update);
+  font.addEventListener("input", update);
+  apply();
+}
+
+async function exportRulebook(mode = "single") {
+  const layout = { ...rulebookLayout };
+  const book = document.querySelector(".rulebook-book");
+  const status = document.querySelector("#rulebook-status");
+  const printWindow = window.open("", "_blank", "width=1400,height=1000");
+  if (!printWindow) {
+    status.textContent = "下载失败：请允许浏览器弹出新窗口";
+    return;
+  }
+  status.textContent = "正在准备当前排版，请在打印窗口选择“另存为 PDF”";
+  try {
+    const doc = printWindow.document;
+    doc.open();
+    doc.write('<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><title>迷你创业桌游说明书</title></head><body></body></html>');
+    doc.close();
+    const stylesheet = doc.createElement("link");
+    stylesheet.rel = "stylesheet";
+    stylesheet.href = new URL("./rulebook.css?v=20261018-1", document.baseURI).href;
+    const loaded = new Promise((resolve, reject) => {
+      stylesheet.onload = resolve;
+      stylesheet.onerror = () => reject(new Error("排版样式加载失败"));
+    });
+    doc.head.append(stylesheet);
+    const style = doc.createElement("style");
+    style.textContent = `
+      html, body { margin: 0; padding: 0; background: #f8f5ed; }
+      .rulebook-book { margin: 0; box-shadow: none; }
+      .print-toolbar { padding: 12px; font: 14px sans-serif; background: white; }
+      @media print { .print-toolbar { display: none; } }
+    `;
+    doc.head.append(style);
+    const toolbar = doc.createElement("div");
+    toolbar.className = "print-toolbar";
+    const printButton = doc.createElement("button");
+    printButton.textContent = "打印 / 另存为 PDF";
+    printButton.addEventListener("click", () => printWindow.print());
+    toolbar.append(printButton, "　使用当前自定义纸张尺寸，建议关闭页眉页脚，缩放设为 100%。");
+    doc.body.append(toolbar);
+    const clone = book.cloneNode(true);
+    clone.querySelectorAll("[contenteditable]").forEach((node) => node.removeAttribute("contenteditable"));
+    clone.querySelectorAll("[id]").forEach((node) => node.removeAttribute("id"));
+    doc.body.append(clone);
+    await loaded;
+    await doc.fonts.ready;
+    await new Promise((resolve) => printWindow.requestAnimationFrame(resolve));
+    const widthMm = layout.widthMm / (mode === "split" ? 2 : 1);
+    const pages = [...clone.querySelectorAll(".rulebook-page")];
+    const heightPx = Math.max(...pages.map((page) => page.getBoundingClientRect().height));
+    const heightMm = Math.ceil(heightPx * 25.4 / 96 * 10) / 10 + 0.5;
+    const pageStyle = doc.createElement("style");
+    pageStyle.textContent = `
+      @page { size: ${widthMm}mm ${heightMm}mm; margin: 0; }
+      .rulebook-book.rulebook-book { width: ${widthMm}mm; ${mode === "split" ? "display: block;" : ""} }
+      .rulebook-book .rulebook-page { min-height: ${heightPx}px; }
+      ${mode === "split" ? ".rulebook-book .rulebook-page + .rulebook-page { break-before: page; }" : ""}
+    `;
+    doc.head.append(pageStyle);
+    printWindow.focus();
+    status.textContent = `已准备${mode === "split" ? "两页" : "单页"}：${widthMm} × ${heightMm.toFixed(1)} mm，正文 ${layout.fontPt} pt；请选择“另存为 PDF”`;
+    printWindow.print();
+  } catch (error) {
+    console.error(error);
+    status.textContent = "下载准备失败，请重试。";
+    printWindow.close();
+  }
 }

@@ -1,0 +1,153 @@
+{
+  "changeCount": 37,
+  "changes": [
+    {
+      "location": "卡牌：乌鸦邮差",
+      "changedTo": "已下架"
+    },
+    {
+      "location": "卡牌：小章鱼",
+      "changedTo": "已下架"
+    },
+    {
+      "location": "卡牌：蜗牛",
+      "changedTo": "已下架"
+    },
+    {
+      "location": "卡牌：小章鱼",
+      "changedTo": "已上架"
+    },
+    {
+      "location": "卡牌：小章鱼",
+      "changedTo": "已修改"
+    },
+    {
+      "location": "卡牌：小章鱼",
+      "changedTo": "已下架"
+    },
+    {
+      "location": "卡牌：小章鱼",
+      "changedTo": "已修改"
+    },
+    {
+      "location": "关系：u-octopus ↔ 每天都想摸鱼",
+      "changedTo": "已删除"
+    },
+    {
+      "location": "关系：u-octopus ↔ 走得太慢了",
+      "changedTo": "已删除"
+    },
+    {
+      "location": "关系：u-octopus ↔ 好想旅游啊",
+      "changedTo": "已删除"
+    },
+    {
+      "location": "关系：u-octopus ↔ 长得太丑了",
+      "changedTo": "已删除"
+    },
+    {
+      "location": "关系：直升机撒样品 ↔ u-octopus",
+      "changedTo": "已删除"
+    },
+    {
+      "location": "关系：海族馆广告 ↔ u-octopus",
+      "changedTo": "已删除"
+    },
+    {
+      "location": "卡牌：乌鸦邮差",
+      "changedTo": "已修改"
+    },
+    {
+      "location": "关系：u-crow ↔ 长得太丑了",
+      "changedTo": "已删除"
+    },
+    {
+      "location": "关系：u-crow ↔ 每天都想摸鱼",
+      "changedTo": "已删除"
+    },
+    {
+      "location": "关系：u-crow ↔ 喝水老是呛到",
+      "changedTo": "已删除"
+    },
+    {
+      "location": "关系：u-crow ↔ 一坐下就犯困",
+      "changedTo": "已删除"
+    },
+    {
+      "location": "关系：彩虹上打广告 ↔ u-crow",
+      "changedTo": "已删除"
+    },
+    {
+      "location": "关系：直升机撒样品 ↔ u-crow",
+      "changedTo": "已删除"
+    },
+    {
+      "location": "卡牌：蜗牛",
+      "changedTo": "已修改"
+    },
+    {
+      "location": "关系：u-snail ↔ 走得太慢了",
+      "changedTo": "已删除"
+    },
+    {
+      "location": "关系：u-snail ↔ 好想旅游啊",
+      "changedTo": "已删除"
+    },
+    {
+      "location": "关系：u-snail ↔ 天黑就会焦虑",
+      "changedTo": "已删除"
+    },
+    {
+      "location": "关系：彩虹上打广告 ↔ u-snail",
+      "changedTo": "已删除"
+    },
+    {
+      "location": "关系：直升机撒样品 ↔ u-snail",
+      "changedTo": "已删除"
+    },
+    {
+      "location": "关系：高科技博览会 ↔ 广场舞大妈",
+      "changedTo": "已删除"
+    },
+    {
+      "location": "关系：倒霉的厨师 ↔ 长得太丑了",
+      "changedTo": "已删除"
+    },
+    {
+      "location": "卡牌：小章鱼",
+      "changedTo": "已删除"
+    },
+    {
+      "location": "卡牌：乌鸦邮差",
+      "changedTo": "已删除"
+    },
+    {
+      "location": "卡牌：蜗牛",
+      "changedTo": "已删除"
+    },
+    {
+      "location": "关系：高科技博览会 ↔ 倒霉的厨师",
+      "changedTo": "已删除"
+    },
+    {
+      "location": "关系：大学开学季 ↔ 熊孩子",
+      "changedTo": "已删除"
+    },
+    {
+      "location": "卡牌：婚礼司仪",
+      "changedTo": "图标 → 🤵"
+    },
+    {
+      "location": "卡牌：多功能胶囊",
+      "changedTo": "名称 → 多功能胶囊"
+    },
+    {
+      "location": "卡牌：海族馆广告",
+      "changedTo": "说明 → 富有幻想、探索和沉浸感的产品，能自然融入神秘的水下世界。它尤其容易吸引亲子人群，和想暂时逃离日常的人。"
+    },
+    {
+      "location": "卡牌：倒霉的厨师",
+      "changedTo": "已修改"
+    }
+  ]
+}

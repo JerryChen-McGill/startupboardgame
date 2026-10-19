@@ -198,7 +198,7 @@ test("the homepage exposes a connector lab for ten editable slots", () => {
 });
 
 test("the connector stylesheet URL is versioned to bypass stale browser caches", () => {
-  assert.match(htmlSource, /href="\.\/styles\.css\?v=20260820-2"/);
+  assert.match(htmlSource, /href="\.\/styles\.css\?v=20261018-1"/);
 });
 
 test("homepage demo cards can stretch to equal row heights on mobile", () => {
@@ -206,8 +206,8 @@ test("homepage demo cards can stretch to equal row heights on mobile", () => {
 });
 
 test("application assets are versioned to publish interaction changes immediately", () => {
-  assert.match(htmlSource, /href="\.\/styles\.css\?v=20260820-2"/);
-  assert.match(htmlSource, /src="\.\/app\.js\?v=20260820-2"/);
+  assert.match(htmlSource, /href="\.\/styles\.css\?v=20261018-1"/);
+  assert.match(htmlSource, /src="\.\/app\.js\?v=20261018-1"/);
 });
 
 test("the imported workspace starts fully confirmed and without unconfirmed relations", () => {
@@ -258,9 +258,9 @@ test("the homepage demo randomizes current cards and evaluates all four adjacent
   assert.match(htmlSource, /class="rulebook-book"/);
   assert.match(htmlSource, /rulebook-page rulebook-page-left/);
   assert.match(htmlSource, /rulebook-page rulebook-page-right/);
-  assert.match(htmlSource, /迷你创业桌游说明书/);
-  assert.match(htmlSource, /暗黑版 · 创业试炼场/);
-  assert.match(htmlSource, /光明版 · 协作创业/);
+  assert.match(htmlSource, /迷你创业规则说明/);
+  assert.match(htmlSource, /暗黑版 · 创投角斗场/);
+  assert.match(htmlSource, /光明版 · 创业特种兵/);
   assert.match(htmlSource, /id="edit-rulebook"/);
   assert.match(htmlSource, /id="save-rulebook"/);
   assert.match(htmlSource, /每位创业者收益＝项目利润＋总投资额/);
@@ -317,7 +317,7 @@ test("the exported change log concisely lists locations and resulting values", (
   assert.match(appSource, /changedTo:/);
 
   const recordFunction = appSource.match(
-    /function recordEditorChange\([\s\S]*?\n}\n\nfunction describeEditorChangeLocation/,
+    /function recordEditorChange\([\s\S]*?\r?\n}\r?\n\r?\nfunction describeEditorChangeLocation/,
   )?.[0];
   assert.ok(recordFunction, "missing recordEditorChange implementation");
   assert.doesNotMatch(recordFunction, /timestamp|sequence|before:|after:|action:|note:/);
